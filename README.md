@@ -7,7 +7,7 @@ CS2102 Database Systems: Introduction to Web Application Development
 
 ## Preliminary Constraints
 
-### Constraints shown in ERD
+### Constraints shown in ER Diagram
 1. Each User is a Pet Owner, Care Taker or a PCS Administrator. This constraint is covering and overlapping as a pet owner can also be a care taker.
 2. Each User can be identified by their username and has a password attribute.
 3. Each Pet Owner has a credit card attribute.
