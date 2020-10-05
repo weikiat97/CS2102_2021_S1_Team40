@@ -28,6 +28,9 @@ Do `npm run prettier` in project root to auto format all your code nicely!
 1. `cd public` from project root. This is the folder containing the React app.
 2. Refer to the readme inside for instructions.
 
+Note: We use different package managers: npm for back-end and yarn for front-end.
+Don't do `npm install` for front-end! Similarly, don't do `yarn` for back-end!
+
 ## ER Diagram
 
 ![ER Diagram](ER-Diagram.jpg)
