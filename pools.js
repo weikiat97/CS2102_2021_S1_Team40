@@ -4,4 +4,4 @@ const { db_connection_string } = require('./settings');
 dotenv.config();
 
 // establish connection to database
-module.exports = new Pool({ db_connection_string });
+module.exports = new Pool({ connectionString: db_connection_string });
