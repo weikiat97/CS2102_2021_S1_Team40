@@ -19,6 +19,10 @@ Tips:
 1. You can do `psql -d <dbname>` to enter into your database cmd and execute SQL queries directly there.
 2. In your database cmd after you do step 1, you can do `\l` to see all your databases and `\d` to see all your tables.
 
+## Lint checking with Prettier
+
+Run `npx prettier --write .` in project root to auto format all your code nicely!
+
 ## ER Diagram
 
 ![ER Diagram](ER-Diagram.jpg)
