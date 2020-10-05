@@ -9,7 +9,8 @@ class Pet {
 
   async get() {
     let query = `SELECT * FROM ${this.table}`;
-    return this.pool.query(query).rows;
+    const results = await this.pool.query(query);
+    return results.rows;
   }
 }
 
