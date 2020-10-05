@@ -23,6 +23,11 @@ Tips:
 
 Do `npm run prettier` in project root to auto format all your code nicely!
 
+## Setup frontend locally
+
+1. `cd public` from project root. This is the folder containing the React app.
+2. Refer to the readme inside for instructions.
+
 ## ER Diagram
 
 ![ER Diagram](ER-Diagram.jpg)
