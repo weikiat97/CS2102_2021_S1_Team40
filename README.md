@@ -21,7 +21,7 @@ Tips:
 
 ## Lint checking with Prettier
 
-Run `npx prettier --write .` in project root to auto format all your code nicely!
+Do `npm run prettier` in project root to auto format all your code nicely!
 
 ## ER Diagram
 
