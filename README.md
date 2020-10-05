@@ -1,18 +1,21 @@
 # CS2102_AY2021_S1_Group 40 Pet Caring
+
 CS2102 Database Systems: Introduction to Web Application Development
 
 ## Setup Locally
+
 1. Make sure you have node and npm installed. Quickest way is to use homebrew and do `brew install node`.
 2. `npm install` to install all dependencies
 3. Create a local instance of postgreSQL database.
-    1. Make sure you have postgres installed. `brew install postgresql`.
-    2. Start postgres server. `brew services start postgresql`.
-    3. Create a database. `createdb <dbname>`
-    4. Load the build schema. `psql -d <dbname> < build-schema.sql`
+   1. Make sure you have postgres installed. `brew install postgresql`.
+   2. Start postgres server. `brew services start postgresql`.
+   3. Create a database. `createdb <dbname>`
+   4. Load the build schema. `psql -d <dbname> < build-schema.sql`
 4. Create a `.env` file in the project root and specify the `DB_CONNECTION_STRING` like this: `DB_CONNECTION_STRING="postgresql://<dbuser>:<dbpassword>@localhost:5432/<dbname>"`.
 5. `npm start`. This should run the api on port 3000 by default.
 
 Tips:
+
 1. You can do `psql -d <dbname>` to enter into your database cmd and execute SQL queries directly there.
 2. In your database cmd after you do step 1, you can do `\l` to see all your databases and `\d` to see all your tables.
 
@@ -23,6 +26,7 @@ Tips:
 ## Preliminary Constraints
 
 ### Constraints shown in ER Diagram
+
 1. Each User is a Pet Owner, Care Taker or a PCS Administrator. This constraint is covering and overlapping as a pet owner can also be a care taker.
 2. Each User can be identified by their username and has a password attribute.
 3. Each Pet Owner has a credit card attribute.
@@ -42,8 +46,9 @@ Tips:
 17. Pet Owner may submit multiple review/rating for a Care Taker if the Care Taker has taken care of the Pet Owner’s pet multiple times
 
 ### Constraints not shown in ER diagram:
+
 18. Base Price for the Full Time Care Taker must be lower than the Advertised
-Price in the Availability.
+    Price in the Availability.
 19. Full Time Care Taker has a limit of 5 pets at any time.
 20. Part Time Care Taker cannot take care of more than 2 Pets unless they have good rating and overall has a limit of 5 Pets at any time.
 21. The Rating, Review and Transfer attributes of the Bid relation can only be set if the Bid is successful.
