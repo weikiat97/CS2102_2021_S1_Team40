@@ -11,9 +11,21 @@ class User {
     }
 
     async get() {
-        let query = `SELECT * FROM ${this.table}`;
+        let query = `SELECT username FROM ${this.table}`;
         const results = await this.pool.query(query);
         return results.rows;
+    }
+
+    async getSingleUser(username, password) {
+        let query = `SELECT username FROM ${this.table} 
+                        WHERE username='${username}'
+                        AND password='${password}'`;
+        const results = await this.pool.query(query);
+        if (results.rows.length !== 1) {
+            return null;
+        } else {
+            return results.rows[0];
+        }
     }
 }
 
