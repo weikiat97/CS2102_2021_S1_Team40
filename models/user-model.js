@@ -27,6 +27,12 @@ class User {
             return results.rows[0];
         }
     }
+
+    async addNewUser(username, password) {
+        let query = `INSERT INTO ${this.table}
+                        VALUES ('${username}', '${password}')`;
+        await this.pool.query(query);
+    }
 }
 
 module.exports = new User();

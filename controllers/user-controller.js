@@ -41,9 +41,18 @@ exports.view = async function (req, res) {
     }
 };
 
-// Handle create pet actions
-exports.new = function (req, res) {
-    res.json({
-        message: "To be implemented",
-    });
+// Handle create user actions
+exports.new = async function (req, res) {
+    try {
+        await user_model.addNewUser(req.body.username, req.body.password);
+        res.status(200).json({
+            status: "success",
+            message: "Signup successful",
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: "error",
+            message: err,
+        })
+    }
 };
