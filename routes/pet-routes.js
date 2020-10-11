@@ -4,10 +4,10 @@ let pet_controller = require("../controllers/pet-controller");
 
 // Contact routes
 router.route("/").get(pet_controller.index).post(pet_controller.new);
-router
-  .route("/:pid")
-  .get(pet_controller.view)
-  .put(pet_controller.update)
-  .delete(pet_controller.delete);
+// router
+//   .route("/:pid")
+//   .get(pet_controller.view)
+//   .put(pet_controller.update)
+//   .delete(pet_controller.delete);
 
 module.exports = router;
