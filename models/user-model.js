@@ -1,9 +1,9 @@
 const pool = require("../pools");
 
-class Pet {
+class User {
     constructor() {
         this.pool = pool;
-        this.table = "pets";
+        this.table = "users";
         this.pool.on(
             "error",
             (err, client) => `Error, ${err}, on idle client${client}`
@@ -15,7 +15,6 @@ class Pet {
         const results = await this.pool.query(query);
         return results.rows;
     }
-
 }
 
-module.exports = new Pet();
+module.exports = new User();

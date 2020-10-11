@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const pet_routes = require("./routes/pet-routes");
+const user_routes = require("./routes/user-routes");
 const {
     db_connection_string
 } = require("./settings");
@@ -21,9 +22,10 @@ if (!db_connection_string) {
     console.error("Please specify a connection string to a database!");
     process.exit(1);
 }
-
-app.get("/", (req, res) => res.sendFile(__dirname + "/login.html"));
-app.use("/pet", pet_routes);
+app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/login", (req, res) => res.sendFile(__dirname + "/login.html"));
+app.use("/pets", pet_routes);
+app.use("/users", user_routes);
 
 app.get("/register", (req, res) => res.sendFile(__dirname + "/register.html"));
 app.post("/register", function (req, res) {
