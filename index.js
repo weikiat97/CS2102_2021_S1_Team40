@@ -27,16 +27,12 @@ app.use("/pet", pet_routes);
 
 app.get("/register", (req, res) => res.sendFile(__dirname + "/register.html"));
 app.post("/register", function (req, res) {
-    const roletitle = req.body.roletitle.value;
-    const firstname = req.body.email;
-    const lastname = req.body.password;
-    const email = req.body.email;
+    const roletitle = req.body.roletitle;
+    const username = req.body.username;
     const password = req.body.password;
-    res.write("Hi " + firstname + " " + lastname);
-    res.write("\n");
     res.write("Your role is a: " + roletitle);
     res.write("\n");
-    res.write("Your email is: " + email);
+    res.write("Your username is: " + username);
     res.write("\n");
     res.write("Your password is: " + password);
     res.write("\n");
@@ -47,11 +43,11 @@ app.get("/login", (req, res) => res.redirect("/"));
 app.post("/login", function (req, res) {
     console.log(req.body);
     const roletitle = req.body.roletitle;
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
     res.write("Your role is a: " + roletitle);
     res.write("\n");
-    res.write("Your email is: " + email);
+    res.write("Your username is: " + username);
     res.write("\n");
     res.write("Your password is: " + password);
     res.write("\n");
