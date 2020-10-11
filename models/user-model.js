@@ -30,8 +30,14 @@ class User {
 
     async addNewUser(username, password) {
         let query = `INSERT INTO ${this.table}
-                        VALUES ('${username}', '${password}')`;
-        await this.pool.query(query);
+                        VALUES ('${username}', '${password}')
+                        RETURNING username`;
+        const results = await this.pool.query(query);
+        if (results.rows.length !== 1) {
+            return null;
+        } else {
+            return results.rows[0];
+        }
     }
 }
 
