@@ -1,4 +1,4 @@
-export const loadState = stateKey => {
+export const loadState = (stateKey) => {
   try {
     const serializedState = localStorage.getItem(stateKey);
     if (serializedState === null) {
@@ -8,7 +8,7 @@ export const loadState = stateKey => {
   } catch (err) {
     return null;
   }
-}
+};
 
 export const saveState = (stateKey, stateValue) => {
   try {
@@ -19,8 +19,10 @@ export const saveState = (stateKey, stateValue) => {
       localStorage.setItem(stateKey, serializedState);
     }
   } catch (err) {
-    alert(`Failed to persist ${stateKey}: ${stateKey} will be reset when browser is refreshed.`);
+    alert(
+      `Failed to persist ${stateKey}: ${stateKey} will be reset when browser is refreshed.`
+    );
   }
-}
+};
 
-export const removeState = stateKey => localStorage.removeItem(stateKey);
+export const removeState = (stateKey) => localStorage.removeItem(stateKey);

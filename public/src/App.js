@@ -1,6 +1,6 @@
-import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -8,14 +8,14 @@ import Profile from "./pages/Profile";
 function App() {
   return (
     <Router>
-      <Navbar/>
+      <Navbar />
       <div className="App">
         <Switch>
           <Route path="/profile">
-            <Profile/>
+            <Profile />
           </Route>
           <Route path="/">
-            <Home/>
+            <Home />
           </Route>
         </Switch>
       </div>
