@@ -23,10 +23,10 @@ if (!db_connection_string) {
   process.exit(1);
 }
 app.get("/", (req, res) => res.send("Hello World!"));
-app.get("/login", (req, res) => res.sendFile(__dirname + "/login.html"));
 app.use("/pets", pet_routes);
 app.use("/users", user_routes);
 
+<<<<<<< HEAD
 app.get("/register", (req, res) => res.sendFile(__dirname + "/register.html"));
 app.post("/register", function (req, res) {
   const roletitle = req.body.roletitle;
@@ -56,4 +56,6 @@ app.post("/login", function (req, res) {
   res.send();
 });
 
+=======
+>>>>>>> upstream/master
 app.listen(port, () => console.log(`Listening on port ${port}...`));

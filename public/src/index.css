@@ -11,6 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+<<<<<<< HEAD
 
 .center {
   text-align: center;
@@ -74,3 +75,5 @@ select.form-control {
 .form-control:focus {
   box-shadow: none;
 }
+=======
+>>>>>>> upstream/master
