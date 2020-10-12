@@ -1,9 +1,9 @@
 let router = require("express").Router();
 // Import contact controller
-let pet_controller = require("../controllers/pet-controller");
+let leave_controller = require("../controllers/leave-controller");
 
 // Contact routes
-router.route("/").get(pet_controller.index).post(pet_controller.new);
+router.route("/").get(leave_controller.index).post(leave_controller.new);
 // router
 //   .route("/:pid")
 //   .get(pet_controller.view)
