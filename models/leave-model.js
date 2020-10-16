@@ -20,9 +20,10 @@ class Leave {
   async getUserLeaves(username) {
     console.log("inside leave-model username: " + username);
     let query = `SELECT (start_date, end_date) FROM ${this.table}
-                    WHERE ftct_username='${username}
-                    ORDER BY start_date ASC'`;
+                    WHERE ftct_username='${username}'`;
+                    // ORDER BY start_date ASC'`;
     const results = await this.pool.query(query);
+    console.log("resultss??: " + JSON.stringify(results.rows));
     if (results.rows.length == 0) {
       return null;
     } else {
@@ -35,6 +36,7 @@ class Leave {
                   VALUES ('${username}', '${start_date}', '${end_date}')
                   RETURNING ftct_username, start_date, end_date`;
     const results = await this.pool.query(query);
+    console.log('what happens when adding here: ' + JSON.stringify(results.rows));
     if (results.rows.length == 0) {
       return null;
     } else {

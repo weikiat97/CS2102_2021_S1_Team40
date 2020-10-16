@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_HOST } from "../consts";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
@@ -13,6 +14,13 @@ import LeaveApplication from "./LeaveApplication";
 import LeaveDeletion from "./LeaveDeletion";
 import LeaveUpdating from "./LeaveUpdating";
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 // const useStyles = makeStyles({
 //   table: {
@@ -33,6 +41,46 @@ import LeaveUpdating from "./LeaveUpdating";
 // ];
 
 export default function LeaveRetrieval(props) {
+  const user = useSelector(selectUser);
+  // useEffect(() => {
+  //   console.log("hmmm");
+  //   await get();
+  // }, [])
+
+  useEffect(async () => {
+    await fetch(`${API_HOST}/users/leaves/${user.username}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+      // body: JSON.stringify({ username: username }),
+    })
+      .then((response) => response.json())
+      .then(async (result) => {
+        if (result.status === "success") {
+          console.log("HMMMM????")
+          console.log('DATA: ' + result.data[0].row);
+          // saveState(LEAVE_STATE_KEY, result.data);
+          console.log("done saving")
+          await setLeaves(result.data);
+        } else {
+          console.log("ninai");
+          throw new Error(result.message);
+        }
+      })
+      .catch((err) => alert(err));
+      // .then(async result => {
+      //   console.log('yomeiyo');
+      //     const data = await result.json();
+      //     // setState({
+      //     //     leaves: data
+      //     // })
+      //     console.log('im actually here: ' + data);
+      // })
+      // .catch(function(err) {
+      //   console.log('ERROR!!! ' + err.message);
+      // });
+  }, []);
 
   // const classes = useStyles();
   const useStyles = makeStyles({
@@ -41,17 +89,29 @@ export default function LeaveRetrieval(props) {
     },
   });
 
-  const user = useSelector(selectUser);
 
   // const dispatch = useDispatch();
   // dispatch(getLeaves(user.username))
 
   // const leaves = useSelector(selectLeaves);
+  // const leave = useSelector(selectLeaves);
   const [leaves, setLeaves] = useState([]);
   const [applyOpen, setLeaveApplicationOpen] = useState(false);
   const [updateOpen, setLeaveUpdatingOpen] = useState(false);
   const [deleteOpen, setLeaveDeletionOpen] = useState(false);
   const classes = useStyles();
+
+  console.log('leave here plsss: ' + JSON.stringify(leaves));
+  for (var i = 0; i < leaves.length; i++) {
+      console.log(leaves[i].row);
+  }
+
+  // const get = () => {
+  //   console.log("userr here lehehhe: " + user.username);
+  //   getLeaves(user.username);
+  //   console.log('plslaiwanttosleep: ' + leave);
+  // };
+
   const authButton = (
     <div className={classes.auth}>
       <Button variant="contained" onClick={() => setLeaveApplicationOpen(true)}>
@@ -66,14 +126,27 @@ export default function LeaveRetrieval(props) {
     </div>
   );
 
-  useEffect(() => {
-    let data = getLeaves(user.username);
-    console.log('pls work: ' + data);
-    setLeaves(data)
-  })
-
   return (
+    
     <>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Start</TableCell>
+              <TableCell align="right">End</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {leaves.map((leave) => (
+              <TableRow key='leave'>
+                <TableCell align="right">{leave.row.substring(1, 11)}</TableCell>
+                <TableCell align="right">{leave.row.substring(12, 22)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       {authButton}
       <LeaveApplication open={applyOpen} onClose={() => setLeaveApplicationOpen(false)} />
       <LeaveUpdating open={updateOpen} onClose={() => setLeaveUpdatingOpen(false)} />

@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
 import { loadState, removeState, saveState } from "../localStorage";
+import { selectUser } from "./userSlice";
+import { useSelector } from "react-redux";
 
-const LEAVE_STATE_KEY = "leave";
+
+const LEAVE_STATE_KEY = "leaves";
 
 const persistedLeave = loadState(LEAVE_STATE_KEY);
 
@@ -16,8 +19,7 @@ export const leaveSlice = createSlice({
 
 export const { setLeave } = leaveSlice.actions;
 
-export const getLeaves = (username) => (dispatch) => {
-  console.log("username hereeee: "+ username);
+export const getLeaves = (username) => (
   fetch(`${API_HOST}/users/leaves/${username}`, {
     headers: {
       "Content-Type": "application/json",
@@ -32,14 +34,39 @@ export const getLeaves = (username) => (dispatch) => {
         console.log('DATA: ' + result.data[0].row);
         saveState(LEAVE_STATE_KEY, result.data);
         console.log("done saving")
-        dispatch(setLeave(result.data));
+        setLeave(result.data);
       } else {
         console.log("ninai");
         throw new Error(result.message);
       }
     })
-    .catch((err) => alert(err));
-};
+    .catch((err) => alert(err))
+);
+
+// export const getLeaves = (username) => (dispatch) => {
+//   console.log("username hereeee: "+ username);
+//   fetch(`${API_HOST}/users/leaves/${username}`, {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     method: "GET",
+//     // body: JSON.stringify({ username: username }),
+//   })
+//     .then((response) => response.json())
+//     .then((result) => {
+//       if (result.status === "success") {
+//         console.log("HMMMM????")
+//         console.log('DATA: ' + result.data[0].row);
+//         saveState(LEAVE_STATE_KEY, result.data);
+//         console.log("done saving")
+//         dispatch(setLeave(result.data));
+//       } else {
+//         console.log("ninai");
+//         throw new Error(result.message);
+//       }
+//     })
+//     .catch((err) => alert(err));
+// };
 
 export const applyLeave = (username, start_date, end_date) => (dispatch) => {
   console.log("USERNAMEEEE: " + username);
