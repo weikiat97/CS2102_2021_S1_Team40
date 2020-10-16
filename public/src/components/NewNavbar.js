@@ -24,7 +24,7 @@ export default function NewNavbar() {
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
-  const [caretakersignupOpen, setCareTakerOpen] = useState(false);
+  const [caretakerOpen, setCareTakerOpen] = useState(false);
   const classes = useStyles();
   const authButton = user ? (
     <Button
@@ -36,22 +36,16 @@ export default function NewNavbar() {
     </Button>
   ) : (
     <div>
+      
       <Button variant="contained" onClick={() => setLoginOpen(true)}>
         <PermIdentityIcon fontSize="small" /> Login
       </Button>
       <Button variant="contained" onClick={() => setSignupOpen(true)}>
         Signup
       </Button>
+      
     </div>
   );
-const CareTakerButton = 
-<Button
-className={classes.auth}
-variant="contained"
-onClick={() => dispatch(signoutUser())}
->
-Logout
-</Button>
 
   return (
     <div>
@@ -61,9 +55,12 @@ Logout
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
-            
-           
+            <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
+              Become a Caretaker
+            </Button>
+            <CareTakerSignUp open={caretakerOpen} onClose={() => setCareTakerOpen(false)} />
             <NavDropdown title="Our Services" id="basic-nav-dropdown">
+            
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -75,11 +72,13 @@ Logout
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+            
 
             <Nav.Item className="ml-auto">
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
               {authButton}
               <Signup open={signupOpen} onClose={() => setSignupOpen(false)} />
+              
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
