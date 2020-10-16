@@ -9,8 +9,7 @@ import Nav from "@bit/react-bootstrap.react-bootstrap.nav";
 import Button from "@bit/react-bootstrap.react-bootstrap.button";
 import Navbar from "@bit/react-bootstrap.react-bootstrap.navbar";
 import ReactBootstrapStyle from "@bit/react-bootstrap.react-bootstrap.internal.style-links";
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 
 const useStyles = makeStyles({
   auth: {
@@ -35,7 +34,7 @@ export default function NewNavbar() {
   ) : (
     <div>
       <Button variant="contained" onClick={() => setLoginOpen(true)}>
-      <PermIdentityIcon fontSize = "small"/> Login
+        <PermIdentityIcon fontSize="small" /> Login
       </Button>
       <Button variant="contained" onClick={() => setSignupOpen(true)}>
         Signup
@@ -51,8 +50,7 @@ export default function NewNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
-            
-            <Nav.Link href="/">Become a CareTaker</Nav.Link>
+            <Nav.Link href="/caretaker-signup">Become a CareTaker</Nav.Link>
             <NavDropdown title="Our Services" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -64,20 +62,18 @@ export default function NewNavbar() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/">Profile</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
 
             <Nav.Item className="ml-auto">
-               
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
               {authButton}
               <Signup open={signupOpen} onClose={() => setSignupOpen(false)} />
-              
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     </div>
-    
+
     // <Form inline>
     // 			<FormControl type="text" placeholder="Search" className="mr-sm-2" />
     // 			<Button variant="outline-success">Search</Button>
