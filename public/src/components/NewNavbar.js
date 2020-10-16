@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
 import Login from "./Login";
 import Signup from "./Signup";
+import { Link } from 'react-router-dom';
+import CareTakerSignUp from "./CareTakerSignUp";
 import NavDropdown from "@bit/react-bootstrap.react-bootstrap.nav-dropdown";
 import Nav from "@bit/react-bootstrap.react-bootstrap.nav";
 import Button from "@bit/react-bootstrap.react-bootstrap.button";
@@ -22,6 +24,7 @@ export default function NewNavbar() {
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
+  const [caretakersignupOpen, setCareTakerOpen] = useState(false);
   const classes = useStyles();
   const authButton = user ? (
     <Button
@@ -41,16 +44,25 @@ export default function NewNavbar() {
       </Button>
     </div>
   );
+const CareTakerButton = 
+<Button
+className={classes.auth}
+variant="contained"
+onClick={() => dispatch(signoutUser())}
+>
+Logout
+</Button>
 
   return (
     <div>
       <ReactBootstrapStyle />
       <Navbar bg="faded" expand="lg" sticky="top">
-        <Navbar.Brand href="">PetLovers</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">PetLovers</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
-            <Nav.Link href="/caretaker-signup">Become a CareTaker</Nav.Link>
+            
+           
             <NavDropdown title="Our Services" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -62,7 +74,7 @@ export default function NewNavbar() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/profile">Profile</Nav.Link>
+            <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
 
             <Nav.Item className="ml-auto">
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
