@@ -29,10 +29,16 @@ class User {
   }
 
   async addNewUser(username, password) {
+    console.log("HEREE")
+    console.log(username);
+    console.log(password);
     let query = `INSERT INTO ${this.table}
                         VALUES ('${username}', '${password}')
                         RETURNING username`;
     const results = await this.pool.query(query);
+    // console.log("BAM");
+    // console.log(query);
+    // console.log(results);
     if (results.rows.length !== 1) {
       return null;
     } else {

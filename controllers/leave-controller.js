@@ -26,9 +26,17 @@ exports.index = async function (req, res) {
 };
 
 // Handle create leave actions
-exports.new = function (req, res) {
+exports.new = async function (req, res) {
     try {
-      const add_leave = await leave_model.addNewLeave(req.params.username, req.params.start_date, req.params.end_date);
+        console.log("i'm at create leaves in leave-controller");
+        console.log("username: " + req.body.ftct_username);
+        console.log("start_date: " + req.body.start_date);
+        console.log("end_date: " + req.body.end_date);
+      const add_leave = await leave_model.addNewLeave(
+          req.body.ftct_username,
+          req.body.start_date, 
+          req.body.end_date
+        );
       if (add_leave) {
           res.status(200).json({
               status: "success",
@@ -52,8 +60,11 @@ exports.new = function (req, res) {
 
 
 // Handle view leave info
-exports.view = function (req, res) {
+exports.view = async function (req, res) {
   try {
+    console.log("params!!!!: " + req.params.username);
+    console.log("????");
+    console.log("WTFFF");
     const get_user_leaves = await leave_model.getUserLeaves(req.params.username);
     if (get_user_leaves) {
         res.status(200).json({
@@ -64,7 +75,7 @@ exports.view = function (req, res) {
     } else {
         res.status(404).json({
             status: "failure",
-            message: "Leave not added, please check that you are logged in.",
+            message: "No leaves found!",
             data: get_user_leaves
         })
     }
@@ -78,9 +89,15 @@ exports.view = function (req, res) {
 
 
 // Handle update leave info
-exports.update = function (req, res) {
+exports.update = async function (req, res) {
   try {
-    const update_leave = await leave_model.getUserLeaves(req.params.username, req.params.old_start_date, req.params.old_end_date, req.body.new_start_date, req.body.new_end_date);
+    const update_leave = await leave_model.updateLeave(
+        req.body.ftct_username, 
+        req.body.old_start_date, 
+        req.body.old_end_date, 
+        req.body.new_start_date, 
+        req.body.new_end_date
+    );
     if (update_leave) {
         res.status(200).json({
             status: "success",
@@ -104,9 +121,23 @@ exports.update = function (req, res) {
 
 
 // Handle delete leave
-exports.delete = function (req, res) {
+exports.delete = async function (req, res) {
   try {
-    const delete_leave = await leave_model.getUserLeaves(req.params.username, req.params.start_date, req.params.end_date);
+      console.log("wassup dog");
+      console.log("look at mah body: " + req.body);
+      const util = require('util')
+
+console.log(util.inspect(req.body, {showHidden: false, depth: null}))
+
+      console.log("username: " + req.body.ftct_username);
+      console.log("start: " + req.body.start_date);
+      console.log("end: " + req.body.end_date);
+        console.log("byenow");
+    const delete_leave = await leave_model.deleteLeave(
+        req.body.ftct_username, 
+        req.body.start_date, 
+        req.body.end_date
+    );
     if (delete_leave) {
         res.status(200).json({
             status: "success",

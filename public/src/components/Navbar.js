@@ -30,6 +30,7 @@ export default function Navbar() {
     >
       Logout
     </Button>
+    
   ) : (
     <div className={classes.auth}>
       <Button variant="contained" onClick={() => setLoginOpen(true)}>

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
 
@@ -8,6 +9,10 @@ export default function Profile() {
     return (
       <div>
         <h1>YOU ARE AT THE PROFILE PAGE</h1>
+        <Link to="/profile/leaves"><button>
+            Go to Leaves
+        </button>
+        </Link>
       </div>
     );
   } else {

@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const pet_routes = require("./routes/pet-routes");
 const user_routes = require("./routes/user-routes");
+const leave_routers = require("./routes/leave-routes");
 const { db_connection_string } = require("./settings");
 
 const app = express();
@@ -25,37 +26,6 @@ if (!db_connection_string) {
 app.get("/", (req, res) => res.send("Hello World!"));
 app.use("/pets", pet_routes);
 app.use("/users", user_routes);
+app.use("/users/leaves", leave_routers);
 
-<<<<<<< HEAD
-app.get("/register", (req, res) => res.sendFile(__dirname + "/register.html"));
-app.post("/register", function (req, res) {
-  const roletitle = req.body.roletitle;
-  const username = req.body.username;
-  const password = req.body.password;
-  res.write("Your role is a: " + roletitle);
-  res.write("\n");
-  res.write("Your username is: " + username);
-  res.write("\n");
-  res.write("Your password is: " + password);
-  res.write("\n");
-  res.send();
-});
-
-app.get("/login", (req, res) => res.redirect("/"));
-app.post("/login", function (req, res) {
-  console.log(req.body);
-  const roletitle = req.body.roletitle;
-  const username = req.body.username;
-  const password = req.body.password;
-  res.write("Your role is a: " + roletitle);
-  res.write("\n");
-  res.write("Your username is: " + username);
-  res.write("\n");
-  res.write("Your password is: " + password);
-  res.write("\n");
-  res.send();
-});
-
-=======
->>>>>>> upstream/master
 app.listen(port, () => console.log(`Listening on port ${port}...`));

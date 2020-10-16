@@ -19,6 +19,7 @@ exports.index = async function (req, res) {
 // Handle view user info
 exports.view = async function (req, res) {
   try {
+    console.log(req.params);
     const user = await user_model.getSingleUser(
       req.params.username,
       req.body.password

@@ -3,11 +3,10 @@ let router = require("express").Router();
 let leave_controller = require("../controllers/leave-controller");
 
 // Contact routes
-router.route("/").get(leave_controller.index).post(leave_controller.new);
-// router
-//   .route("/:pid")
-//   .get(pet_controller.view)
-//   .put(pet_controller.update)
-//   .delete(pet_controller.delete);
+router.route("/:username")
+    .get(leave_controller.view)
+    .post(leave_controller.new)
+    .put(leave_controller.update)
+    .delete(leave_controller.delete);
 
 module.exports = router;
