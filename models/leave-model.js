@@ -19,7 +19,7 @@ class Leave {
 
   async getUserLeaves(username) {
     console.log("inside leave-model username: " + username);
-    let query = `SELECT (start_date, end_date) FROM ${this.table}
+    let query = `SELECT (start_date, end_date, num_of_days) FROM ${this.table}
                     WHERE ftct_username='${username}'`;
                     // ORDER BY start_date ASC'`;
     const results = await this.pool.query(query);
@@ -32,27 +32,28 @@ class Leave {
   }
 
   async addNewLeave(username, start_date, end_date) {
-    let query = `INSERT INTO ${this.table} (ftct_username, start_date, end_date) 
-                  VALUES ('${username}', '${start_date}', '${end_date}')
-                  RETURNING ftct_username, start_date, end_date`;
+    let query = `INSERT INTO ${this.table} (ftct_username, start_date, end_date, num_of_days) 
+                  VALUES ('${username}', '${start_date}', '${end_date}', '${end_date}'::DATE - '${start_date}'::DATE + 1)
+                  RETURNING ftct_username, start_date, end_date, num_of_days`;
     const results = await this.pool.query(query);
     console.log('what happens when adding here: ' + JSON.stringify(results.rows));
     if (results.rows.length == 0) {
       return null;
     } else {
-      return results.rows[0];
+      return results.rows;
     }
   }
 
   async updateLeave(username, old_start_date, old_end_date, new_start_date, new_end_date) {
-    let query = `UPDATE ${this.table} SET start_date = '${new_start_date}', end_date = '${new_end_date}'
+    console.log('pls');
+    let query = `UPDATE ${this.table} SET start_date = '${new_start_date}', end_date = '${new_end_date}', num_of_days = '${new_end_date}'::DATE - '${new_start_date}'::DATE + 1
                   WHERE ftct_username = '${username}' AND start_date = '${old_start_date}' AND end_date = '${old_end_date}'
                   RETURNING ftct_username, start_date, end_date`;
     const results = await this.pool.query(query);
     if (results.rows.length == 0) {
       return null;
     } else {
-        return results.rows[0];
+        return results.rows;
     }
   }
 
@@ -65,7 +66,7 @@ class Leave {
     if (results.rows.length == 0) {
       return null;
     } else {
-        return results.rows[0];
+        return results.rows;
     }
   }
 }

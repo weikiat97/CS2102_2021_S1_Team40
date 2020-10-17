@@ -47,40 +47,6 @@ export default function LeaveRetrieval(props) {
   //   await get();
   // }, [])
 
-  useEffect(async () => {
-    await fetch(`${API_HOST}/users/leaves/${user.username}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "GET",
-      // body: JSON.stringify({ username: username }),
-    })
-      .then((response) => response.json())
-      .then(async (result) => {
-        if (result.status === "success") {
-          console.log("HMMMM????")
-          console.log('DATA: ' + result.data[0].row);
-          // saveState(LEAVE_STATE_KEY, result.data);
-          console.log("done saving")
-          await setLeaves(result.data);
-        } else {
-          console.log("ninai");
-          throw new Error(result.message);
-        }
-      })
-      .catch((err) => alert(err));
-      // .then(async result => {
-      //   console.log('yomeiyo');
-      //     const data = await result.json();
-      //     // setState({
-      //     //     leaves: data
-      //     // })
-      //     console.log('im actually here: ' + data);
-      // })
-      // .catch(function(err) {
-      //   console.log('ERROR!!! ' + err.message);
-      // });
-  }, []);
 
   // const classes = useStyles();
   const useStyles = makeStyles({
@@ -99,27 +65,68 @@ export default function LeaveRetrieval(props) {
   const [applyOpen, setLeaveApplicationOpen] = useState(false);
   const [updateOpen, setLeaveUpdatingOpen] = useState(false);
   const [deleteOpen, setLeaveDeletionOpen] = useState(false);
+  const [updateDate, setUpdateDate] = useState('');
+  const [deleteLeave, setDeleteLeave] = useState('');
+
   const classes = useStyles();
 
-  console.log('leave here plsss: ' + JSON.stringify(leaves));
-  for (var i = 0; i < leaves.length; i++) {
-      console.log(leaves[i].row);
-  }
+  useEffect(() => {
+    async function fetchData() {
+      await fetch(`${API_HOST}/users/leaves/${user.username}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+        // body: JSON.stringify({ username: username }),
+      })
+        .then((response) => response.json())
+        .then(async (result) => {
+          if (result.status === "success") {
+            // console.log("HMMMM????")
+            // console.log('DATA: ' + result.data[0].row);
+            // saveState(LEAVE_STATE_KEY, result.data);
+            // console.log("done saving")
+            await setLeaves(result.data);
+          } else {
+            console.log("ninai mei you leave");
+            // throw new Error(result.message);
+          }
+        })
+        .catch((err) => alert(err));
+    }
+    fetchData();
+  }, [applyOpen, updateOpen, deleteOpen]);
 
-  // const get = () => {
-  //   console.log("userr here lehehhe: " + user.username);
-  //   getLeaves(user.username);
-  //   console.log('plslaiwanttosleep: ' + leave);
-  // };
 
-  const authButton = (
+  // console.log('leave here plsss: ' + JSON.stringify(leaves));
+  // for (var i = 0; i < leaves.length; i++) {
+  //     console.log(leaves[i].row);
+  // }
+
+  const applyButton = (
     <div className={classes.auth}>
       <Button variant="contained" onClick={() => setLeaveApplicationOpen(true)}>
         Apply Leave
       </Button>
+      {/* <Button variant="contained" onClick={() => setLeaveUpdatingOpen(true)}>
+        Update Leave
+      </Button>
+      <Button variant="contained" onClick={() => setLeaveDeletionOpen(true)}>
+        Delete Leave
+      </Button> */}
+    </div>
+  );
+
+  const updateButton = (
+    <div className={classes.auth}>
       <Button variant="contained" onClick={() => setLeaveUpdatingOpen(true)}>
         Update Leave
       </Button>
+    </div>
+  );
+
+  const deleteButton = (
+    <div className={classes.auth}>
       <Button variant="contained" onClick={() => setLeaveDeletionOpen(true)}>
         Delete Leave
       </Button>
@@ -135,22 +142,29 @@ export default function LeaveRetrieval(props) {
             <TableRow>
               <TableCell align="right">Start</TableCell>
               <TableCell align="right">End</TableCell>
+              <TableCell align="right">Number Of Days</TableCell>
+              <TableCell align="right">Edit</TableCell>
+              <TableCell align="right">Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {leaves.map((leave) => (
-              <TableRow key='leave'>
+            {leaves.map((leave, i) => (
+              <TableRow key={i}>
                 <TableCell align="right">{leave.row.substring(1, 11)}</TableCell>
                 <TableCell align="right">{leave.row.substring(12, 22)}</TableCell>
+                <TableCell align="right">{leave.row.substring(23, 24)}</TableCell>
+                <TableCell align="right"><Button variant="contained" onClick={() => {setUpdateDate(leave.row); setLeaveUpdatingOpen(true)}}>Update Leave</Button></TableCell>
+                <TableCell align="right"><Button variant="contained" onClick={() => {setDeleteLeave(leave.row); setLeaveDeletionOpen(true)}}>Delete Leave</Button></TableCell>
               </TableRow>
             ))}
           </TableBody>
+
         </Table>
       </TableContainer>
-      {authButton}
-      <LeaveApplication open={applyOpen} onClose={() => setLeaveApplicationOpen(false)} />
-      <LeaveUpdating open={updateOpen} onClose={() => setLeaveUpdatingOpen(false)} />
-      <LeaveDeletion open={deleteOpen} onClose={() => setLeaveDeletionOpen(false)} />
+      {applyButton}
+      <LeaveUpdating open={updateOpen} onClose={() => setLeaveUpdatingOpen(false)} data={updateDate} />
+      <LeaveApplication open={applyOpen} onClose={() => setLeaveApplicationOpen(false)}/>
+      <LeaveDeletion open={deleteOpen} onClose={() => setLeaveDeletionOpen(false)} data={deleteLeave}/>
     </>
   );
 }

@@ -76,8 +76,10 @@ CREATE TABLE fulltime_caretakers (
 
 CREATE TABLE leaves_applied (
     ftct_username VARCHAR(50) REFERENCES fulltime_caretakers (username),
-    start_date DATE,
-    end_date DATE,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    num_of_days NUMERIC NOT NULL,
+    CHECK (num_of_days >= 1),
     PRIMARY KEY(ftct_username, start_date, end_date)
 );
 

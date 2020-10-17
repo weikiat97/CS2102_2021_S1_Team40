@@ -11,22 +11,22 @@ import { deleteLeave } from "../redux/slices/leaveSlice";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-const useStyles = makeStyles({
-  auth: {
-    marginLeft: "auto",
-  },
-});
+// const useStyles = makeStyles({
+//   auth: {
+//     marginLeft: "auto",
+//   },
+// });
 
 export default function LeaveDeletion(props) {
-  const { open, onClose } = props;
+  const { open, onClose, data } = props;
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [start_date, setStartDate] = useState("");
-  const [end_date, setEndDate] = useState("");
-  const classes = useStyles();
-  console.log('start here leh: ' + start_date);
+  // const [start_date, setStartDate] = useState("");
+  // const [end_date, setEndDate] = useState("");
+  // const classes = useStyles();
+  // console.log('start here leh: ' + start_date);
   const cancel = () => {
-    dispatch(deleteLeave(user.username, start_date, end_date));
+    dispatch(deleteLeave(user.username, data.substring(1, 11), data.substring(12, 22)));
     onClose();
   };
   return (
@@ -34,38 +34,12 @@ export default function LeaveDeletion(props) {
       <DialogTitle>Leave Deletion</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Please indicate the start and end date that you wish to delete:
+          Are you sure you want to delete the leave from {data.substring(1, 11)} to {data.substring(12, 22)}?
         </DialogContentText>
-        <form className={classes.container} noValidate>
-        <TextField
-            id="date"
-            label="Start Date"
-            type="date"
-            defaultValue=""
-            className={classes.textField}
-            InputLabelProps={{
-            shrink: true,
-            }}
-            onChange={(e) => setStartDate(e.target.value)}
-        />
-        </form>
-        <form className={classes.container} noValidate>
-        <TextField
-            id="date"
-            label="End Date"
-            type="date"
-            defaultValue=""
-            className={classes.textField}
-            InputLabelProps={{
-            shrink: true,
-            }}
-            onChange={(e) => setEndDate(e.target.value)}
-        />
-        </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={cancel}>Apply</Button>
+        <Button onClick={onClose}>No</Button>
+        <Button onClick={cancel}>Yes</Button>
       </DialogActions>
     </Dialog>
   );

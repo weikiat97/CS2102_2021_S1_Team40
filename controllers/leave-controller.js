@@ -91,6 +91,12 @@ exports.view = async function (req, res) {
 // Handle update leave info
 exports.update = async function (req, res) {
   try {
+      console.log('i came here');
+      console.log("get da user: " + req.body.ftct_username);
+      console.log("get da old start: " + req.body.old_start_date);
+      console.log("get da old end: " + req.body.old_end_date);
+      console.log("get da new start: " + req.body.new_start_date);
+      console.log("get da new end: " + req.body.new_end_date);
     const update_leave = await leave_model.updateLeave(
         req.body.ftct_username, 
         req.body.old_start_date, 
