@@ -47,7 +47,7 @@ export default function CareTakerSignUp(props) {
 
   return (
     <Dialog
-    fullWidth = {true}
+      fullWidth={true}
       open={open}
       onClose={onClose}
       PaperProps={{
@@ -62,29 +62,29 @@ export default function CareTakerSignUp(props) {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-                Become a CareTaker
+              Become a CareTaker
             </Typography>
-            
-              <Button
-                type="submit"
-                fullWidth
-                variant="outlined"
-                color="primary"
-                className={classes.submit}
-                onClick={onClose}
-              >
-                 Full-Time
-              </Button>
-              <Button
-                type="submit"
-                fullWidth
-                variant="outlined"
-                color="primary"
-                className={classes.submit}
-                onClick={onClose}
-              >
-                 Part-Time
-              </Button>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              color="primary"
+              className={classes.submit}
+              onClick={onClose}
+            >
+              Full-Time
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              color="primary"
+              className={classes.submit}
+              onClick={onClose}
+            >
+              Part-Time
+            </Button>
           </div>
         </Container>
       </DialogContent>
