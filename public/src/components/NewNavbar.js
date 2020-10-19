@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import CareTakerSignUp from "./CareTakerSignUp";
 import NavDropdown from "@bit/react-bootstrap.react-bootstrap.nav-dropdown";
 import Nav from "@bit/react-bootstrap.react-bootstrap.nav";
-import Button from "@bit/react-bootstrap.react-bootstrap.button";
+import Button from "@material-ui/core/Button";
 import Navbar from "@bit/react-bootstrap.react-bootstrap.navbar";
 import ReactBootstrapStyle from "@bit/react-bootstrap.react-bootstrap.internal.style-links";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
@@ -26,14 +26,23 @@ export default function NewNavbar() {
   const [signupOpen, setSignupOpen] = useState(false);
   const [caretakerOpen, setCareTakerOpen] = useState(false);
   const classes = useStyles();
+  console.log(user);
   const authButton = user ? (
-    <Button
-      className={classes.auth}
-      variant="contained"
-      onClick={() => dispatch(signoutUser())}
-    >
-      Logout
-    </Button>
+    <div>
+      {user.type.includes('admin') ? <Button>Admin Profile</Button> : null}
+      {user.type.includes('petowner') ? <Button>Petowner Profile</Button> : null}
+      {user.type.includes('caretaker') ? <Button component={Link} to="/caretaker">Caretaker Profile</Button> :
+        <Button onClick={() => setCareTakerOpen(true)}>
+          Become a Caretaker
+        </Button>}
+      <Button
+        className={classes.auth}
+        variant="contained"
+        onClick={() => dispatch(signoutUser())}
+      >
+        Logout
+      </Button>
+    </div>
   ) : (
     <div>
       <Button variant="contained" onClick={() => setLoginOpen(true)}>
@@ -55,9 +64,6 @@ export default function NewNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
-            <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
-              Become a Caretaker
-            </Button>
             <CareTakerSignUp
               open={caretakerOpen}
               onClose={() => setCareTakerOpen(false)}
