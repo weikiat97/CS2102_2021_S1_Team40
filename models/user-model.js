@@ -3,7 +3,7 @@ const pool = require("../pools");
 class User {
   constructor() {
     this.pool = pool;
-    this.table = "users";
+    this.table = "petowners";
     this.pool.on(
       "error",
       (err, client) => `Error, ${err}, on idle client${client}`
@@ -31,7 +31,7 @@ class User {
   async addNewUser(username, password) {
     let query = `INSERT INTO ${this.table}
                         VALUES ('${username}', '${password}')
-                        RETURNING username`;
+                        RETURNING username;`
     const results = await this.pool.query(query);
     if (results.rows.length !== 1) {
       return null;

@@ -32,9 +32,9 @@
 -- add the-date to bid
 -- change start_date to start_time for bid
 -- change end_date to end_time for bid
-
-DROP TABLE IF EXISTS availabilities;
 DROP TABLE IF EXISTS bids;
+DROP TABLE IF EXISTS availabilities;
+
 DROP TABLE IF EXISTS parttime_caretakers;
 
 DROP TABLE IF EXISTS leaves_applied;
@@ -47,18 +47,16 @@ DROP TABLE IF EXISTS admins;
 DROP TABLE IF EXISTS requirements;
 DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS petowners;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE users (
+CREATE TABLE admins (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(256) NOT NULL
 );
 
-CREATE TABLE admins (
-    username VARCHAR(50) PRIMARY KEY REFERENCES users (username)
-);
-
 CREATE TABLE caretakers (
-    username VARCHAR(50) PRIMARY KEY REFERENCES users (username)
+    username VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE availabilities (
@@ -93,8 +91,9 @@ CREATE TABLE parttime_caretakers (
 );
 
 CREATE TABLE petowners (
-    username VARCHAR(50) PRIMARY KEY REFERENCES users (username),
-    creditcard VARCHAR(256) NOT NULL
+    username VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(256) NOT NULL,
+    creditcard VARCHAR(256)
 );
 
 CREATE TABLE pets (
