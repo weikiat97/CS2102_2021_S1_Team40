@@ -12,6 +12,7 @@ import Button from "@bit/react-bootstrap.react-bootstrap.button";
 import Navbar from "@bit/react-bootstrap.react-bootstrap.navbar";
 import ReactBootstrapStyle from "@bit/react-bootstrap.react-bootstrap.internal.style-links";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import CaretakerFilter from "./CaretakerFilter";
 
 const useStyles = makeStyles({
   auth: {
@@ -25,6 +26,7 @@ export default function NewNavbar() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [caretakerOpen, setCareTakerOpen] = useState(false);
+  const [caretakerFiltersOpen, setCaretakerFiltersOpen] = useState(false);
   const classes = useStyles();
   const authButton = user ? (
     <Button
@@ -42,6 +44,9 @@ export default function NewNavbar() {
       </Button>
       <Button variant="contained" onClick={() => setSignupOpen(true)}>
         Signup
+      </Button>
+      <Button variant="contained" onClick={() => setCaretakerFiltersOpen(true)}>
+        Find a Caretaker
       </Button>
       
     </div>
@@ -78,6 +83,7 @@ export default function NewNavbar() {
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
               {authButton}
               <Signup open={signupOpen} onClose={() => setSignupOpen(false)} />
+              <CaretakerFilter open={caretakerFiltersOpen} onClose={() => setCaretakerFiltersOpen(false)} />
               
             </Nav.Item>
           </Nav>
