@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
 import Login from "./Login";
 import Signup from "./Signup";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import CareTakerSignUp from "./CareTakerSignUp";
 import NavDropdown from "@bit/react-bootstrap.react-bootstrap.nav-dropdown";
 import Nav from "@bit/react-bootstrap.react-bootstrap.nav";
@@ -38,7 +38,6 @@ export default function NewNavbar() {
     </Button>
   ) : (
     <div>
-      
       <Button variant="contained" onClick={() => setLoginOpen(true)}>
         <PermIdentityIcon fontSize="small" /> Login
       </Button>
@@ -56,16 +55,20 @@ export default function NewNavbar() {
     <div>
       <ReactBootstrapStyle />
       <Navbar bg="faded" expand="lg" sticky="top">
-        <Navbar.Brand as={Link} to="/">PetLovers</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          PetLovers
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
             <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
               Become a Caretaker
             </Button>
-            <CareTakerSignUp open={caretakerOpen} onClose={() => setCareTakerOpen(false)} />
+            <CareTakerSignUp
+              open={caretakerOpen}
+              onClose={() => setCareTakerOpen(false)}
+            />
             <NavDropdown title="Our Services" id="basic-nav-dropdown">
-            
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -76,8 +79,9 @@ export default function NewNavbar() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-            
+            <Nav.Link as={Link} to="/profile">
+              Profile
+            </Nav.Link>
 
             <Nav.Item className="ml-auto">
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
