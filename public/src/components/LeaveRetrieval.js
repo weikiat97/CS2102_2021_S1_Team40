@@ -67,6 +67,7 @@ export default function LeaveRetrieval(props) {
   const [deleteOpen, setLeaveDeletionOpen] = useState(false);
   const [updateDate, setUpdateDate] = useState('');
   const [deleteLeave, setDeleteLeave] = useState('');
+  const [numberOfLeaves, setNumberOfLeaves] = useState(0);
 
   const classes = useStyles();
 
@@ -133,9 +134,18 @@ export default function LeaveRetrieval(props) {
     </div>
   );
 
+  function calculateLeaves() {
+    var count = 0;
+    leaves.map((leave, index) => {
+      count += parseInt(leave.row.substring(23, (leave.row).length - 1));
+    });
+    return count;
+  }
+
   return (
     
     <>
+      <h2>Number of leaves used: {calculateLeaves()}</h2> 
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -143,8 +153,8 @@ export default function LeaveRetrieval(props) {
               <TableCell align="right">Start</TableCell>
               <TableCell align="right">End</TableCell>
               <TableCell align="right">Number Of Days</TableCell>
-              <TableCell align="right">Edit</TableCell>
-              <TableCell align="right">Delete</TableCell>
+              <TableCell align="right">Update Leave</TableCell>
+              <TableCell align="right">Delete Leave</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -152,7 +162,7 @@ export default function LeaveRetrieval(props) {
               <TableRow key={i}>
                 <TableCell align="right">{leave.row.substring(1, 11)}</TableCell>
                 <TableCell align="right">{leave.row.substring(12, 22)}</TableCell>
-                <TableCell align="right">{leave.row.substring(23, 24)}</TableCell>
+                <TableCell align="right">{leave.row.substring(23, (leave.row).length - 1)}</TableCell>
                 <TableCell align="right"><Button variant="contained" onClick={() => {setUpdateDate(leave.row); setLeaveUpdatingOpen(true)}}>Update Leave</Button></TableCell>
                 <TableCell align="right"><Button variant="contained" onClick={() => {setDeleteLeave(leave.row); setLeaveDeletionOpen(true)}}>Delete Leave</Button></TableCell>
               </TableRow>
