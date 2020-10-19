@@ -17,9 +17,7 @@ export default function Profile() {
   } else {
     return (
       <div>
-        <h1>
-          Please Login Create an account with us if you haven't!
-        </h1>
+        <h1>Please Login Create an account with us if you haven't!</h1>
       </div>
     );
   }

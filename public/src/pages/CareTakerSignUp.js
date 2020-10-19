@@ -16,39 +16,39 @@ import { signupUser } from "../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      marginBottom: theme.spacing(10),
-    },
-    avatar: {
-      margin: theme.spacing(2),
-      backgroundColor: theme.palette.primary.light,
-    },
-    form: {
-      width: "100%", // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 0),
-    },
-  }));
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginBottom: theme.spacing(10),
+  },
+  avatar: {
+    margin: theme.spacing(2),
+    backgroundColor: theme.palette.primary.light,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 0),
+  },
+}));
 
 export default function CareTakerSignUp() {
-    const classes = useStyles();
+  const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
-    <CssBaseline />
-    <div className={classes.paper}>
-      <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
           Become a CareTaker
-      </Typography>
-      
+        </Typography>
+
         <Button
           type="submit"
           fullWidth
@@ -56,7 +56,7 @@ export default function CareTakerSignUp() {
           color="primary"
           className={classes.submit}
         >
-           Full-Time
+          Full-Time
         </Button>
         <Button
           type="submit"
@@ -64,11 +64,10 @@ export default function CareTakerSignUp() {
           variant="outlined"
           color="primary"
           className={classes.submit}
-        
         >
-           Part-Time
+          Part-Time
         </Button>
-    </div>
-  </Container>
-    );
+      </div>
+    </Container>
+  );
 }
