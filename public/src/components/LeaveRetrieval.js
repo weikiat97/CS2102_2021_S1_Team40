@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { API_HOST } from "../consts";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import { getLeaves } from "../redux/slices/leaveSlice";
 import { selectUser } from "../redux/slices/userSlice";
 import { selectLeaves } from "../redux/slices/leaveSlice";
@@ -14,13 +14,13 @@ import LeaveApplication from "./LeaveApplication";
 import LeaveDeletion from "./LeaveDeletion";
 import LeaveUpdating from "./LeaveUpdating";
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 // const useStyles = makeStyles({
 //   table: {
@@ -47,14 +47,12 @@ export default function LeaveRetrieval(props) {
   //   await get();
   // }, [])
 
-
   // const classes = useStyles();
   const useStyles = makeStyles({
     auth: {
       marginLeft: "auto",
     },
   });
-
 
   // const dispatch = useDispatch();
   // dispatch(getLeaves(user.username))
@@ -65,8 +63,8 @@ export default function LeaveRetrieval(props) {
   const [applyOpen, setLeaveApplicationOpen] = useState(false);
   const [updateOpen, setLeaveUpdatingOpen] = useState(false);
   const [deleteOpen, setLeaveDeletionOpen] = useState(false);
-  const [updateDate, setUpdateDate] = useState('');
-  const [deleteLeave, setDeleteLeave] = useState('');
+  const [updateDate, setUpdateDate] = useState("");
+  const [deleteLeave, setDeleteLeave] = useState("");
   const [numberOfLeaves, setNumberOfLeaves] = useState(0);
 
   const classes = useStyles();
@@ -97,7 +95,6 @@ export default function LeaveRetrieval(props) {
     }
     fetchData();
   }, [applyOpen, updateOpen, deleteOpen]);
-
 
   // console.log('leave here plsss: ' + JSON.stringify(leaves));
   // for (var i = 0; i < leaves.length; i++) {
@@ -137,15 +134,14 @@ export default function LeaveRetrieval(props) {
   function calculateLeaves() {
     var count = 0;
     leaves.map((leave, index) => {
-      count += parseInt(leave.row.substring(23, (leave.row).length - 1));
+      count += parseInt(leave.row.substring(23, leave.row.length - 1));
     });
     return count;
   }
 
   return (
-    
     <>
-      <h2>Number of leaves used: {calculateLeaves()}</h2> 
+      <h2>Number of leaves used: {calculateLeaves()}</h2>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -160,21 +156,57 @@ export default function LeaveRetrieval(props) {
           <TableBody>
             {leaves.map((leave, i) => (
               <TableRow key={i}>
-                <TableCell align="right">{leave.row.substring(1, 11)}</TableCell>
-                <TableCell align="right">{leave.row.substring(12, 22)}</TableCell>
-                <TableCell align="right">{leave.row.substring(23, (leave.row).length - 1)}</TableCell>
-                <TableCell align="right"><Button variant="contained" onClick={() => {setUpdateDate(leave.row); setLeaveUpdatingOpen(true)}}>Update Leave</Button></TableCell>
-                <TableCell align="right"><Button variant="contained" onClick={() => {setDeleteLeave(leave.row); setLeaveDeletionOpen(true)}}>Delete Leave</Button></TableCell>
+                <TableCell align="right">
+                  {leave.row.substring(1, 11)}
+                </TableCell>
+                <TableCell align="right">
+                  {leave.row.substring(12, 22)}
+                </TableCell>
+                <TableCell align="right">
+                  {leave.row.substring(23, leave.row.length - 1)}
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setUpdateDate(leave.row);
+                      setLeaveUpdatingOpen(true);
+                    }}
+                  >
+                    Update Leave
+                  </Button>
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setDeleteLeave(leave.row);
+                      setLeaveDeletionOpen(true);
+                    }}
+                  >
+                    Delete Leave
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
-
         </Table>
       </TableContainer>
       {applyButton}
-      <LeaveUpdating open={updateOpen} onClose={() => setLeaveUpdatingOpen(false)} data={updateDate} />
-      <LeaveApplication open={applyOpen} onClose={() => setLeaveApplicationOpen(false)}/>
-      <LeaveDeletion open={deleteOpen} onClose={() => setLeaveDeletionOpen(false)} data={deleteLeave}/>
+      <LeaveUpdating
+        open={updateOpen}
+        onClose={() => setLeaveUpdatingOpen(false)}
+        data={updateDate}
+      />
+      <LeaveApplication
+        open={applyOpen}
+        onClose={() => setLeaveApplicationOpen(false)}
+      />
+      <LeaveDeletion
+        open={deleteOpen}
+        onClose={() => setLeaveDeletionOpen(false)}
+        data={deleteLeave}
+      />
     </>
   );
 }

@@ -26,7 +26,9 @@ export default function LeaveDeletion(props) {
   // const classes = useStyles();
   // console.log('start here leh: ' + start_date);
   const cancel = () => {
-    dispatch(deleteLeave(user.username, data.substring(1, 11), data.substring(12, 22)));
+    dispatch(
+      deleteLeave(user.username, data.substring(1, 11), data.substring(12, 22))
+    );
     onClose();
   };
   return (
@@ -34,7 +36,8 @@ export default function LeaveDeletion(props) {
       <DialogTitle>Leave Deletion</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to delete the leave from {data.substring(1, 11)} to {data.substring(12, 22)}?
+          Are you sure you want to delete the leave from {data.substring(1, 11)}{" "}
+          to {data.substring(12, 22)}?
         </DialogContentText>
       </DialogContent>
       <DialogActions>

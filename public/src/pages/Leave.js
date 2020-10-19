@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
-import LeaveRetrieval from '../components/LeaveRetrieval'
+import LeaveRetrieval from "../components/LeaveRetrieval";
 
 export default function Leave() {
   const user = useSelector(selectUser);
@@ -15,7 +15,9 @@ export default function Leave() {
   } else {
     return (
       <div>
-        <h1>Please Login LEAVE PAGE. Create an account with us if you haven't!</h1>
+        <h1>
+          Please Login LEAVE PAGE. Create an account with us if you haven't!
+        </h1>
       </div>
     );
   }

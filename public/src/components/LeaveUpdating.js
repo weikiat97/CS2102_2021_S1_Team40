@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 });
 
 export default function LeaveUpdating(props) {
-  const { open, onClose, data} = props;
+  const { open, onClose, data } = props;
 
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
@@ -51,7 +51,15 @@ export default function LeaveUpdating(props) {
     //   dispatch(updateLeave(user.username, data.substring(1, 11), data.substring(12, 22), new_start_date, data.substring(12, 22)));
     // } else {
     // dispatch(updateLeave(user.username, data.substring(1, 11), data.substring(12, 22), new_start_date, new_end_date)); ***
-    dispatch(updateLeave(user.username, old_start_date, old_end_date, new_start_date, new_end_date));
+    dispatch(
+      updateLeave(
+        user.username,
+        old_start_date,
+        old_end_date,
+        new_start_date,
+        new_end_date
+      )
+    );
     // }
     // console.log("old start: " + old_start_date);
     // console.log("old end: " + old_end_date);
@@ -60,13 +68,13 @@ export default function LeaveUpdating(props) {
     onClose();
   };
 
-
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Leave Updating</DialogTitle>
       <DialogContent>
         <DialogContentText>
-        Please indicate the old start and end date that you wish to update, and the new start and end date:
+          Please indicate the old start and end date that you wish to update,
+          and the new start and end date:
         </DialogContentText>
         {/*
         <form className={classes.container} noValidate>
@@ -122,59 +130,63 @@ export default function LeaveUpdating(props) {
         />
         </form>*/}
         <form className={classes.container} noValidate>
-        <TextField
+          <TextField
             id="date"
             label="Start Date"
             type="date"
-            defaultValue={data.substring(1,11)}
+            defaultValue={data.substring(1, 11)}
             //minDate={date}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
             }}
-            onChange={(e) =>   {
+            onChange={(e) => {
               //setNewStartDate(e.target.value)
-              new_start_date = e.target.value
+              new_start_date = e.target.value;
             }}
-        />
+          />
         </form>
         <form className={classes.container} noValidate>
-        <TextField
+          <TextField
             id="date"
             label="New End Date"
             type="date"
-            defaultValue={data.substring(12,22)}
+            defaultValue={data.substring(12, 22)}
             className={classes.textField}
             InputLabelProps={{
-            shrink: true,
+              shrink: true,
             }}
             onChange={(e) => {
               //setNewEndDate(e.target.value)
-              new_end_date = e.target.value
+              new_end_date = e.target.value;
             }}
-        />
+          />
         </form>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={ () => {
-          console.log()
-          // setOldStartDate(data.substring(1,11)); 
-          // setOldEndDate(data.substring(12,22)); 
-          // if(new_start_date == "" && new_end_date =="") {
-          //   alert("No changes were made");
-          // } else if (new_start_date == "") { 
-          //   // console.log("mi here");
-          //   setNewStartDate(data.substring(1, 11));
-          //   update();
-          // } else if (new_end_date == "") {
-          //   // console.log("mi here 2");
-          //   setNewEndDate(data.substring(12, 22));
-          //   update();
-          // } else{
-          update();
-          // }
-        }}>Apply</Button>
+        <Button
+          onClick={() => {
+            console.log();
+            // setOldStartDate(data.substring(1,11));
+            // setOldEndDate(data.substring(12,22));
+            // if(new_start_date == "" && new_end_date =="") {
+            //   alert("No changes were made");
+            // } else if (new_start_date == "") {
+            //   // console.log("mi here");
+            //   setNewStartDate(data.substring(1, 11));
+            //   update();
+            // } else if (new_end_date == "") {
+            //   // console.log("mi here 2");
+            //   setNewEndDate(data.substring(12, 22));
+            //   update();
+            // } else{
+            update();
+            // }
+          }}
+        >
+          Apply
+        </Button>
       </DialogActions>
     </Dialog>
   );

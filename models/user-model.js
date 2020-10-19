@@ -29,7 +29,7 @@ class User {
   }
 
   async addNewUser(username, password) {
-    console.log("HEREE")
+    console.log("HEREE");
     console.log(username);
     console.log(password);
     let query = `INSERT INTO ${this.table}

@@ -36,30 +36,30 @@ export default function LeaveApplication(props) {
           Please indicate the start and end date that you wish to apply for:
         </DialogContentText>
         <form className={classes.container} noValidate>
-        <TextField
+          <TextField
             id="date"
             label="Start Date"
             type="date"
             defaultValue=""
             className={classes.textField}
             InputLabelProps={{
-            shrink: true,
+              shrink: true,
             }}
             onChange={(e) => setStartDate(e.target.value)}
-        />
+          />
         </form>
         <form className={classes.container} noValidate>
-        <TextField
+          <TextField
             id="date"
             label="End Date"
             type="date"
             defaultValue=""
             className={classes.textField}
             InputLabelProps={{
-            shrink: true,
+              shrink: true,
             }}
             onChange={(e) => setEndDate(e.target.value)}
-        />
+          />
         </form>
       </DialogContent>
       <DialogActions>
