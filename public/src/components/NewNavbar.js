@@ -27,6 +27,10 @@ export default function NewNavbar() {
   const [caretakerOpen, setCareTakerOpen] = useState(false);
   const classes = useStyles();
   const authButton = user ? (
+    <div>
+    <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
+    Become a Caretaker
+    </Button>
     <Button
       className={classes.auth}
       variant="contained"
@@ -34,6 +38,8 @@ export default function NewNavbar() {
     >
       Logout
     </Button>
+    
+    </div>
   ) : (
     <div>
       <Button variant="contained" onClick={() => setLoginOpen(true)}>
@@ -55,9 +61,7 @@ export default function NewNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
-            <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
-              Become a Caretaker
-            </Button>
+           
             <CareTakerSignUp
               open={caretakerOpen}
               onClose={() => setCareTakerOpen(false)}
