@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const pet_routes = require("./routes/pet-routes");
 const user_routes = require("./routes/user-routes");
+const leave_routers = require("./routes/leave-routes");
 const { db_connection_string } = require("./settings");
 
 const app = express();
@@ -24,5 +25,6 @@ if (!db_connection_string) {
 app.get("/", (req, res) => res.send("Hello World!"));
 app.use("/pets", pet_routes);
 app.use("/users", user_routes);
+app.use("/users/leaves", leave_routers);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
