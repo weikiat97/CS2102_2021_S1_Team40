@@ -64,7 +64,7 @@ export default function Signup(props) {
             <Typography component="h1" variant="h5">
               Sign Up
             </Typography>
-            <form className={classes.form} noValidate>
+            <div className={classes.form}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -97,7 +97,7 @@ export default function Signup(props) {
               >
                 Sign Up
               </Button>
-            </form>
+            </div>
           </div>
         </Container>
       </DialogContent>

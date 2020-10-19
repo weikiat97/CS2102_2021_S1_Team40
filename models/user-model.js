@@ -17,14 +17,24 @@ class User {
   }
 
   async getSingleUser(username, password) {
-    let query = `SELECT username FROM ${this.table} 
-                        WHERE username='${username}'
-                        AND password='${password}'`;
+    let query = `SELECT u.username, t.type FROM (
+        SELECT username, 'admin' AS type FROM admins
+        UNION
+        SELECT username, 'caretaker' AS type FROM caretakers
+        UNION
+        SELECT username, 'petowner' AS type FROM petowners
+    ) AS t JOIN ${this.table} u 
+        ON t.username = u.username 
+        AND u.username = '${username}'
+        AND password = '${password}'`;
     const results = await this.pool.query(query);
-    if (results.rows.length !== 1) {
+    if (results.rows.length === 0) {
       return null;
     } else {
-      return results.rows[0];
+      return {
+        username: username,
+        type: results.rows.map((r) => r.type),
+      };
     }
   }
 

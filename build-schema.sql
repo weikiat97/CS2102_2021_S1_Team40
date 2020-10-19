@@ -74,8 +74,10 @@ CREATE TABLE fulltime_caretakers (
 
 CREATE TABLE leaves_applied (
     ftct_username VARCHAR(50) REFERENCES fulltime_caretakers (username),
-    start_date DATE,
-    end_date DATE,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    num_of_days NUMERIC NOT NULL,
+    CHECK (num_of_days >= 1),
     PRIMARY KEY(ftct_username, start_date, end_date)
 );
 
@@ -129,3 +131,67 @@ CREATE TABLE bids (
     PRIMARY KEY (petowner_username, pet_name, caretaker_username, the_date, start_time, end_time),
     CHECK (petowner_username <> caretaker_username)
 );
+
+CREATE FUNCTION func_check_leaves_date_overlap_insert() RETURNS trigger AS
+    $$
+    BEGIN
+    IF (EXISTS
+            (
+                SELECT 1
+                FROM leaves_applied L
+                WHERE NEW.ftct_username = L.ftct_username 
+                    AND ((NEW.end_date <= L.end_date AND NEW.end_date >= L.start_date)
+                            OR
+                        (NEW.start_date <= L.end_date AND NEW.start_date >= L.start_date)
+                            OR
+                        (NEW.start_date <= L.start_date AND NEW.end_date >= L.end_date)
+                        )
+            )
+        )
+    THEN 
+        RAISE EXCEPTION 'The added leave must not overlap with any current leaves';
+    END IF;
+
+    RETURN NEW;
+
+    END;
+    $$
+    LANGUAGE 'plpgsql';
+
+CREATE FUNCTION func_check_leaves_date_overlap_update() RETURNS trigger AS
+    $$
+    BEGIN
+    IF (EXISTS
+            (
+                SELECT 1
+                FROM ( SELECT * FROM leaves_applied 
+                        EXCEPT
+                        SELECT * FROM leaves_applied
+                        WHERE ftct_username = OLD.ftct_username
+                            AND start_date = OLD.start_date
+                            AND end_date = OLD.end_date
+                     ) as L
+                WHERE NEW.ftct_username = L.ftct_username 
+                    AND ((NEW.end_date <= L.end_date AND NEW.end_date >= L.start_date)
+                            OR
+                        (NEW.start_date <= L.end_date AND NEW.start_date >= L.start_date)
+                            OR
+                        (NEW.start_date <= L.start_date AND NEW.end_date >= L.end_date)
+                        )
+            )
+        )
+    THEN 
+        RAISE EXCEPTION 'The updated leave must not overlap with any current leaves. OLD start: %, OLD end: %, NEW start: %, NEW end: %', OLD.start_date, OLD.end_date, NEW.start_date, NEW.end_date;
+    END IF;
+
+    RETURN NEW;
+
+    END;
+    $$
+    LANGUAGE 'plpgsql';
+
+CREATE TRIGGER tr_check_leaves_date_overlap_insert BEFORE INSERT
+ON leaves_applied FOR EACH ROW EXECUTE PROCEDURE func_check_leaves_date_overlap_insert();
+
+CREATE TRIGGER tr_check_leaves_date_overlap_update BEFORE UPDATE
+ON leaves_applied FOR EACH ROW EXECUTE PROCEDURE func_check_leaves_date_overlap_update();
