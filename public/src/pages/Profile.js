@@ -18,7 +18,7 @@ export default function Profile() {
     return (
       <div>
         <h1>
-          Please Login PROFILE PAGE. Create an account with us if you haven't!
+          Please Login Create an account with us if you haven't!
         </h1>
       </div>
     );
