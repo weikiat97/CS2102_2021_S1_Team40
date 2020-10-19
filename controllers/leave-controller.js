@@ -28,10 +28,6 @@ exports.index = async function (req, res) {
 // Handle create leave actions
 exports.new = async function (req, res) {
   try {
-    console.log("i'm at create leaves in leave-controller");
-    console.log("username: " + req.body.ftct_username);
-    console.log("start_date: " + req.body.start_date);
-    console.log("end_date: " + req.body.end_date);
     const add_leave = await leave_model.addNewLeave(
       req.body.ftct_username,
       req.body.start_date,
@@ -62,9 +58,6 @@ exports.new = async function (req, res) {
 // Handle view leave info
 exports.view = async function (req, res) {
   try {
-    console.log("params!!!!: " + req.params.username);
-    console.log("????");
-    console.log("WTFFF");
     const get_user_leaves = await leave_model.getUserLeaves(
       req.params.username
     );
@@ -92,12 +85,6 @@ exports.view = async function (req, res) {
 // Handle update leave info
 exports.update = async function (req, res) {
   try {
-    console.log("i came here");
-    console.log("get da user: " + req.body.ftct_username);
-    console.log("get da old start: " + req.body.old_start_date);
-    console.log("get da old end: " + req.body.old_end_date);
-    console.log("get da new start: " + req.body.new_start_date);
-    console.log("get da new end: " + req.body.new_end_date);
     const update_leave = await leave_model.updateLeave(
       req.body.ftct_username,
       req.body.old_start_date,
@@ -130,16 +117,6 @@ exports.update = async function (req, res) {
 // Handle delete leave
 exports.delete = async function (req, res) {
   try {
-    console.log("wassup dog");
-    console.log("look at mah body: " + req.body);
-    const util = require("util");
-
-    console.log(util.inspect(req.body, { showHidden: false, depth: null }));
-
-    console.log("username: " + req.body.ftct_username);
-    console.log("start: " + req.body.start_date);
-    console.log("end: " + req.body.end_date);
-    console.log("byenow");
     const delete_leave = await leave_model.deleteLeave(
       req.body.ftct_username,
       req.body.start_date,
