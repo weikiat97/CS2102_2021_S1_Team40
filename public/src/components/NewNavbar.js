@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
+import {
+  selectCareTaker,
+  signoutCareTaker,
+} from "../redux/slices/careTakerSlice";
 import Login from "./Login";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
-import CareTakerSignUp from "./CareTakerSignUp";
 import NavDropdown from "@bit/react-bootstrap.react-bootstrap.nav-dropdown";
 import Nav from "@bit/react-bootstrap.react-bootstrap.nav";
 import Button from "@material-ui/core/Button";
@@ -21,12 +24,12 @@ const useStyles = makeStyles({
 
 export default function NewNavbar() {
   const user = useSelector(selectUser);
+  const caretaker = useSelector(selectCareTaker);
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [caretakerOpen, setCareTakerOpen] = useState(false);
   const classes = useStyles();
-  console.log(user);
   const authButton = user ? (
     <div>
       {user.type.includes('admin') ? <Button component={Link} to="/admin">Admin Profile</Button> : null}
@@ -64,10 +67,6 @@ export default function NewNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
-            <CareTakerSignUp
-              open={caretakerOpen}
-              onClose={() => setCareTakerOpen(false)}
-            />
             <NavDropdown title="Our Services" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
