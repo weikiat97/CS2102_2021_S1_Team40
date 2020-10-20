@@ -3,7 +3,7 @@ const pool = require("../pools");
 class Caretaker {
     constructor() {
         this.pool = pool;
-        this.table = "availabilities";
+        this.table = "caretakers";
         this.pool.on(
             "error",
             (err, client) => `Error, ${err}, on idle client${client}`
@@ -12,15 +12,15 @@ class Caretaker {
 
     async getRequiredCaretakers(maximum_price, pet_type, start_date, end_date) {
         let query = `SELECT username 
-                    FROM ${this.table}
+                    FROM ${availabilities}
                     WHERE start_date >= ${start_date} AND end_date <= ${end_date}
                     INTERSECT
                     SELECT  username
-                    FROM    ${this.table}
+                    FROM    ${availabilities}
                     WHERE   price <= ${maximum_price} AND pet_type = ${pet_type}
                     INTERSECT
                     (SELECT username
-                    FROM ${this.table}
+                    FROM ${availabilities}
                     EXCEPT
                     SELECT  b1.username
                     FROM    bid b1
@@ -36,13 +36,46 @@ class Caretaker {
         if (results.rows.length === 0) {
             return null;
         } else {
-            return {
-                username: username,
-                type: results.rows.map((r) => r.type),
-            };
+            return results.rows;
         }
     }
+
+  async get() {
+    let query = `SELECT username FROM ${this.table}`;
+    const results = await this.pool.query(query);
+    return results.rows;
+  }
+
+  async getSingleCareTaker(username, password) {
+    let query = `SELECT u.username, t.type FROM caretakers
+        UNION
+        SELECT username, 'petowner' AS type FROM petowners
+    ) AS t JOIN ${this.table} u 
+        ON t.username = u.username 
+        AND u.username = '${username}'
+        AND password = '${password}'`;
+    const results = await this.pool.query(query);
+    if (results.rows.length === 0) {
+      return null;
+    } else {
+      return {
+        username: username,
+        type: results.rows.map((r) => r.type),
+      };
+    }
+  }
+
+  async addNewCareTaker(username, password) {
+    let query = `INSERT INTO ${this.table}
+                        VALUES ('${username}', '${password}')
+                        RETURNING username;`;
+    const results = await this.pool.query(query);
+    if (results.rows.length !== 1) {
+      return null;
+    } else {
+      return results.rows[0];
+    }
+  }
 }
 
-
-module.exports = new Caretaker();
+module.exports = new CareTaker();

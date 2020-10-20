@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
+import {
+  selectCareTaker,
+  signoutCareTaker,
+} from "../redux/slices/careTakerSlice";
 import Login from "./Login";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
-import CareTakerSignUp from "./CareTakerSignUp";
 import NavDropdown from "@bit/react-bootstrap.react-bootstrap.nav-dropdown";
 import Nav from "@bit/react-bootstrap.react-bootstrap.nav";
 import Button from "@bit/react-bootstrap.react-bootstrap.button";
@@ -22,6 +25,7 @@ const useStyles = makeStyles({
 
 export default function NewNavbar() {
   const user = useSelector(selectUser);
+  const caretaker = useSelector(selectCareTaker);
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
@@ -29,13 +33,25 @@ export default function NewNavbar() {
   const [caretakerFiltersOpen, setCaretakerFiltersOpen] = useState(false);
   const classes = useStyles();
   const authButton = user ? (
-    <Button
-      className={classes.auth}
-      variant="contained"
-      onClick={() => dispatch(signoutUser())}
-    >
-      Logout
-    </Button>
+    <div>
+      <Button
+        className={classes.auth}
+        variant="contained"
+        onClick={() => dispatch(signoutUser()) && dispatch(signoutCareTaker())}
+      >
+        Logout
+      </Button>
+    </div>
+  ) : caretaker ? (
+    <div>
+      <Button
+        className={classes.auth}
+        variant="contained"
+        onClick={() => dispatch(signoutCareTaker())}
+      >
+        Logout
+      </Button>
+    </div>
   ) : (
     <div>
       <Button variant="contained" onClick={() => setLoginOpen(true)}>
@@ -61,13 +77,6 @@ export default function NewNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
-            <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
-              Become a Caretaker
-            </Button>
-            <CareTakerSignUp
-              open={caretakerOpen}
-              onClose={() => setCareTakerOpen(false)}
-            />
             <NavDropdown title="Our Services" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">

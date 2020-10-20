@@ -5,6 +5,7 @@ import NewNavbar from "./components/NewNavbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Caretakers from "./pages/Caretakers";
+import Leave from "./pages/Leave";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         <Switch>
           <Route path="/caretakers">
             <Caretakers />
+          </Route>
+          <Route path="/profile/leaves">
+            <Leave />
           </Route>
           <Route path="/profile">
             <Profile />

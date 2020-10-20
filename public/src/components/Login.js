@@ -41,10 +41,13 @@ export default function Login(props) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const classes = useStyles();
   const login = () => {
-    dispatch(getUserFromDb(username, password));
-    onClose();
+    if (username != "" && password != "") {
+      dispatch(getUserFromDb(username, password));
+      onClose();
+    }
   };
 
   return (
@@ -65,7 +68,7 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form}>
               <TextField
                 variant="outlined"
                 margin="normal"
