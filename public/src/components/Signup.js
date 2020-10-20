@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { signupUser } from "../redux/slices/userSlice";
+import { signupCareTaker } from "../redux/slices/careTakerSlice";
 import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(5),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -40,11 +42,41 @@ export default function Signup(props) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [roles, setRoles] = useState({
+    selected: {
+      caretaker: false,
+      petowner: false,
+    }
+  });
   const signup = () => {
-    dispatch(signupUser(username, password));
+    console.log(roles.selected);
+    if (roles.selected.petowner && roles.selected.caretaker) {
+      console.log("Sign up for both petowner and caretaker");
+      dispatch(signupUser(username, password));
+      dispatch(signupCareTaker(username, password));
+    } else if (roles.selected.petowner) {
+      console.log("Sign up for petowner");
+      dispatch(signupUser(username, password));
+    } else if (roles.selected.caretaker) {
+      console.log("Sign up for caretaker");
+      dispatch(signupCareTaker(username, password));
+    }
+    
     onClose();
   };
   const classes = useStyles();
+
+  const toggleOption = (e) => {
+    const key = e.currentTarget.value; // e.g. 'A'
+    const value = !roles.selected[key];
+    const newSelected = Object.assign(roles.selected, {[key]: value});
+    setRoles({ selected: newSelected });
+    // console.log('this.state', roles.selected);
+  }
+
+  const getBsStyle= (key) => {
+   return roles.selected[key] ? 'primary' : 'default';
+  }
 
   return (
     <Dialog
@@ -65,6 +97,15 @@ export default function Signup(props) {
               Sign Up
             </Typography>
             <div className={classes.form}>
+           <ButtonGroup fullWidth variant="outlined" bsStyle='default'>
+            <Button fullWidth onClick={(e) => toggleOption(e)} value='caretaker' color={getBsStyle('caretaker')}>
+              Caretaker
+            </Button>
+            <Button fullWidth onClick={(e) => toggleOption(e)} value='petowner' color={getBsStyle('petowner')}>
+              PetOwner
+            </Button>
+            
+          </ButtonGroup>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -97,6 +138,7 @@ export default function Signup(props) {
               >
                 Sign Up
               </Button>
+             
             </div>
           </div>
         </Container>
