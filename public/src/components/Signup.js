@@ -46,7 +46,7 @@ export default function Signup(props) {
     selected: {
       caretaker: false,
       petowner: false,
-    }
+    },
   });
   const signup = () => {
     console.log(roles.selected);
@@ -61,7 +61,7 @@ export default function Signup(props) {
       console.log("Sign up for caretaker");
       dispatch(signupCareTaker(username, password));
     }
-    
+
     onClose();
   };
   const classes = useStyles();
@@ -69,14 +69,14 @@ export default function Signup(props) {
   const toggleOption = (e) => {
     const key = e.currentTarget.value; // e.g. 'A'
     const value = !roles.selected[key];
-    const newSelected = Object.assign(roles.selected, {[key]: value});
+    const newSelected = Object.assign(roles.selected, { [key]: value });
     setRoles({ selected: newSelected });
     // console.log('this.state', roles.selected);
-  }
+  };
 
-  const getBsStyle= (key) => {
-   return roles.selected[key] ? 'primary' : 'default';
-  }
+  const getBsStyle = (key) => {
+    return roles.selected[key] ? "primary" : "default";
+  };
 
   return (
     <Dialog
@@ -97,15 +97,24 @@ export default function Signup(props) {
               Sign Up
             </Typography>
             <div className={classes.form}>
-           <ButtonGroup fullWidth variant="outlined" bsStyle='default'>
-            <Button fullWidth onClick={(e) => toggleOption(e)} value='caretaker' color={getBsStyle('caretaker')}>
-              Caretaker
-            </Button>
-            <Button fullWidth onClick={(e) => toggleOption(e)} value='petowner' color={getBsStyle('petowner')}>
-              PetOwner
-            </Button>
-            
-          </ButtonGroup>
+              <ButtonGroup fullWidth variant="outlined" bsStyle="default">
+                <Button
+                  fullWidth
+                  onClick={(e) => toggleOption(e)}
+                  value="caretaker"
+                  color={getBsStyle("caretaker")}
+                >
+                  Caretaker
+                </Button>
+                <Button
+                  fullWidth
+                  onClick={(e) => toggleOption(e)}
+                  value="petowner"
+                  color={getBsStyle("petowner")}
+                >
+                  PetOwner
+                </Button>
+              </ButtonGroup>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -138,7 +147,6 @@ export default function Signup(props) {
               >
                 Sign Up
               </Button>
-             
             </div>
           </div>
         </Container>

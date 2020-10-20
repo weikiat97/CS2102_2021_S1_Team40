@@ -9,22 +9,27 @@ export default function Home() {
   if (user && caretaker) {
     return (
       <div>
-        <h1>Welcome {user.username}. You are registered as both a petowner and a caretaker.</h1>
+        <h1>
+          Welcome {user.username}. You are registered as both a petowner and a
+          caretaker.
+        </h1>
       </div>
     );
-  }else if (user) {
+  } else if (user) {
     return (
       <div>
         <h1>Welcome {user.username}. You are registered as a petowner.</h1>
       </div>
     );
-  } else if (caretaker){
+  } else if (caretaker) {
     return (
       <div>
-        <h1>Welcome {caretaker.username}. You are registered as a caretaker.</h1>
+        <h1>
+          Welcome {caretaker.username}. You are registered as a caretaker.
+        </h1>
       </div>
     );
-  } else {  
+  } else {
     return (
       <div>
         <br></br>

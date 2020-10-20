@@ -14,7 +14,6 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -42,7 +41,7 @@ export default function Login(props) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const classes = useStyles();
   const login = () => {
     dispatch(getUserFromDb(username, password));
@@ -100,7 +99,6 @@ export default function Login(props) {
               >
                 Login
               </Button>
-         
             </div>
           </div>
         </Container>

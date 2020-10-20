@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
-import { selectCareTaker, signoutCareTaker } from "../redux/slices/careTakerSlice";
+import {
+  selectCareTaker,
+  signoutCareTaker,
+} from "../redux/slices/careTakerSlice";
 import Login from "./Login";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
@@ -40,19 +43,20 @@ export default function NewNavbar() {
         Logout
       </Button>
     </div>
-  ) : (caretaker ? <div>
-  <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
-    Become a Caretaker
-  </Button>
-  <Button
-    className={classes.auth}
-    variant="contained"
-    onClick={() =>  dispatch(signoutCareTaker())}
-  >
-    Logout
-  </Button>
-</div>
-:(
+  ) : caretaker ? (
+    <div>
+      <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
+        Become a Caretaker
+      </Button>
+      <Button
+        className={classes.auth}
+        variant="contained"
+        onClick={() => dispatch(signoutCareTaker())}
+      >
+        Logout
+      </Button>
+    </div>
+  ) : (
     <div>
       <Button variant="contained" onClick={() => setLoginOpen(true)}>
         <PermIdentityIcon fontSize="small" /> Login
@@ -61,7 +65,7 @@ export default function NewNavbar() {
         Signup
       </Button>
     </div>
-  ));
+  );
 
   return (
     <div>

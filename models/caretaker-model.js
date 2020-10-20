@@ -3,7 +3,7 @@ const pool = require("../pools");
 class CareTaker {
   constructor() {
     this.pool = pool;
-    this.table = "caretakers"; 
+    this.table = "caretakers";
     this.pool.on(
       "error",
       (err, client) => `Error, ${err}, on idle client${client}`
