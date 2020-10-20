@@ -58,11 +58,11 @@ export default function CareTakerProfile() {
                   </TableRow>
                   <TableRow>
                     <TableCell>Number of Pet Days</TableCell>
-                    <TableCell>{caretakerInfo && caretakerInfo["pet_days"]}</TableCell>
+                    <TableCell>{caretakerInfo && caretakerInfo["pet_days"]} Days</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Expected Salary ({monthArray[new Date().getMonth()]})</TableCell>
-                    <TableCell>{caretakerInfo && caretakerInfo["salary"]}</TableCell>
+                    <TableCell>${caretakerInfo && caretakerInfo["salary"]}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
