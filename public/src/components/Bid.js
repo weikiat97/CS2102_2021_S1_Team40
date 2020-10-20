@@ -22,8 +22,8 @@ import Select from '@material-ui/core/Select';
 //also need to somehow pass over the username from caretakers
 export default function Bid(props) {
     const { open, onClose } = props;
-    const { startDate, setStartDate } = useState(new Date());
-    const { endDate, setEndDate } = useState(startDate);
+    const { start_date, setStartDate } = useState(new Date());
+    const { end_date, setEndDate } = useState(start_date);
     // const handleStartDateChange = (date) => {
     //     setStartDate(date);
     // };
@@ -31,12 +31,12 @@ export default function Bid(props) {
     //     setEndDate(date);
     // };
 
-    const { petType, setPetType } = useState("");
+    const { pet_type, setPetType } = useState("");
     // const handlePetTypeChange = (event) => {
     //     setPetType(event.target.value);
     // };
 
-    const { transferType, setTransferType } = useState("");
+    const { transfer_type, setTransferType } = useState("");
     // const handleTransferTypeChange = (event) => {
     //     setTransferType(event.target.value);
     // };
@@ -55,7 +55,7 @@ export default function Bid(props) {
                         id="date-picker-dialog"
                         label="Select date"
                         format="MM/dd/yyyy"
-                        value={startDate}
+                        value={start_date}
                         onChange={(date) => setStartDate(date)}
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
@@ -65,7 +65,7 @@ export default function Bid(props) {
                         margin="normal"
                         id="time-picker"
                         label="Select start time"
-                        value={startDate}
+                        value={start_date}
                         onChange={(e) => setStartDate(e.target.value)}
                         KeyboardButtonProps={{
                             'aria-label': 'change start time',
@@ -75,7 +75,7 @@ export default function Bid(props) {
                         margin="normal"
                         id="time-picker"
                         label="Select end time"
-                        value={endDate}
+                        value={end_date}
                         onChange={(e) => setEndDate(e.target.value)}
                         KeyboardButtonProps={{
                             'aria-label': 'change end time',
@@ -87,7 +87,7 @@ export default function Bid(props) {
                     <Select
                         labelId="select-pet-type"
                         id="select-pet-type"
-                        value={petType}
+                        value={pet_type}
                         onChange={(e) => setPetType(e.target.value)}
                     >
                         <MenuItem value={"Dog"}>Dog</MenuItem>
@@ -106,7 +106,7 @@ export default function Bid(props) {
                     <Select
                         labelId="select-transfer-type"
                         id="select-transfer-type"
-                        value={transferType}
+                        value={transfer_type}
                         onChange={(e) => setTransferType(e.target.value)}
                     >
                         <MenuItem value={"Delivered by you"}>Delivered by you</MenuItem>

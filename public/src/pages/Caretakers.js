@@ -13,7 +13,7 @@ import Bid from "../components/Bid";
 
 
 export default function Caretakers() {
-    const [bidPageOpen, setBidPageOpen] = useState(false);
+    const [bid_page_open, setBidPageOpen] = useState(false);
     return (
         <div>
             <h1>List of Caretakers that match your criteria</h1>
@@ -39,7 +39,7 @@ export default function Caretakers() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Bid open={bidPageOpen} onClose={() => setBidPageOpen(false)} /> 
+            <Bid open={bid_page_open} onClose={() => setBidPageOpen(false)} /> 
         </div>
     );
 }

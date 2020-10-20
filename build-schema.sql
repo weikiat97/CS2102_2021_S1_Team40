@@ -64,10 +64,10 @@ CREATE TABLE caretakers (
 CREATE TABLE availabilities (
     username VARCHAR(50) REFERENCES caretakers (username) ON DELETE cascade,
     advertised_price NUMERIC NOT NULL,
-    the_date DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
-    PRIMARY KEY (username, the_date, start_time, end_time, advertised_price)
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    pet_type VARCHAR,
+    PRIMARY KEY (username, the_date, start_time, end_time, advertised_price, pet_type)
 );
 
 CREATE TABLE fulltime_caretakers (
@@ -116,17 +116,17 @@ CREATE TABLE bids (
     petowner_username VARCHAR(50),
     pet_name VARCHAR(50) NOT NULL,
     caretaker_username VARCHAR(50),
-    the_date DATE,
-    start_time TIME,
-    end_time TIME,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
     price NUMERIC NOT NULL,
+    pet_type VARCHAR,
     transfer_method VARCHAR(100) NOT NULL,
     review VARCHAR(200),
     rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
     isSuccessful BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (petowner_username, pet_name) REFERENCES pets (petowner_username, pet_name),
     FOREIGN KEY (caretaker_username, the_date, start_time, end_time, price)
-    REFERENCES availabilities (username, the_date, start_time, end_time, advertised_price),
+    REFERENCES availabilities (username, the_date, start_time, end_time, advertised_price, pet_type),
     PRIMARY KEY (petowner_username, pet_name, caretaker_username, the_date, start_time, end_time),
     CHECK (petowner_username <> caretaker_username)
 );

@@ -16,14 +16,14 @@ import Caretakers from "../pages/Caretakers";
 
 export default function CaretakerFilter(props) {
     const { open, onClose } = props;
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(startDate);
+    const [start_date, setStartDate] = useState(new Date());
+    const [end_date, setEndDate] = useState(startDate);
 
-    const [petType, setPetType] = useState("");
+    const [pet_type, setPetType] = useState("");
 
-    const [transferType, setTransferType] = useState("");
+    const [transfer_type, setTransferType] = useState("");
 
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState("0");
 
     return (
         <Dialog open={open} onClose={onClose}>
@@ -34,7 +34,7 @@ export default function CaretakerFilter(props) {
                 </DialogContentText>
                 <TextField
                     id="date"
-                    label="Select date"
+                    label="Select start date"
                     type="date"
                     defaultValue=""
                     InputLabelProps={{
@@ -44,18 +44,8 @@ export default function CaretakerFilter(props) {
                 />
                 <TextField
                     id="date"
-                    label="Select start time"
-                    type="time"
-                    defaultValue=""
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={(e) => setStartDate(e.target.value)}
-                />
-                <TextField
-                    id="date"
-                    label="Select end time"
-                    type="time"
+                    label="Select end date"
+                    type="date"
                     defaultValue=""
                     InputLabelProps={{
                         shrink: true,
@@ -71,7 +61,7 @@ export default function CaretakerFilter(props) {
                 />
                 <TextField
                     autoFocus
-                    label="Price"
+                    label="Maximum price"
                     type="text"
                     fullWidth
                     onChange={(e) => setPrice(e.target.value)}
@@ -81,7 +71,7 @@ export default function CaretakerFilter(props) {
                     <Select
                         labelId="select-transfer-type"
                         id="select-transfer-type"
-                        value={transferType}
+                        value={transfer_type}
                         onChange={(e) => setTransferType(e.target.value)}
                     >
                         <MenuItem value={"Delivered by you"}>Delivered by you</MenuItem>
