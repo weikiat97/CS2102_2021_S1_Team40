@@ -3,7 +3,6 @@ let caretaker_model = require("../models/caretaker-model");
 exports.filtered = async function (req, res) {
   try {
     const caretakers = await caretaker_model.getRequiredCaretakers(
-        //maximum_price, pet_type, start_date, end_date
         req.body.maximum_price,
         req.body.pet_type,
         req.body.start_date,

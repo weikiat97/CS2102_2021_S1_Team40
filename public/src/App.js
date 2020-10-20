@@ -4,7 +4,6 @@ import "./App.css";
 import NewNavbar from "./components/NewNavbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import Caretakers from "./pages/Caretakers";
 import Leave from "./pages/Leave";
 
 function App() {
@@ -13,9 +12,6 @@ function App() {
       <NewNavbar />
       <div className="App">
         <Switch>
-          <Route path="/caretakers">
-            <Caretakers />
-          </Route>
           <Route path="/profile/leaves">
             <Leave />
           </Route>

@@ -12,18 +12,25 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from "@material-ui/core/styles";
 import Caretakers from "../pages/Caretakers";
+import { useDispatch } from "react-redux";
 
 
 export default function CaretakerFilter(props) {
     const { open, onClose } = props;
     const [start_date, setStartDate] = useState(new Date());
-    const [end_date, setEndDate] = useState(startDate);
+    const [end_date, setEndDate] = useState(start_date);
 
     const [pet_type, setPetType] = useState("");
 
     const [transfer_type, setTransferType] = useState("");
 
     const [price, setPrice] = useState("0");
+
+    const dispatch = useDispatch();
+    const find = () => {
+        dispatch(applyLeave(user.username, start_date, end_date));
+        onClose();
+    };
 
     return (
         <Dialog open={open} onClose={onClose}>
@@ -82,7 +89,9 @@ export default function CaretakerFilter(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={onClose}>Find</Button>
+                <Link to="/profile/leaves">
+                    <button>Go to Leaves</button>
+                </Link>
             </DialogActions>
         </Dialog>
     );

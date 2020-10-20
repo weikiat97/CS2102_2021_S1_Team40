@@ -15,6 +15,32 @@ export const careTakerSlice = createSlice({
 
 export const { setCareTaker } = careTakerSlice.actions;
 
+export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => (dispatch) => {
+    fetch(`${API_HOST}/available-caretakers`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+      body: JSON.stringify({
+        advertised_price: maximum_price,
+        pet_type: pet_type,
+        start_date: start_date,
+        end_date: end_date,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.status === "success") {
+          saveState(CARETAKER_STATE_KEY, result.data);
+          dispatch(setCaretaker(result.data));
+        } else {
+          throw new Error(result.message);
+        }
+      })
+      .catch((err) => alert(err));
+  };
+
+
 export const getCareTakerFromDb = (username, password) => (dispatch) => {
   fetch(`${API_HOST}/caretakers/${username}`, {
     headers: {
