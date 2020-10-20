@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
-import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const user = useSelector(selectUser);

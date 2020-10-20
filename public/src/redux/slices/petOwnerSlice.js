@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
 import { loadState, removeState, saveState } from "../localStorage";
 import { setUser } from "./userSlice";
-import { getUserFromDb } from "./userSlice";
 
 const PETOWNER_STATE_KEY = "petowner";
 const persistedPetOwner = loadState(PETOWNER_STATE_KEY);

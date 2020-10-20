@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
 import { loadState, removeState, saveState } from "../localStorage";
 import { setUser } from "./userSlice";
-import { getUserFromDb } from "./userSlice";
 
 const CARETAKER_STATE_KEY = "caretaker";
 const persistedCareTaker = loadState(CARETAKER_STATE_KEY);

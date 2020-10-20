@@ -1,13 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
-import { selectCareTaker } from "../redux/slices/careTakerSlice";
-import { selectPetOwner } from "../redux/slices/petOwnerSlice";
 
 export default function Home() {
   const user = useSelector(selectUser);
-  const petowner = useSelector(selectPetOwner);
-  const caretaker = useSelector(selectCareTaker);
+
   if (user) {
     console.log(user.username);
     console.log(user.type);
