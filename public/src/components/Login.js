@@ -44,8 +44,10 @@ export default function Login(props) {
 
   const classes = useStyles();
   const login = () => {
-    dispatch(getUserFromDb(username, password));
-    onClose();
+    if (username != "" && password != "") {
+      dispatch(getUserFromDb(username, password));
+      onClose();
+    }
   };
 
   return (
@@ -66,7 +68,7 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <div className={classes.form}>
+            <form className={classes.form}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -99,7 +101,7 @@ export default function Login(props) {
               >
                 Login
               </Button>
-            </div>
+            </form>
           </div>
         </Container>
       </DialogContent>

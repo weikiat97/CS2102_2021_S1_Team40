@@ -50,19 +50,25 @@ export default function Signup(props) {
   });
   const signup = () => {
     //console.log(roles.selected);
-    if (roles.selected.petowner && roles.selected.caretaker) {
-      //console.log("Sign up for both petowner and caretaker");
-      dispatch(signupUser(username, password));
-      dispatch(signupCareTaker(username, password));
-    } else if (roles.selected.petowner) {
-      //console.log("Sign up for petowner");
-      dispatch(signupUser(username, password));
-    } else if (roles.selected.caretaker) {
-      //console.log("Sign up for caretaker");
-      dispatch(signupCareTaker(username, password));
-    }
+    if (
+      username != "" &&
+      password != "" &&
+      (roles.selected.caretaker || roles.selected.petowner)
+    ) {
+      if (roles.selected.petowner && roles.selected.caretaker) {
+        //console.log("Sign up for both petowner and caretaker");
+        dispatch(signupUser(username, password));
+        dispatch(signupCareTaker(username, password));
+      } else if (roles.selected.petowner) {
+        //console.log("Sign up for petowner");
+        dispatch(signupUser(username, password));
+      } else if (roles.selected.caretaker) {
+        //console.log("Sign up for caretaker");
+        dispatch(signupCareTaker(username, password));
+      }
 
-    onClose();
+      onClose();
+    }
   };
   const classes = useStyles();
 
@@ -96,7 +102,7 @@ export default function Signup(props) {
               Sign Up
             </Typography>
 
-            <div className={classes.form}>
+            <form className={classes.form} Validate>
               <ButtonGroup fullWidth variant="outlined" bsStyle="default">
                 <Button
                   fullWidth
@@ -147,7 +153,7 @@ export default function Signup(props) {
               >
                 Sign Up
               </Button>
-            </div>
+            </form>
           </div>
         </Container>
       </DialogContent>
