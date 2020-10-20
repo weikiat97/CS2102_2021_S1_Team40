@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
@@ -28,7 +27,7 @@ export default function CareTakerProfile() {
   const user = useSelector(selectUser);
   const classes = useStyles();
   const monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  if (user.type.includes("caretaker")) {
+  if (user && user.type.includes("caretaker")) {
     return (
       <Container>
         <h1>Your Caretaker Profile</h1>
