@@ -1,37 +1,4 @@
--- Comments given by prof
 
---
--- 4)Each Pet can be identified by their pid and has name and pet_type attributes
--- ==> why need pid?
---     why not name?  it's already ID dependency
---     you are saying someone owns two different pets with the same name?
---
--- 7)Each Requirement can be identified by their rid and has a description attribute
--- ==> why need rid?
---     would a single pet has two descriptions that are supposed to be same but has to be differentiated by rid?
---
--- 10)Each Care Takerâ€™s Availability slot can be identified by their Days of Week, Pet Type and Advertised Price
--- ==> day of week? monday to sunday?
---     so can only have 7 different one?  why?
-
---
--- 14)Each Leave can be identified by their lid and has start_date, end_date attributes
--- ==> why need lid?
---     why not use ID dependency? =? REMOVED
-
--- Things to change in ER diagram
--- ==> subclass in ISA hierarchy should not connect to the corner
---     to ease the reading
--- change name in Pets to pet_name
--- underline pet_name in Pets
--- remove pid in pets
--- remove lid in leave
--- remove rid in requirements
--- remove days of weeks in availabilities
--- add the_date, start_time, and end_time for availabilities
--- add the-date to bid
--- change start_date to start_time for bid
--- change end_date to end_time for bid
 DROP TABLE IF EXISTS bids;
 DROP TABLE IF EXISTS availabilities;
 
