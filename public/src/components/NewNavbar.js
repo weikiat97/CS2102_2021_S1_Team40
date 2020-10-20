@@ -32,9 +32,6 @@ export default function NewNavbar() {
   const classes = useStyles();
   const authButton = user ? (
     <div>
-      <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
-        Become a Caretaker
-      </Button>
       <Button
         className={classes.auth}
         variant="contained"
@@ -45,9 +42,6 @@ export default function NewNavbar() {
     </div>
   ) : caretaker ? (
     <div>
-      <Button variant="contained" onClick={() => setCareTakerOpen(true)}>
-        Become a Caretaker
-      </Button>
       <Button
         className={classes.auth}
         variant="contained"

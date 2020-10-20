@@ -49,16 +49,16 @@ export default function Signup(props) {
     },
   });
   const signup = () => {
-    console.log(roles.selected);
+    //console.log(roles.selected);
     if (roles.selected.petowner && roles.selected.caretaker) {
-      console.log("Sign up for both petowner and caretaker");
+      //console.log("Sign up for both petowner and caretaker");
       dispatch(signupUser(username, password));
       dispatch(signupCareTaker(username, password));
     } else if (roles.selected.petowner) {
-      console.log("Sign up for petowner");
+      //console.log("Sign up for petowner");
       dispatch(signupUser(username, password));
     } else if (roles.selected.caretaker) {
-      console.log("Sign up for caretaker");
+      //console.log("Sign up for caretaker");
       dispatch(signupCareTaker(username, password));
     }
 
@@ -71,7 +71,6 @@ export default function Signup(props) {
     const value = !roles.selected[key];
     const newSelected = Object.assign(roles.selected, { [key]: value });
     setRoles({ selected: newSelected });
-    // console.log('this.state', roles.selected);
   };
 
   const getBsStyle = (key) => {
@@ -96,6 +95,7 @@ export default function Signup(props) {
             <Typography component="h1" variant="h5">
               Sign Up
             </Typography>
+
             <div className={classes.form}>
               <ButtonGroup fullWidth variant="outlined" bsStyle="default">
                 <Button

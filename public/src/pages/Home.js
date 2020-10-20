@@ -11,7 +11,8 @@ export default function Home() {
       <div>
         <h1>
           Welcome {user.username}. You are registered as both a petowner and a
-          caretaker.
+          caretaker. Would you like to be a parttime caretaker or fulltime
+          caretaker?
         </h1>
       </div>
     );
@@ -25,7 +26,8 @@ export default function Home() {
     return (
       <div>
         <h1>
-          Welcome {caretaker.username}. You are registered as a caretaker.
+          Welcome {caretaker.username}. You are registered as a caretaker. Would
+          you like to be a parttime caretaker or fulltime caretaker?
         </h1>
       </div>
     );
