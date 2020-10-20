@@ -4,21 +4,21 @@ import { loadState, removeState, saveState } from "../localStorage";
 import { setUser } from "./userSlice";
 import { getUserFromDb } from "./userSlice";
 
-const CARETAKER_STATE_KEY = "caretaker";
-const persistedCareTaker = loadState(CARETAKER_STATE_KEY);
+const PETOWNER_STATE_KEY = "petowner";
+const persistedPetOwner = loadState(PETOWNER_STATE_KEY);
 
-export const careTakerSlice = createSlice({
-  name: "caretaker",
-  initialState: persistedCareTaker,
+export const petOwnerSlice = createSlice({
+  name: "petowner",
+  initialState: persistedPetOwner,
   reducers: {
-    setCareTaker: (state, action) => action.payload,
+    setPetOwner: (state, action) => action.payload,
   },
 });
 
-export const { setCareTaker } = careTakerSlice.actions;
+export const { setPetOwner } = petOwnerSlice.actions;
 
-export const getCareTakerFromDb = (username, password) => (dispatch) => {
-  fetch(`${API_HOST}/caretakers/${username}`, {
+export const getPetOwnerFromDb = (username, password) => (dispatch) => {
+  fetch(`${API_HOST}/petowners/${username}`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -28,8 +28,8 @@ export const getCareTakerFromDb = (username, password) => (dispatch) => {
     .then((response) => response.json())
     .then((result) => {
       if (result.status === "success") {
-        saveState(CARETAKER_STATE_KEY, result.data);
-        dispatch(setCareTaker(result.data));
+        saveState(PETOWNER_STATE_KEY, result.data);
+        dispatch(setUser(result.data));
       } else {
         throw new Error(result.message);
       }
@@ -37,13 +37,13 @@ export const getCareTakerFromDb = (username, password) => (dispatch) => {
     .catch((err) => alert(err));
 };
 
-export const signoutCareTaker = () => (dispatch) => {
+export const signoutPetOwner = () => (dispatch) => {
   removeState("user");
   dispatch(setUser(null));
 };
 
-export const signupCareTaker = (username, password, role) => (dispatch) => {
-  fetch(`${API_HOST}/caretakers`, {
+export const signupPetOwner = (username, password, role) => (dispatch) => {
+  fetch(`${API_HOST}/petowners`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -66,6 +66,6 @@ export const signupCareTaker = (username, password, role) => (dispatch) => {
     .catch((err) => alert(err));
 };
 
-export const selectCareTaker = (state) => state.caretaker;
+export const selectPetOwner = (state) => state.petowner;
 
-export default careTakerSlice.reducer;
+export default petOwnerSlice.reducer;

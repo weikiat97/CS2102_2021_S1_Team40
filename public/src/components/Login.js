@@ -44,7 +44,7 @@ export default function Login(props) {
 
   const classes = useStyles();
   const login = () => {
-    if (username != "" && password != "") {
+    if (username !== "" && password !== "") {
       dispatch(getUserFromDb(username, password));
       onClose();
     }

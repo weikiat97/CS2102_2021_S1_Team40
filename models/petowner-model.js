@@ -1,9 +1,9 @@
 const pool = require("../pools");
 
-class CareTaker {
+class PetOwner {
   constructor() {
     this.pool = pool;
-    this.table = "caretakers";
+    this.table = "petowners";
     this.pool.on(
       "error",
       (err, client) => `Error, ${err}, on idle client${client}`
@@ -16,9 +16,9 @@ class CareTaker {
     return results.rows;
   }
 
-  async getSingleCareTaker(username, password) {
-    let query = `SELECT c.username FROM caretakers c
-        WHERE c.username == username;`;
+  async getSinglePetOwner(username, password) {
+    let query = `SELECT p.username FROM petowners p
+        WHERE p.username == username;`;
     const results = await this.pool.query(query);
     if (results.rows.length === 0) {
       return null;
@@ -29,7 +29,7 @@ class CareTaker {
     }
   }
 
-  async addNewCareTaker(username, password, role) {
+  async addNewPetOwner(username, password, role) {
     let query = `INSERT INTO ${this.table}
                         VALUES ('${username}', '${password}')
                         RETURNING username;`;
@@ -45,4 +45,4 @@ class CareTaker {
   }
 }
 
-module.exports = new CareTaker();
+module.exports = new PetOwner();

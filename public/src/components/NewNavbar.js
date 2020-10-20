@@ -35,17 +35,7 @@ export default function NewNavbar() {
       <Button
         className={classes.auth}
         variant="contained"
-        onClick={() => dispatch(signoutUser()) && dispatch(signoutCareTaker())}
-      >
-        Logout
-      </Button>
-    </div>
-  ) : caretaker ? (
-    <div>
-      <Button
-        className={classes.auth}
-        variant="contained"
-        onClick={() => dispatch(signoutCareTaker())}
+        onClick={() => dispatch(signoutUser())}
       >
         Logout
       </Button>

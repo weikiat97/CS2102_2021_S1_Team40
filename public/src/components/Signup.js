@@ -13,8 +13,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { signupUser } from "../redux/slices/userSlice";
+import { signupPetOwner } from "../redux/slices/petOwnerSlice";
 import { signupCareTaker } from "../redux/slices/careTakerSlice";
 import { useDispatch } from "react-redux";
+import { getUserFromDb } from "../redux/slices/userSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,22 +53,24 @@ export default function Signup(props) {
   const signup = () => {
     //console.log(roles.selected);
     if (
-      username != "" &&
-      password != "" &&
+      username !== "" &&
+      password !== "" &&
       (roles.selected.caretaker || roles.selected.petowner)
     ) {
-      if (roles.selected.petowner && roles.selected.caretaker) {
-        //console.log("Sign up for both petowner and caretaker");
-        dispatch(signupUser(username, password));
-        dispatch(signupCareTaker(username, password));
-      } else if (roles.selected.petowner) {
-        //console.log("Sign up for petowner");
-        dispatch(signupUser(username, password));
+      if (roles.selected.caretaker && roles.selected.petowner) {
+        dispatch(
+          signupCareTaker(username, password, ["caretaker", "petowner"])
+        );
+        dispatch(signupPetOwner(username, password, ["caretaker", "petowner"]));
       } else if (roles.selected.caretaker) {
         //console.log("Sign up for caretaker");
-        dispatch(signupCareTaker(username, password));
-      }
 
+        dispatch(signupCareTaker(username, password, ["caretaker"]));
+      } else if (roles.selected.petowner) {
+        //console.log("Sign up for petowner");
+
+        dispatch(signupPetOwner(username, password, ["petowner"]));
+      }
       onClose();
     }
   };
