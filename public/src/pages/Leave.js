@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
 import { selectCareTaker } from "../redux/slices/careTakerSlice";
 import LeaveRetrieval from "../components/LeaveRetrieval";
+import Container from "@material-ui/core/Container";
 
 export default function Leave() {
   const user = useSelector(selectUser);
@@ -10,18 +11,18 @@ export default function Leave() {
   console.log(caretaker);
   if (caretaker) {
     return (
-      <div>
+      <Container>
         <h1>THESE ARE YOUR LEAVES</h1>
         <LeaveRetrieval />
-      </div>
+      </Container>
     );
   } else {
     return (
-      <div>
+      <Container>
         <h1>
           Please Login LEAVE PAGE. Create an account with us if you haven't!
         </h1>
-      </div>
+      </Container>
     );
   }
 }
