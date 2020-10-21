@@ -8,6 +8,8 @@ router
   .get(caretaker_controller.index)
   .post(caretaker_controller.new);
 
-router.route("/:username").post(caretaker_controller.view);
+router.route("/:username")
+  .get(caretaker_controller.profileInfo)
+  .post(caretaker_controller.view);
 
 module.exports = router;

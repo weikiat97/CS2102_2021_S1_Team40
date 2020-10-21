@@ -48,6 +48,75 @@ class CareTaker {
       };
     }
   }
+
+  async getProfileInfo(username) {
+    let query = `SELECT info.job_type, info.pet_days, CASE
+                                            WHEN job_type = 'Full Time' THEN
+                                                CASE WHEN pet_days > 60 THEN 3000 + excess_price
+                                                ELSE 3000
+                                                END
+                                            WHEN job_type = 'Part Time' THEN 0.75 * total_price
+                                            END AS salary
+                    FROM (
+                      SELECT * FROM (
+                          SELECT CASE 
+                            WHEN '${username}' IN (SELECT * FROM fulltime_caretakers) THEN 'Full Time'
+                            WHEN '${username}' IN (SELECT * FROM parttime_caretakers) THEN 'Part Time'
+                            END AS job_type
+                      ) AS jt, (
+                          SELECT sum(b1.end_date - b1.start_date) AS pet_days, sum(b1.price) AS total_price, CASE
+                                                                                                        WHEN sum(b1.end_date - b1.start_date) > 60 THEN (
+                                                                                                            SELECT sum(b2.price) FROM bids AS b2
+                                                                                                            WHERE b2.caretaker_username = '${username}' 
+                                                                                                              AND b2.start_date >= date_trunc('month', CURRENT_DATE) + INTERVAL '60 days'
+                                                                                                              AND b2.end_date < NOW()
+                                                                                                              AND b2.isSuccessful
+                                                                                                        )
+                                                                                                        ELSE 0
+                                                                                                    END AS excess_price
+                          FROM bids AS b1
+                          WHERE b1.caretaker_username = '${username}' 
+                          AND b1.start_date >= date_trunc('month', CURRENT_DATE)
+                          AND b1.end_date < CURRENT_DATE
+                          AND b1.isSuccessful
+                      ) AS oi
+                 ) AS info`;
+    const results = await this.pool.query(query);
+    let reviews_query = `SELECT petowner_username, pet_name, review, rating 
+                            FROM bids 
+                            WHERE isSuccessful 
+                            AND end_date < CURRENT_DATE
+                            AND caretaker_username = '${username}'`;
+    const reviews_results = await this.pool.query(reviews_query);
+    let ongoing_query = `SELECT petowner_username, pet_name, start_date, end_date, price, transfer_method
+                            FROM bids
+                            WHERE isSuccessful
+                            AND start_date <= CURRENT_DATE
+                            AND end_date >= CURRENT_DATE
+                            AND caretaker_username = '${username}'`;
+    const ongoing_results = await this.pool.query(ongoing_query);
+    let past_query = `SELECT petowner_username, pet_name, start_date, end_date, price, transfer_method
+                            FROM bids
+                            WHERE isSuccessful
+                            AND end_date < CURRENT_DATE
+                            AND caretaker_username = '${username}'`;
+    const past_results = await this.pool.query(past_query);
+    let avail_query = `SELECT start_date, end_date FROM availabilities 
+                            WHERE username = '${username}' 
+                            AND start_date >= CURRENT_DATE`;
+    const avail_results = await this.pool.query(avail_query);
+    if (results.rows.length === 0) {
+      return null;
+    } else {
+      return {
+        ...results.rows[0],
+        reviews: reviews_results.rows,
+        ongoing: ongoing_results.rows,
+        past: past_results.rows,
+        availability: avail_results.rows,
+      };
+    }
+  }
 }
 
 module.exports = new CareTaker();
