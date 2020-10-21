@@ -1,9 +1,9 @@
 const pool = require("../pools");
 
-class User {
+class CareTaker {
   constructor() {
     this.pool = pool;
-    this.table = "petowners"; //default to petowners
+    this.table = "caretakers";
     this.pool.on(
       "error",
       (err, client) => `Error, ${err}, on idle client${client}`
@@ -16,11 +16,8 @@ class User {
     return results.rows;
   }
 
-  async getSingleUser(username, password) {
-    let query = `SELECT u.username, t.type FROM (
-        SELECT username, 'admin' AS type FROM admins
-        UNION
-        SELECT username, 'caretaker' AS type FROM caretakers
+  async getSingleCareTaker(username, password) {
+    let query = `SELECT u.username, t.type FROM caretakers
         UNION
         SELECT username, 'petowner' AS type FROM petowners
     ) AS t JOIN ${this.table} u 
@@ -38,7 +35,7 @@ class User {
     }
   }
 
-  async addNewUser(username, password) {
+  async addNewCareTaker(username, password) {
     let query = `INSERT INTO ${this.table}
                         VALUES ('${username}', '${password}')
                         RETURNING username;`;
@@ -51,4 +48,4 @@ class User {
   }
 }
 
-module.exports = new User();
+module.exports = new CareTaker();

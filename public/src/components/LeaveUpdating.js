@@ -30,7 +30,13 @@ export default function LeaveUpdating(props) {
   const classes = useStyles();
   const update = () => {
     dispatch(
-      updateLeave(user.username, old_start_date, old_end_date, new_start_date, new_end_date)
+      updateLeave(
+        user.username,
+        old_start_date,
+        old_end_date,
+        new_start_date,
+        new_end_date
+      )
     );
     onClose();
   };

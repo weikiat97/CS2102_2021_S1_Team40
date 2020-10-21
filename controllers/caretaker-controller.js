@@ -1,12 +1,12 @@
-let user_model = require("../models/user-model");
+let caretaker_model = require("../models/caretaker-model");
 // Handle index actions
 exports.index = async function (req, res) {
   try {
-    const users = await user_model.get();
+    const caretakers = await caretaker_model.get();
     res.json({
       status: "success",
-      message: "Users retrieved successfully",
-      data: users,
+      message: "Caretakers retrieved successfully",
+      data: caretakers,
     });
   } catch (err) {
     res.json({
@@ -19,15 +19,15 @@ exports.index = async function (req, res) {
 // Handle view user info
 exports.view = async function (req, res) {
   try {
-    const user = await user_model.getSingleUser(
+    const caretaker = await caretaker_model.getSingleCareTaker(
       req.params.username,
       req.body.password
     );
-    if (user) {
+    if (caretaker) {
       res.status(200).json({
         status: "success",
         message: "Login successful",
-        data: user,
+        data: caretaker,
       });
     } else {
       res.status(404).json({
@@ -46,26 +46,29 @@ exports.view = async function (req, res) {
 // Handle create user actions
 exports.new = async function (req, res) {
   try {
-    const user = await user_model.addNewUser(
+    console.log("got come here?");
+    console.log("user: " + req.body.username);
+    console.log("user: " + req.body.password);
+    const caretaker = await caretaker_model.addNewCareTaker(
       req.body.username,
       req.body.password
     );
-    if (user) {
+    if (caretaker) {
       res.status(200).json({
         status: "success",
-        message: "Signup successful",
-        data: user,
+        message: "Signup as a caretaker successful",
+        data: caretaker,
       });
     } else {
       res.status(500).json({
         status: "failure",
-        message: "Signup failed",
+        message: "Signup as a caretaker failed",
       });
     }
-    await user_model.addNewUser(req.body.username, req.body.password);
+    await caretaker_model.addNewCareTaker(req.body.username, req.body.password);
     res.status(200).json({
       status: "success",
-      message: "Signup successful",
+      message: "Signup as caretaker successful",
     });
   } catch (err) {
     res.status(500).json({

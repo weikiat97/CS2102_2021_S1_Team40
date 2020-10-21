@@ -1,18 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../redux/slices/userSlice";
 import { selectCareTaker } from "../redux/slices/careTakerSlice";
-import LeaveRetrieval from "../components/LeaveRetrieval";
+import { selectUser } from "../redux/slices/userSlice";
+import BidsRetrieval from "../components/BidRetrieval";
 
-export default function Leave() {
-  const user = useSelector(selectUser);
+export default function CurrentBids() {
   const caretaker = useSelector(selectCareTaker);
-  console.log(caretaker);
+//   console.log(caretaker);
   if (caretaker) {
     return (
       <div>
-        <h1>THESE ARE YOUR LEAVES</h1>
-        <LeaveRetrieval />
+        <h1>THESE ARE THE CURRENT BIDS FOR YOU</h1>
+        <BidsRetrieval />
       </div>
     );
   } else {
