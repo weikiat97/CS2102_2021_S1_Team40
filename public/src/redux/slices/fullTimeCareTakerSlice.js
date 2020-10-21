@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
 import { loadState, saveState } from "../localStorage";
-import { setCareTaker } from "./careTakerSlice";
+import { setCareTaker, getCareTakerBasicInfo } from "./careTakerSlice";
 
 const FTCARETAKER_STATE_KEY = "ftcaretaker";
 const persistedFTCareTaker = loadState(FTCARETAKER_STATE_KEY);
@@ -48,6 +48,7 @@ export const signupFTCareTaker = (username) => (dispatch) => {
     .then((response) => response.json())
     .then((result) => {
       if (result.status === "success") {
+        dispatch(getCareTakerBasicInfo(username));
         saveState("caretaker", result.data);
         dispatch(setCareTaker(result.data));
       } else {
