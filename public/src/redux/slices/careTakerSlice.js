@@ -11,7 +11,9 @@ export const careTakerSlice = createSlice({
   initialState: persistedCareTaker,
   reducers: {
     setCareTaker: (state, action) => action.payload,
-    setBasicInfo: (state, action) => {return {...state, ...action.payload}}
+    setBasicInfo: (state, action) => {
+      return { ...state, ...action.payload };
+    },
   },
 });
 
@@ -71,18 +73,18 @@ export const getCareTakerBasicInfo = (username) => (dispatch) => {
     headers: {
       "Content-Type": "application/json",
       method: "GET",
-    }
+    },
   })
-    .then(response => response.json())
-    .then(result => {
+    .then((response) => response.json())
+    .then((result) => {
       if (result.status === "success") {
         dispatch(setBasicInfo(result.data));
       } else {
         throw new Error(result.message);
       }
     })
-    .catch(err => alert(err));
-}
+    .catch((err) => alert(err));
+};
 
 export const selectCareTaker = (state) => state.caretaker;
 

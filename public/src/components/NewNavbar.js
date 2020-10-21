@@ -28,12 +28,23 @@ export default function NewNavbar() {
   const classes = useStyles();
   const authButton = user ? (
     <div>
-      {user.type.includes('admin') ? <Button component={Link} to="/admin">Admin Profile</Button> : null}
-      {user.type.includes('petowner') ? <Button>Petowner Profile</Button> : null}
-      {user.type.includes('caretaker') ? <Button component={Link} to="/caretaker">Caretaker Profile</Button> :
+      {user.type.includes("admin") ? (
+        <Button component={Link} to="/admin">
+          Admin Profile
+        </Button>
+      ) : null}
+      {user.type.includes("petowner") ? (
+        <Button>Petowner Profile</Button>
+      ) : null}
+      {user.type.includes("caretaker") ? (
+        <Button component={Link} to="/caretaker">
+          Caretaker Profile
+        </Button>
+      ) : (
         <Button onClick={() => setCareTakerOpen(true)}>
           Become a Caretaker
-        </Button>}
+        </Button>
+      )}
       <Button
         className={classes.auth}
         variant="contained"

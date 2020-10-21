@@ -10,10 +10,10 @@ import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { selectUser } from "../redux/slices/userSlice";
 import { signupPetOwner } from "../redux/slices/petOwnerSlice";
 import { signupCareTaker } from "../redux/slices/careTakerSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CareTakerSignUp from "./CareTakerSignUp";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ export default function Signup(props) {
       petowner: false,
     },
   });
-
+  const user = useSelector(selectUser);
   const signup = () => {
     //console.log(roles.selected);
 
@@ -74,6 +74,7 @@ export default function Signup(props) {
 
         dispatch(signupPetOwner(username, password, ["petowner"]));
       }
+
       onClose();
     }
   };

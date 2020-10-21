@@ -51,7 +51,7 @@ export default function CareTakerSignUp(props) {
     const value = true;
     const newSelected = Object.assign(roles.selected, { [key]: value });
     setRoles({ selected: newSelected });
-
+    console.log(user);
     if (key === "parttime") {
       console.log("signing up for parttime caretaker");
       dispatch(signupPTCareTaker(user.username));

@@ -42,6 +42,7 @@ export const signoutUser = () => (dispatch) => {
   dispatch(signoutCareTaker());
   dispatch(setCareTaker(null));
   removeState(USER_STATE_KEY);
+  removeState("caretaker");
   dispatch(setUser(null));
 };
 

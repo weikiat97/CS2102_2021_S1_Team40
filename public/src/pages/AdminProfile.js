@@ -16,5 +16,5 @@ export default function AdminProfile() {
     <Container>
       <h1>You are not an admin!</h1>
     </Container>
-  )
+  );
 }

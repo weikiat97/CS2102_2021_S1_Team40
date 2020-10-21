@@ -9,13 +9,14 @@ export default function Home() {
   if (user) {
     // console.log(user.username);
     // console.log(user.type);
-    // console.log(user);
+    console.log(user);
     console.log(caretaker);
     if (caretaker) {
       return (
         <div>
           <h1>
-            Welcome {user.username}. You are a {user.type}. You are a {caretaker.type} caretaker.
+            Welcome {user.username}. You are a {user.type}. You are a{" "}
+            {caretaker.type} caretaker.
           </h1>
         </div>
       );
