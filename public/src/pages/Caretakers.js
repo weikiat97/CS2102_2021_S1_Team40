@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { API_HOST } from "../consts";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,9 +12,31 @@ import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import Bid from "../components/Bid";
 
-
 export default function Caretakers() {
     const [bid_page_open, setBidPageOpen] = useState(false);
+    const [caretakers, setCaretakers] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            await fetch(`${API_HOST}/users/find-caretaker`, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "GET",
+            })
+                .then((response) => response.json())
+                .then(async (result) => {
+                    if (result.status === "success") {
+                        await setCaretakers(result.data);
+                    } else {
+                        console.log("No Caretakers found");
+                    }
+                })
+                .catch((err) => alert(err));
+        }
+        fetchData();
+    }, []);
+
     return (
         <div>
             <h1>List of Caretakers that match your criteria</h1>
@@ -23,23 +46,37 @@ export default function Caretakers() {
                         <TableRow>
                             <TableCell align='center'>Name</TableCell>
                             <TableCell align='center'>Daily Price</TableCell>
-                            <TableCell align='center'>Available times</TableCell>
+                            <TableCell align='center'>Available Start Date</TableCell>
+                            <TableCell align='center'>Available End Date</TableCell>
                             <TableCell align='center'>Bid?</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableCell align='center'>Person</TableCell>
-                        <TableCell align='center'>Cat:$30, Dog:$40</TableCell>
-                        <TableCell align='center'>1/1/20 - 1/6/20</TableCell>
-                        <TableCell align='center'>
-                            <Button variant="contained" onClick={() => setBidPageOpen(true)}>
-                                Bid
-                            </Button>
-                        </TableCell>
+                        {caretakers.map((caretaker, i) => (
+                            <TableRow key={i}>
+                                <TableCell align="center">
+                                    {caretaker["username"]}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {caretaker["price"]}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {caretaker["start_date"]}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {caretaker["end_date"]}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    <Button variant="contained" onClick={() => setBidPageOpen(true)}>
+                                        Bid
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Bid open={bid_page_open} onClose={() => setBidPageOpen(false)} /> 
+            <Bid open={bid_page_open} onClose={() => setBidPageOpen(false)} />
         </div>
     );
 }

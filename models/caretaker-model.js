@@ -11,7 +11,7 @@ class Caretaker {
     }
 
     async getRequiredCaretakers(maximum_price, pet_type, start_date, end_date) {
-        let query = `SELECT username 
+        let query = `SELECT username, price, start_date, end_date
                     FROM ${availabilities}
                     WHERE start_date >= ${start_date} AND end_date <= ${end_date}
                     INTERSECT
@@ -19,19 +19,21 @@ class Caretaker {
                     FROM    ${availabilities}
                     WHERE   price <= ${maximum_price} AND pet_type = ${pet_type}
                     INTERSECT
-                    (SELECT username
+                    (SELECT username, price, start_date, end_date
                     FROM ${availabilities}
                     EXCEPT
-                    SELECT  b1.username
-                    FROM    bid b1
-                    HAVING isSuccessful
-                        AND CASE
-                                WHEN b1.username IN (SELECT * FROM fulltime_caretakers)
-                                    THEN count(b1.username) >= 5
-                                ELSE CASE
-                                        WHEN (SELECT avg(review) FROM bid b2 WHERE b2.username = b1.username) >= 4
-                                            THEN count(b1.username) >= 5
-                                        ELSE count(b1.username >= 2))`;
+                    SELECT  A.username, A.price, A.start_date, A.end_date
+                    FROM    ${availabilities} A, (SELECT  b1.username
+                                                FROM    bid b1
+                                                HAVING isSuccessful
+                                                    AND CASE
+                                                            WHEN b1.username IN (SELECT * FROM fulltime_caretakers)
+                                                            THEN count(b1.username) >= 5
+                                                    ELSE CASE
+                                                            WHEN (SELECT avg(review) FROM bid b2 WHERE b2.username = b1.username) >= 4
+                                                            THEN count(b1.username) >= 5
+                                                        ELSE count(b1.username >= 2)) B
+                    WHERE   A.username = B.username`;
         const results = await this.pool.query(query);
         if (results.rows.length === 0) {
             return null;

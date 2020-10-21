@@ -30,7 +30,6 @@ export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => 
     .then((response) => response.json())
     .then((result) => {
       if (result.status === "success") {
-        saveState(CARETAKER_STATE_KEY, result.data);
         dispatch(setCareTaker(result.data));
       } else {
         throw new Error(result.message);
