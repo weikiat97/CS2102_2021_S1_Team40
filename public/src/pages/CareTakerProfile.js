@@ -40,6 +40,7 @@ export default function CareTakerProfile() {
       dispatch(getCareTakerBasicInfo(user.username));
     }
   }, []);
+  console.log(caretakerInfo);
   const classes = useStyles();
   const monthArray = [
     "Jan",
@@ -120,7 +121,7 @@ export default function CareTakerProfile() {
                 </TableHead>
                 <TableBody>
                   {caretakerInfo &&
-                    caretakerInfo["availability"].map((row, i) => (
+                    caretakerInfo["availability"] && caretakerInfo["availability"].map((row, i) => (
                       <TableRow key={i}>
                         <TableCell>{row["start_date"]}</TableCell>
                         <TableCell>{row["end_date"]}</TableCell>
@@ -151,7 +152,7 @@ export default function CareTakerProfile() {
               </TableHead>
               <TableBody>
                 {caretakerInfo &&
-                  caretakerInfo["reviews"].map((row, i) => (
+                  caretakerInfo["reviews"] && caretakerInfo["reviews"].map((row, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
                         {row["petowner_username"]}
@@ -187,7 +188,7 @@ export default function CareTakerProfile() {
               </TableHead>
               <TableBody>
                 {caretakerInfo &&
-                  caretakerInfo["ongoing"].map((row, i) => (
+                  caretakerInfo["ongoing"] && caretakerInfo["ongoing"].map((row, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
                         {row["petowner_username"]}
@@ -225,7 +226,7 @@ export default function CareTakerProfile() {
               </TableHead>
               <TableBody>
                 {caretakerInfo &&
-                  caretakerInfo["past"].map((row, i) => (
+                  caretakerInfo["past"] && caretakerInfo["past"].map((row, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
                         {row["petowner_username"]}
