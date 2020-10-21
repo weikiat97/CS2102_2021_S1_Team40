@@ -4,7 +4,7 @@ import { loadState, saveState } from "../localStorage";
 
 const BID_STATE_KEY = "bids";
 
-// const persistedBid = loadState(BID_STATE_KEY);
+const persistedBid = loadState(BID_STATE_KEY);
 
 export const bidSlice = createSlice({
   name: "bids",
@@ -14,7 +14,7 @@ export const bidSlice = createSlice({
   },
 });
 
-export const { setBid } = leaveSlice.actions;
+export const { setBid } = bidSlice.actions;
 
 export const getBids = (username) =>
   fetch(`${API_HOST}/caretakers/bids/${username}`, {
@@ -27,7 +27,7 @@ export const getBids = (username) =>
     .then((response) => response.json())
     .then((result) => {
       if (result.status === "success") {
-        saveState(BIDSTATE_KEY, result.data);
+        saveState(BID_STATE_KEY, result.data);
         setBid(result.data);
       } else {
         console.log("No bids found!");

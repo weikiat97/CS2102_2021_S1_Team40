@@ -11,7 +11,8 @@ class Bid {
   }
 
   async getUserBids(username) {
-    let query = `SELECT (petowner_username, pet_name, start_date, end_date, pet_type, price, transfer_method) FROM ${this.table}
+    console.log("heregirl");
+    let query = `SELECT (petowner_username, pet_name, start_date, end_date, price, transfer_method) FROM ${this.table}
                     WHERE caretaker_username='${username}'
                     ORDER BY start_date ASC`;
     const results = await this.pool.query(query);

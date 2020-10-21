@@ -8,7 +8,7 @@ export default function Home() {
   const caretaker = useSelector(selectCareTaker);
   console.log("user: " + user);
   console.log('caretaker: ' + caretaker);
-  if (user && caretaker) {
+  if (user && user.type.includes("caretaker")) {
     return (
       <div>
         <h1>
@@ -24,15 +24,15 @@ export default function Home() {
         <h1>Welcome {user.username}. You are registered as a petowner.</h1>
       </div>
     );
-  } else if (caretaker) {
-    return (
-      <div>
-        <h1>
-          Welcome {caretaker.username}. You are registered as a caretaker. Would
-          you like to be a parttime caretaker or fulltime caretaker?
-        </h1>
-      </div>
-    );
+  // } else if (caretaker) {
+  //   return (
+  //     <div>
+  //       <h1>
+  //         Welcome {caretaker.username}. You are registered as a caretaker. Would
+  //         you like to be a parttime caretaker or fulltime caretaker?
+  //       </h1>
+  //     </div>
+  //   );
   } else {
     return (
       <div>

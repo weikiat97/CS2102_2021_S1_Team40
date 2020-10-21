@@ -3,12 +3,11 @@ import { API_HOST } from "../consts";
 import Button from "@material-ui/core/Button";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import { selectCareTaker } from "../redux/slices/careTakerSlice";
-import LeaveApplication from "./LeaveApplication";
-import LeaveDeletion from "./LeaveDeletion";
-import LeaveUpdating from "./LeaveUpdating";
+import { selectUser } from "../redux/slices/userSlice";
+import BidAccept from "./BidAccept";
+import BidDecline from "./BidDecline";
 
-import Table from "@material-uis/core/Table";
+import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -28,7 +27,7 @@ export default function BidRetrieval(props) {
   const [acceptOpen, setAcceptOpen] = useState(false);
   const [declineOpen, setDeclineOpen] = useState(false);
   // const [deleteOpen, setLeaveDeletionOpen] = useState(false);
-  const [data, setData] = useState("");
+  const [bidsData, setData] = useState("");
   // const [deleteLeave, setDeleteLeave] = useState("");
 
   const classes = useStyles();
@@ -69,7 +68,6 @@ export default function BidRetrieval(props) {
           <TableHead>
             <TableRow>
               <TableCell align="right">Pet Owner Username</TableCell>
-              <TableCell align="right">Pet Owner Rating</TableCell>
               <TableCell align="right">Start Date</TableCell>
               <TableCell align="right">End Date</TableCell>
               <TableCell align="right">Price</TableCell>
@@ -77,32 +75,29 @@ export default function BidRetrieval(props) {
               <TableCell align="right">Transfer Method</TableCell>
               <TableCell align="right">Remarks</TableCell>
               <TableCell align="right">Accept</TableCell>
-              <TableCell align="right">Delete</TableCell>
+              <TableCell align="right">Decline</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {bids.map((bid, i) => (
               <TableRow key={i}>
                 <TableCell align="right">
-                  {leave.row.substring(1, 11)}
+                  {bid.row.split(",")[0].split("(")[1]}
                 </TableCell>
                 <TableCell align="right">
-                  {leave.row.substring(12, 22)}
+                  {bid.row.split(",")[2]}
                 </TableCell>
                 <TableCell align="right">
-                  Start
+                  {bid.row.split(",")[3]}
                 </TableCell>
                 <TableCell align="right">
-                  End
-                </TableCell>
-                <TableCell align="right">
-                  $$
+                  {bid.row.split(",")[4]}
                 </TableCell>
                 <TableCell align="right">
                   Type
                 </TableCell>
                 <TableCell align="right">
-                  Transfer
+                  {bid.row.split(",")[5].split(")")[0]}
                 </TableCell>
                 <TableCell align="right">
                   Remarks
@@ -126,7 +121,7 @@ export default function BidRetrieval(props) {
                       setDeclineOpen(true);
                     }}
                   >
-                    Delete Leave
+                    Decline Bid
                   </Button>
                 </TableCell>
               </TableRow>
@@ -134,20 +129,19 @@ export default function BidRetrieval(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      {applyButton}
-      <AcceptBid
+      <BidAccept
         open={acceptOpen}
         onClose={() => setAcceptOpen(false)}
-        data={updateDate}
+        date={bidsData}
       />
       {/* <LeaveApplication
         open={applyOpen}
         onClose={() => setLeaveApplicationOpen(false)}
       /> */}
-      <LeaveDeletion
-        open={deleteOpen}
-        onClose={() => setDeleteOpen(false)}
-        data={updateData}
+      <BidDecline
+        open={declineOpen}
+        onClose={() => setDeclineOpen(false)}
+        data={bidsData}
       />
     </>
   );

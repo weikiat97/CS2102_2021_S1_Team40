@@ -47,6 +47,7 @@ export default function LeaveRetrieval(props) {
             await setLeaves(result.data);
           } else {
             console.log("No leaves found");
+            await setLeaves(null);
           }
         })
         .catch((err) => alert(err));
@@ -70,7 +71,8 @@ export default function LeaveRetrieval(props) {
     return count;
   }
 
-  return (
+  if (leaves != null) {
+    return (
     <>
       <h2>Number of leaves used: {calculateLeaves()}</h2>
       <TableContainer component={Paper}>
@@ -139,5 +141,40 @@ export default function LeaveRetrieval(props) {
         data={deleteLeave}
       />
     </>
-  );
+    );
+  } else {
+    return (
+      <>
+        <h2>Number of leaves used: 0</h2>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Start</TableCell>
+                <TableCell align="right">End</TableCell>
+                <TableCell align="right">Number Of Days</TableCell>
+                <TableCell align="right">Update Leave</TableCell>
+                <TableCell align="right">Delete Leave</TableCell>
+              </TableRow>
+            </TableHead>
+          </Table>
+        </TableContainer>
+        {applyButton}
+        <LeaveUpdating
+          open={updateOpen}
+          onClose={() => setLeaveUpdatingOpen(false)}
+          data={updateDate}
+        />
+        <LeaveApplication
+          open={applyOpen}
+          onClose={() => setLeaveApplicationOpen(false)}
+        />
+        <LeaveDeletion
+          open={deleteOpen}
+          onClose={() => setLeaveDeletionOpen(false)}
+          data={deleteLeave}
+        />
+      </>
+      );
+  }
 }

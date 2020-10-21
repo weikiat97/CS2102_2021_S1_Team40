@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectCareTaker } from "../redux/slices/careTakerSlice";
 import { selectUser } from "../redux/slices/userSlice";
 import BidsRetrieval from "../components/BidRetrieval";
 
 export default function CurrentBids() {
-  const caretaker = useSelector(selectCareTaker);
+  const user = useSelector(selectUser);
 //   console.log(caretaker);
-  if (caretaker) {
+  if (user && user.type.includes("caretaker")) {
     return (
       <div>
         <h1>THESE ARE THE CURRENT BIDS FOR YOU</h1>

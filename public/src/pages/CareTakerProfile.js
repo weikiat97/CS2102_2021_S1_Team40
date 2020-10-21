@@ -35,6 +35,7 @@ export default function CareTakerProfile() {
   useEffect(() => {if (user) {dispatch(getCareTakerBasicInfo(user.username))}}, []);
   const classes = useStyles();
   const monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  console.log(user);
   if (user && user.type.includes("caretaker")) {
     return (
       <Container>

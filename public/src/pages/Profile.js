@@ -2,40 +2,34 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
-<<<<<<< HEAD
 import { selectCareTaker } from "../redux/slices/careTakerSlice";
-=======
 import Container from "@material-ui/core/Container";
->>>>>>> upstream/master
 
 export default function Profile() {
   const user = useSelector(selectUser);
-  const caretaker = useSelector(selectCareTaker);
+  // const caretaker = useSelector(selectCareTaker);
+  // const caretakerInfo = useSelector(selectCareTaker);
   console.log(user);
-  if (caretaker) {
+  if (user && user.type.includes("fulltimecaretaker")) {
     return (
       <div>
         <h1>YOU ARE AT THE PROFILE PAGE</h1>
           <Link to="/profile/leaves">
             <button>Go to Leaves</button>
           </Link>
-          <Link to="/profile/currBids">
+          <Link to="/profile/currentBids">
             <button>Go to Current Bids</button>
           </Link>
       </div>
     );
-  } else if (user) {
+  } else if (user && user.type.includes("caretaker")) {
     return (
       <Container>
         <h1>YOU ARE AT THE PROFILE PAGE</h1>
-<<<<<<< HEAD
-      </div>
-=======
-        <Link to="/profile/leaves">
-          <button>Go to Leaves</button>
+        <Link to="/profile/currentBids">
+            <button>Go to Current Bids</button>
         </Link>
       </Container>
->>>>>>> upstream/master
     );
   } else {
     return (

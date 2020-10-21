@@ -16,6 +16,12 @@ DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS petowners;
 DROP TABLE IF EXISTS users;
 
+DROP FUNCTION IF EXISTS func_check_leaves_date_overlap_insert();
+DROP FUNCTION IF EXISTS func_check_leaves_date_overlap_update();
+
+DROP TRIGGER IF EXISTS tr_check_leaves_date_overlap_insert ON leaves_applied;
+DROP TRIGGER IF EXISTS tr_check_leaves_date_overlap_update ON leaves_applied;
+
 CREATE TABLE admins (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(256) NOT NULL

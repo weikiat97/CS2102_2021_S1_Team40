@@ -3,7 +3,7 @@ let bid_model = require("../models/bid-model");
 // Handle view bid info
 exports.view = async function (req, res) {
   try {
-    const get_user_bids = await leave_model.getUserBids(
+    const get_user_bids = await bid_model.getUserBids(
       req.params.username
     );
     if (get_user_bids) {

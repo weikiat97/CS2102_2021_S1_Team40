@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import Leave from "./pages/Leave";
 import CareTakerProfile from "./pages/CareTakerProfile";
 import AdminProfile from "./pages/AdminProfile";
+import CurrentBids from "./pages/CurrentBids";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route path="/caretaker">
           <CareTakerProfile/>
+        </Route>
+        <Route path="/profile/currentBids">
+          <CurrentBids />
         </Route>
         <Route path="/profile/leaves">
           <Leave />
