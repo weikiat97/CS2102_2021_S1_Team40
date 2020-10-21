@@ -70,7 +70,7 @@ export default function Login(props) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form}>
+            <div className={classes.form}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -103,7 +103,7 @@ export default function Login(props) {
               >
                 Login
               </Button>
-            </form>
+            </div>
           </div>
         </Container>
       </DialogContent>

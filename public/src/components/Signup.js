@@ -111,7 +111,7 @@ export default function Signup(props) {
                 Sign Up
               </Typography>
 
-              <form className={classes.form} Validate>
+              <div className={classes.form}>
                 <ButtonGroup fullWidth variant="outlined" bsStyle="default">
                   <Button
                     fullWidth
@@ -161,7 +161,7 @@ export default function Signup(props) {
                 >
                   Sign Up
                 </Button>
-              </form>
+              </div>
             </div>
           </Container>
         </DialogContent>
