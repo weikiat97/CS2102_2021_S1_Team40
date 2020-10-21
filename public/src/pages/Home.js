@@ -10,12 +10,16 @@ export default function Home() {
   console.log(user);
   console.log(caretaker);
   if (user !== null) {
-    if (user.type.includes("caretaker") && user.type.includes("petowner") && caretaker !== null) {
+    if (
+      user.type.includes("caretaker") &&
+      user.type.includes("petowner") &&
+      caretaker !== null
+    ) {
       return (
         <Container>
           <h1>
-            Welcome {user.username}. You are registered as both a petowner and a
-            {" "} {caretaker.type} caretaker.
+            Welcome {user.username}. You are registered as both a petowner and a{" "}
+            {caretaker.type} caretaker.
           </h1>
         </Container>
       );
@@ -29,7 +33,7 @@ export default function Home() {
       return (
         <Container>
           <h1>
-            Welcome {caretaker.username}. You are registered as a {" "}
+            Welcome {caretaker.username}. You are registered as a{" "}
             {caretaker.type} caretaker.
           </h1>
         </Container>

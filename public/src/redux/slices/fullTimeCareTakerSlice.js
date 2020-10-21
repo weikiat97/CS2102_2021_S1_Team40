@@ -21,8 +21,7 @@ export const getFTCareTakerFromDb = (username) => (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
-    method: "POST",
-    body: JSON.stringify({}),
+    method: "GET",
   })
     .then((response) => response.json())
     .then((result) => {
