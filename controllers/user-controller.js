@@ -42,35 +42,3 @@ exports.view = async function (req, res) {
     });
   }
 };
-
-// Handle create user actions
-exports.new = async function (req, res) {
-  try {
-    const user = await user_model.addNewUser(
-      req.body.username,
-      req.body.password
-    );
-    if (user) {
-      res.status(200).json({
-        status: "success",
-        message: "Signup successful",
-        data: user,
-      });
-    } else {
-      res.status(500).json({
-        status: "failure",
-        message: "Signup failed",
-      });
-    }
-    await user_model.addNewUser(req.body.username, req.body.password);
-    res.status(200).json({
-      status: "success",
-      message: "Signup successful",
-    });
-  } catch (err) {
-    res.status(500).json({
-      status: "error",
-      message: err.message,
-    });
-  }
-};

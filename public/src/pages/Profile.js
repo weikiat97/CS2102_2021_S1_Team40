@@ -7,10 +7,10 @@ import Container from "@material-ui/core/Container";
 
 export default function Profile() {
   const user = useSelector(selectUser);
-  // const caretaker = useSelector(selectCareTaker);
-  // const caretakerInfo = useSelector(selectCareTaker);
-  console.log(user);
-  if (user && user.type.includes("fulltimecaretaker")) {
+  const caretaker = useSelector(selectCareTaker);
+
+  console.log(caretaker);
+  if (user && user.type.includes("caretaker")) {
     return (
       <div>
         <h1>YOU ARE AT THE PROFILE PAGE</h1>

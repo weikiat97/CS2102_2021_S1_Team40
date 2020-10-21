@@ -11,31 +11,30 @@ class CareTaker {
   }
 
   async get() {
-    let query = `SELECT username FROM ${this.table}`;
+    let query = `SELECT username FROM ${this.table};`;
     const results = await this.pool.query(query);
     return results.rows;
   }
 
-  async getSingleCareTaker(username, password) {
-    let query = `SELECT u.username, t.type FROM caretakers
-        UNION
-        SELECT username, 'petowner' AS type FROM petowners
-    ) AS t JOIN ${this.table} u 
-        ON t.username = u.username 
-        AND u.username = '${username}'
-        AND password = '${password}'`;
-    const results = await this.pool.query(query);
-    if (results.rows.length === 0) {
+  async getSingleCareTaker(username) {
+    let query = `SELECT t.username, t.type FROM (
+      SELECT username, 'fulltime' AS type FROM fulltime_caretakers
+      UNION
+      SELECT username, 'parttime' AS type FROM parttime_caretakers
+  ) AS t WHERE t.username = '${username}'`;
+    const result = await this.pool.query(query);
+    console.log(result);
+    if (result.rows.length === 0) {
       return null;
     } else {
       return {
         username: username,
-        type: results.rows.map((r) => r.type),
+        type: result.rows.map((r) => r.type),
       };
     }
   }
 
-  async addNewCareTaker(username, password) {
+  async addNewCareTaker(username, password, role) {
     let query = `INSERT INTO ${this.table}
                         VALUES ('${username}', '${password}')
                         RETURNING username;`;
@@ -43,7 +42,10 @@ class CareTaker {
     if (results.rows.length !== 1) {
       return null;
     } else {
-      return results.rows[0];
+      return {
+        username: username,
+        type: role,
+      };
     }
   }
 

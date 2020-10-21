@@ -51,7 +51,8 @@ exports.new = async function (req, res) {
     console.log("user: " + req.body.password);
     const caretaker = await caretaker_model.addNewCareTaker(
       req.body.username,
-      req.body.password
+      req.body.password,
+      req.body.role
     );
     if (caretaker) {
       res.status(200).json({
@@ -65,7 +66,11 @@ exports.new = async function (req, res) {
         message: "Signup as a caretaker failed",
       });
     }
-    await caretaker_model.addNewCareTaker(req.body.username, req.body.password);
+    await caretaker_model.addNewCareTaker(
+      req.body.username,
+      req.body.password,
+      req.body.role
+    );
     res.status(200).json({
       status: "success",
       message: "Signup as caretaker successful",
@@ -99,4 +104,4 @@ exports.profileInfo = async function (req, res) {
       message: err.message,
     });
   }
-}
+};

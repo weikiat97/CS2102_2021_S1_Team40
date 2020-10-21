@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
-import {
-  selectCareTaker,
-  signoutCareTaker,
-} from "../redux/slices/careTakerSlice";
+import { selectCareTaker } from "../redux/slices/careTakerSlice";
+
 import Login from "./Login";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
@@ -32,12 +30,28 @@ export default function NewNavbar() {
   const classes = useStyles();
   const authButton = user ? (
     <div>
-      {user.type.includes('admin') ? <Button component={Link} to="/admin">Admin Profile</Button> : null}
-      {user.type.includes('petowner') ? <Button>Petowner Profile</Button> : null}
-      {user.type.includes('caretaker') ? <Button component={Link} to="/caretaker">Caretaker Profile</Button> :
+      {user.type.includes("caretaker") && caretaker.type.includes("fulltime") ? (
+        <Button component={Link} to="/profile/leaves">
+          Leaves
+        </Button>
+      ) : null}
+      {user.type.includes("admin") ? (
+        <Button component={Link} to="/admin">
+          Admin Profile
+        </Button>
+      ) : null}
+      {user.type.includes("petowner") ? (
+        <Button>Petowner Profile</Button>
+      ) : null}
+      {user.type.includes("caretaker") ? (
+        <Button component={Link} to="/caretaker">
+          Caretaker Profile
+        </Button>
+      ) : (
         <Button onClick={() => setCareTakerOpen(true)}>
           Become a Caretaker
-        </Button>}
+        </Button>
+      )}
       <Button
         className={classes.auth}
         variant="contained"
@@ -81,7 +95,9 @@ export default function NewNavbar() {
             <Nav.Link as={Link} to="/profile">
               Profile
             </Nav.Link>
-
+            <Nav.Link as={Link} to="/profile/bids">
+              Pending Bids
+            </Nav.Link>
             <Nav.Item className="ml-auto">
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
               {authButton}

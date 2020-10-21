@@ -14,10 +14,10 @@ function App() {
       <NewNavbar />
       <Switch>
         <Route path="/admin">
-          <AdminProfile/>
+          <AdminProfile />
         </Route>
         <Route path="/caretaker">
-          <CareTakerProfile/>
+          <CareTakerProfile />
         </Route>
         <Route path="/profile/currentBids">
           <CurrentBids />

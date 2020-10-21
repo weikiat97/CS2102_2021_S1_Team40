@@ -7,14 +7,14 @@ import Container from "@material-ui/core/Container";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { signupUser } from "../redux/slices/userSlice";
+import { selectUser } from "../redux/slices/userSlice";
+import { signupPetOwner } from "../redux/slices/petOwnerSlice";
 import { signupCareTaker } from "../redux/slices/careTakerSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import CareTakerSignUp from "./CareTakerSignUp";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,31 +40,40 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup(props) {
   const { open, onClose } = props;
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [nextDialog, setNextDialog] = useState(false);
   const [roles, setRoles] = useState({
     selected: {
       caretaker: false,
       petowner: false,
     },
   });
+
   const signup = () => {
     //console.log(roles.selected);
+
     if (
-      username != "" &&
-      password != "" &&
+      username !== "" &&
+      password !== "" &&
       (roles.selected.caretaker || roles.selected.petowner)
     ) {
-      if (roles.selected.petowner && roles.selected.caretaker) {
-        //console.log("Sign up for both petowner and caretaker");
-        dispatch(signupUser(username, password));
-        dispatch(signupCareTaker(username, password));
-      } else if (roles.selected.petowner) {
-        //console.log("Sign up for petowner");
-        dispatch(signupUser(username, password));
+      if (roles.selected.caretaker && roles.selected.petowner) {
+        dispatch(
+          signupCareTaker(username, password, ["caretaker", "petowner"])
+        );
+        dispatch(signupPetOwner(username, password, ["caretaker", "petowner"]));
+        setNextDialog(true);
       } else if (roles.selected.caretaker) {
         //console.log("Sign up for caretaker");
-        dispatch(signupCareTaker(username, password));
+
+        dispatch(signupCareTaker(username, password, ["caretaker"]));
+        setNextDialog(true);
+      } else if (roles.selected.petowner) {
+        //console.log("Sign up for petowner");
+
+        dispatch(signupPetOwner(username, password, ["petowner"]));
       }
 
       onClose();
@@ -84,80 +93,82 @@ export default function Signup(props) {
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        style: { borderRadius: 10 },
-      }}
-    >
-      <DialogContent>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign Up
-            </Typography>
-
-            <form className={classes.form} Validate>
-              <ButtonGroup fullWidth variant="outlined" bsStyle="default">
-                <Button
-                  fullWidth
-                  onClick={(e) => toggleOption(e)}
-                  value="caretaker"
-                  color={getBsStyle("caretaker")}
-                >
-                  Caretaker
-                </Button>
-                <Button
-                  fullWidth
-                  onClick={(e) => toggleOption(e)}
-                  value="petowner"
-                  color={getBsStyle("petowner")}
-                >
-                  PetOwner
-                </Button>
-              </ButtonGroup>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Username"
-                type="text"
-                autoFocus
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="outlined"
-                color="primary"
-                className={classes.submit}
-                onClick={signup}
-              >
+    <div>
+      <Dialog
+        open={open}
+        onClose={onClose}
+        PaperProps={{
+          style: { borderRadius: 10 },
+        }}
+      >
+        <DialogContent>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
                 Sign Up
-              </Button>
-            </form>
-          </div>
-        </Container>
-      </DialogContent>
-    </Dialog>
+              </Typography>
+
+              <div className={classes.form}>
+                <ButtonGroup fullWidth variant="outlined" bsStyle="default">
+                  <Button
+                    fullWidth
+                    onClick={(e) => toggleOption(e)}
+                    value="caretaker"
+                    color={getBsStyle("caretaker")}
+                  >
+                    Caretaker
+                  </Button>
+                  <Button
+                    fullWidth
+                    onClick={(e) => toggleOption(e)}
+                    value="petowner"
+                    color={getBsStyle("petowner")}
+                  >
+                    PetOwner
+                  </Button>
+                </ButtonGroup>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Username"
+                  type="text"
+                  autoFocus
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={signup}
+                >
+                  Sign Up
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </DialogContent>
+      </Dialog>
+      <CareTakerSignUp open={nextDialog} onClose={() => setNextDialog(false)} />
+    </div>
   );
 }
 
