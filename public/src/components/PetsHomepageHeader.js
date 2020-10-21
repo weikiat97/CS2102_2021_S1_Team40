@@ -14,7 +14,7 @@ function PetsHomepageHeader() {
         <Row>
           <Col className={classes.alignLeft}><h1>My Profile as a Pet Owner</h1></Col>
           <Col className={classes.alignRight}>
-            <Link to="/profile/leaves"> @sheryl change link to your page
+            <Link to="/profile/leaves">
             <Button variant="contained" color="primary">Request for Caretaker</Button>
             </Link>
           </Col>
