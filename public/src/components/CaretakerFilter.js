@@ -10,9 +10,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { makeStyles } from "@material-ui/core/styles";
-import Caretakers from "../pages/Caretakers";
+import { getCaretakers } from "../redux/slices/careTakerSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 export default function CaretakerFilter(props) {
@@ -28,7 +28,7 @@ export default function CaretakerFilter(props) {
 
     const dispatch = useDispatch();
     const find = () => {
-        dispatch(applyLeave(user.username, start_date, end_date));
+        dispatch(getCaretakers(price, pet_type, start_date, end_date));
         onClose();
     };
 
@@ -89,8 +89,8 @@ export default function CaretakerFilter(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Link to="/profile/leaves">
-                    <button>Go to Leaves</button>
+                <Link to="/profile/find-caretakers">
+                    <button onClick={find}>Find</button>
                 </Link>
             </DialogActions>
         </Dialog>

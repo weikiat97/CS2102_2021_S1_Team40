@@ -5,6 +5,7 @@ const pet_routes = require("./routes/pet-routes");
 const user_routes = require("./routes/user-routes");
 const caretaker_routes = require("./routes/caretaker-routes");
 const leave_routers = require("./routes/leave-routes");
+const find_caretaker_routes = require("./routes/find-caretaker-routes");
 const { db_connection_string } = require("./settings");
 
 const app = express();
@@ -28,5 +29,6 @@ app.use("/pets", pet_routes);
 app.use("/users", user_routes);
 app.use("/caretakers", caretaker_routes);
 app.use("/users/leaves", leave_routers);
+app.use("/users/find-caretaker", find_caretaker_routes);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

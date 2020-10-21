@@ -78,4 +78,4 @@ class Caretaker {
   }
 }
 
-module.exports = new CareTaker();
+module.exports = new Caretaker();

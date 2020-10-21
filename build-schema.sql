@@ -32,7 +32,7 @@ CREATE TABLE availabilities (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     pet_type VARCHAR,
-    PRIMARY KEY (username, the_date, start_time, end_time, advertised_price, pet_type)
+    PRIMARY KEY (username, start_date, end_date, advertised_price, pet_type)
 );
 
 CREATE TABLE fulltime_caretakers (
@@ -93,9 +93,9 @@ CREATE TABLE bids (
     rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
     isSuccessful BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (petowner_username, pet_name) REFERENCES pets (petowner_username, pet_name),
-    FOREIGN KEY (caretaker_username, the_date, start_time, end_time, price)
-    REFERENCES availabilities (username, the_date, start_time, end_time, advertised_price, pet_type),
-    PRIMARY KEY (petowner_username, pet_name, caretaker_username, the_date, start_time, end_time),
+    FOREIGN KEY (caretaker_username, start_date, end_date, price, pet_type)
+    REFERENCES availabilities (username, start_date, end_date, advertised_price, pet_type),
+    PRIMARY KEY (petowner_username, pet_name, caretaker_username, start_date, end_date),
     CHECK (petowner_username <> caretaker_username)
 );
 

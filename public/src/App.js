@@ -5,6 +5,7 @@ import NewNavbar from "./components/NewNavbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Leave from "./pages/Leave";
+import Caretakers from "./pages/Caretakers";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
       <NewNavbar />
       <div className="App">
         <Switch>
+          <Route path="/profile/find-caretakers">
+            <Caretakers />
+          </Route>
           <Route path="/profile/leaves">
             <Leave />
           </Route>

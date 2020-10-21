@@ -16,7 +16,7 @@ export const careTakerSlice = createSlice({
 export const { setCareTaker } = careTakerSlice.actions;
 
 export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => (dispatch) => {
-    fetch(`${API_HOST}/available-caretakers`, {
+    fetch(`${API_HOST}/users/find-caretakers`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -32,7 +32,7 @@ export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => 
       .then((result) => {
         if (result.status === "success") {
           saveState(CARETAKER_STATE_KEY, result.data);
-          dispatch(setCaretaker(result.data));
+          dispatch(setCareTaker(result.data));
         } else {
           throw new Error(result.message);
         }
