@@ -15,7 +15,7 @@ export default function Home() {
       return (
         <div>
           <h1>
-            Welcome {user.username}. You are a {caretaker.type} caretaker.
+            Welcome {user.username}. You are a {user.type}. You are a {caretaker.type} caretaker.
           </h1>
         </div>
       );
