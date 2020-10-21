@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
-import {
-  selectCareTaker,
-  signoutCareTaker,
-} from "../redux/slices/careTakerSlice";
+
 import Login from "./Login";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
@@ -24,7 +21,6 @@ const useStyles = makeStyles({
 
 export default function NewNavbar() {
   const user = useSelector(selectUser);
-  const caretaker = useSelector(selectCareTaker);
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
