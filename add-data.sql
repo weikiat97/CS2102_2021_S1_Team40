@@ -1518,3 +1518,37 @@ insert into fulltime_caretakers (username) values ('wvalentedt');
 insert into fulltime_caretakers (username) values ('phoultondu');
 insert into fulltime_caretakers (username) values ('fcrocidv');
 
+-- Caijie test data
+insert into caretakers values ('rbth7e5', 't0526986a');
+insert into admins values ('rbth7e5', 't0526986a');
+insert into petowners values ('rbth7e5', 't0526986a');
+
+insert into pets values ('tblanchet0', 'whiskies', 'cat');
+insert into pets values ('tblanchet0', 'woofies', 'dog');
+insert into pets values ('tblanchet0', 'hamtaro', 'hamster');
+
+insert into availabilities values ('rbth7e5', 50, '2020-10-1', '2020-10-5');
+insert into availabilities values ('rbth7e5', 50, '2020-10-5', '2020-10-11');
+insert into availabilities values ('rbth7e5', 50, '2020-10-11', '2020-10-20');
+insert into availabilities values ('rbth7e5', 50, '2020-10-20', '2020-10-30');
+
+insert into availabilities values ('rbth7e5', 50, '2020-11-1', '2020-11-5');
+insert into availabilities values ('rbth7e5', 50, '2020-11-5', '2020-11-11');
+insert into availabilities values ('rbth7e5', 50, '2020-11-11', '2020-11-20');
+insert into availabilities values ('rbth7e5', 50, '2020-11-20', '2020-11-30');
+
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent', 5, TRUE);
+insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent', 4, TRUE);
+insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 5, TRUE);
+insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 4, TRUE);
+insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-11', '2020-10-20', 50, 'in person', 'excellent', 5, TRUE);
+insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent', 4, TRUE);
+insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+
