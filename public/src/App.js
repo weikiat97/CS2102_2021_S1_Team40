@@ -15,6 +15,7 @@ function App() {
           <Route path="/profile/leaves">
             <Leave />
           </Route>
+
           <Route path="/profile">
             <Profile />
           </Route>
