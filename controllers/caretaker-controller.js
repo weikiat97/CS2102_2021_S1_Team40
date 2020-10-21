@@ -74,3 +74,26 @@ exports.new = async function (req, res) {
     });
   }
 };
+
+exports.profileInfo = async function (req, res) {
+  try {
+    const basicInfo = await caretaker_model.getProfileInfo(req.params.username);
+    if (basicInfo) {
+      res.status(200).json({
+        status: "success",
+        message: `Profile info retrieved for ${req.params.username}`,
+        data: basicInfo,
+      });
+    } else {
+      res.status(500).json({
+        status: "error",
+        message: `Unknown error occurred retrieving basic info for ${req.params.username}`,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+}

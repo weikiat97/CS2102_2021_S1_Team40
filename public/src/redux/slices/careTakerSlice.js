@@ -10,10 +10,11 @@ export const careTakerSlice = createSlice({
   initialState: persistedCareTaker,
   reducers: {
     setCareTaker: (state, action) => action.payload,
+    setBasicInfo: (state, action) => {return {...state, ...action.payload}}
   },
 });
 
-export const { setCareTaker } = careTakerSlice.actions;
+export const { setCareTaker, setBasicInfo } = careTakerSlice.actions;
 
 export const getCareTakerFromDb = (username, password) => (dispatch) => {
   fetch(`${API_HOST}/caretakers/${username}`, {
@@ -59,6 +60,24 @@ export const signupCareTaker = (username, password) => (dispatch) => {
     })
     .catch((err) => alert(err));
 };
+
+export const getCareTakerBasicInfo = (username) => (dispatch) => {
+  fetch(`${API_HOST}/caretakers/${username}`, {
+    headers: {
+      "Content-Type": "application/json",
+      method: "GET",
+    }
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (result.status === "success") {
+        dispatch(setBasicInfo(result.data));
+      } else {
+        throw new Error(result.message);
+      }
+    })
+    .catch(err => alert(err));
+}
 
 export const selectCareTaker = (state) => state.caretaker;
 
