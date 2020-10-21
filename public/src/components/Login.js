@@ -10,6 +10,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import { getUserFromDb } from "../redux/slices/userSlice";
+import { getCareTakerFromDb } from "../redux/slices/careTakerSlice";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -44,8 +45,9 @@ export default function Login(props) {
 
   const classes = useStyles();
   const login = () => {
-    if (username != "" && password != "") {
+    if (username !== "" && password !== "") {
       dispatch(getUserFromDb(username, password));
+      dispatch(getCareTakerFromDb(username));
       onClose();
     }
   };
