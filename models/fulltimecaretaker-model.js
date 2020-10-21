@@ -1,9 +1,9 @@
 const pool = require("../pools");
 
-class CareTaker {
+class FullTimeCareTaker {
   constructor() {
     this.pool = pool;
-    this.table = "caretakers";
+    this.table = "fulltime_caretakers";
     this.pool.on(
       "error",
       (err, client) => `Error, ${err}, on idle client${client}`
@@ -16,27 +16,22 @@ class CareTaker {
     return results.rows;
   }
 
-  async getSingleCareTaker(username) {
-    let query = `SELECT t.username, t.type FROM (
-      SELECT username, 'fulltime' AS type FROM fulltime_caretakers
-      UNION
-      SELECT username, 'parttime' AS type FROM parttime_caretakers
-  ) AS t WHERE t.username = '${username}'`;
-    const result = await this.pool.query(query);
-    console.log(result);
-    if (result.rows.length === 0) {
+  async getSingleFTCareTaker(username) {
+    let query = `SELECT c.username FROM ${this.table} c
+        WHERE c.username == username;`;
+    const results = await this.pool.query(query);
+    if (results.rows.length === 0) {
       return null;
     } else {
       return {
         username: username,
-        type: result.rows.map((r) => r.type),
       };
     }
   }
 
-  async addNewCareTaker(username, password, role) {
+  async addNewFTCareTaker(username) {
     let query = `INSERT INTO ${this.table}
-                        VALUES ('${username}', '${password}')
+                        VALUES ('${username}')
                         RETURNING username;`;
     const results = await this.pool.query(query);
     if (results.rows.length !== 1) {
@@ -44,10 +39,10 @@ class CareTaker {
     } else {
       return {
         username: username,
-        type: role,
+        type: "fulltime",
       };
     }
   }
 }
 
-module.exports = new CareTaker();
+module.exports = new FullTimeCareTaker();

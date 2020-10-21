@@ -16,13 +16,13 @@ export const careTakerSlice = createSlice({
 
 export const { setCareTaker } = careTakerSlice.actions;
 
-export const getCareTakerFromDb = (username, password) => (dispatch) => {
+export const getCareTakerFromDb = (username) => (dispatch) => {
   fetch(`${API_HOST}/caretakers/${username}`, {
     headers: {
       "Content-Type": "application/json",
     },
     method: "POST",
-    body: JSON.stringify({ password: password }),
+    body: JSON.stringify({}),
   })
     .then((response) => response.json())
     .then((result) => {

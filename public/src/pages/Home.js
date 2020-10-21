@@ -1,21 +1,33 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
+import { selectCareTaker } from "../redux/slices/careTakerSlice";
 
 export default function Home() {
   const user = useSelector(selectUser);
-
+  const caretaker = useSelector(selectCareTaker);
   if (user) {
-    console.log(user.username);
-    console.log(user.type);
-    console.log(user);
-    return (
-      <div>
-        <h1>
-          Welcome {user.username}. You are a {user.type}.
-        </h1>
-      </div>
-    );
+    // console.log(user.username);
+    // console.log(user.type);
+    // console.log(user);
+    console.log(caretaker);
+    if (caretaker) {
+      return (
+        <div>
+          <h1>
+            Welcome {user.username}. You are a {caretaker.type} caretaker.
+          </h1>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>
+            Welcome {user.username}. You are a {user.type}.
+          </h1>
+        </div>
+      );
+    }
   } else {
     return (
       <div>

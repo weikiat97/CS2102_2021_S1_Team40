@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
 import { loadState, removeState, saveState } from "../localStorage";
-import { signoutCareTaker } from "./careTakerSlice";
+import { signoutCareTaker, setCareTaker } from "./careTakerSlice";
 import { signoutPetOwner } from "./petOwnerSlice";
 
 const USER_STATE_KEY = "user";
@@ -40,12 +40,9 @@ export const getUserFromDb = (username, password) => (dispatch) => {
 export const signoutUser = () => (dispatch) => {
   dispatch(signoutPetOwner());
   dispatch(signoutCareTaker());
+  dispatch(setCareTaker(null));
   removeState(USER_STATE_KEY);
   dispatch(setUser(null));
-};
-
-export const signupUser = (username, password) => (dispatch) => {
-  dispatch(getUserFromDb(username, password));
 };
 
 export const selectUser = (state) => state.user;
