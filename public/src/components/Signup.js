@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup(props) {
   const { open, onClose } = props;
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [nextDialog, setNextDialog] = useState(false);
@@ -49,7 +50,7 @@ export default function Signup(props) {
       petowner: false,
     },
   });
-  const user = useSelector(selectUser);
+
   const signup = () => {
     //console.log(roles.selected);
 
@@ -59,16 +60,16 @@ export default function Signup(props) {
       (roles.selected.caretaker || roles.selected.petowner)
     ) {
       if (roles.selected.caretaker && roles.selected.petowner) {
-        setNextDialog(true);
         dispatch(
           signupCareTaker(username, password, ["caretaker", "petowner"])
         );
         dispatch(signupPetOwner(username, password, ["caretaker", "petowner"]));
-      } else if (roles.selected.caretaker) {
         setNextDialog(true);
+      } else if (roles.selected.caretaker) {
         //console.log("Sign up for caretaker");
 
         dispatch(signupCareTaker(username, password, ["caretaker"]));
+        setNextDialog(true);
       } else if (roles.selected.petowner) {
         //console.log("Sign up for petowner");
 
