@@ -18,5 +18,5 @@ export default function AdminProfile() {
       <h1>You are not an admin!</h1>
       <Button>Set Caretaker Base Price</Button>
     </Container>
-  )
+  );
 }

@@ -96,4 +96,4 @@ exports.profileInfo = async function (req, res) {
       message: err.message,
     });
   }
-}
+};
