@@ -46,6 +46,9 @@ export default function Signup(props) {
   const user = useSelector(selectUser);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [helpTextUsername, setHelpUsername] = useState("");
+  const [helpTextPassword, setHelpPassword] = useState("");
+  const [helpTextRoles, setHelpRoles] = useState("");
   const [roles, setRoles] = useState({
     selected: {
       caretaker: false,
@@ -54,10 +57,16 @@ export default function Signup(props) {
     },
   });
 
-  const signup = () => {
-    console.log(roles.selected);
+  const isEmptyOrBlank = (str) => {
+    return ((!str || 0 === str.length) || /^\s*$/.test(str));
+  };
 
-    if (username !== "" && password !== "") {
+  const signup = () => {
+    if (
+      !isEmptyOrBlank(username)  &&
+      !isEmptyOrBlank(password)  && 
+      ((roles.selected.caretaker && roles.selected.roles !== null) || roles.selected.petowner)) 
+     {
       if (roles.selected.caretaker && roles.selected.petowner) {
         dispatch(
           signupCareTaker(
@@ -85,6 +94,21 @@ export default function Signup(props) {
       }
 
       onClose();
+    } else {
+      if (isEmptyOrBlank(username)) {
+        setHelpUsername("Username cannot be empty");
+      }
+      if (isEmptyOrBlank(password)) {
+        setHelpPassword("Password cannot be empty");
+      }
+      if (!roles.selected.caretaker && !roles.selected.petowner) {
+        console.log(roles.selected);
+        setHelpRoles("Please choose a role!");
+      }
+      if (roles.selected.caretaker && (roles.selected.type === null)) {
+        console.log(roles.selected);
+        setHelpRoles("Please choose the type of caretaker!");
+      }
     }
   };
 
@@ -106,7 +130,15 @@ export default function Signup(props) {
   const toggleOptionAllowOne = (e) => {
     const value = e.currentTarget.value;
     const newSelected = Object.assign(roles.selected, { ["type"]: value });
+    setHelpRoles("");
     setRoles({ selected: newSelected });
+  };
+
+  const checkUsername = (e) => {
+    setUsername(e.target.value);
+    if (!isEmptyOrBlank(e.target.value)) {
+      setHelpUsername("");
+    }
   };
 
   return (
@@ -147,6 +179,7 @@ export default function Signup(props) {
                   PetOwner
                 </Button>
               </ButtonGroup>
+
               {roles.selected.caretaker && (
                 <ButtonGroup fullWidth variant="outlined" bsStyle="default">
                   <Button
@@ -169,6 +202,7 @@ export default function Signup(props) {
                   </Button>
                 </ButtonGroup>
               )}
+              <p>{helpTextRoles}</p>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -176,8 +210,9 @@ export default function Signup(props) {
                 fullWidth
                 label="Username"
                 type="text"
+                helperText={helpTextUsername}
                 autoFocus
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={checkUsername}
               />
               <TextField
                 variant="outlined"
@@ -187,6 +222,7 @@ export default function Signup(props) {
                 name="password"
                 label="Password"
                 type="password"
+                helperText={helpTextPassword}
                 id="password"
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
