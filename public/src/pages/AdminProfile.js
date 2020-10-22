@@ -11,8 +11,8 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Card from "@material-ui/core/Card";
-import {makeStyles} from "@material-ui/core/styles";
-import {MONTH_ARRAY} from "../consts";
+import { makeStyles } from "@material-ui/core/styles";
+import { MONTH_ARRAY } from "../consts";
 
 const useStyles = makeStyles((theme) => ({
   infoGroup: {
@@ -27,12 +27,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
   emptyText: {
-    margin: 'auto',
-    paddingTop: 16
+    margin: "auto",
+    paddingTop: 16,
   },
   aggregateInfo: {
-    padding: 16
-  }
+    padding: 16,
+  },
 }));
 
 export default function AdminProfile() {
@@ -49,7 +49,9 @@ export default function AdminProfile() {
         <div className={classes.aggregateInfo}>
           <h5>Total Salary to be Paid:</h5>
           <h5>Number of Jobs ({MONTH_ARRAY[new Date().getMonth()]}):</h5>
-          <h5>Month with Highest Jobs: ({MONTH_ARRAY[new Date().getMonth()]})</h5>
+          <h5>
+            Month with Highest Jobs: ({MONTH_ARRAY[new Date().getMonth()]})
+          </h5>
         </div>
         <Card className={classes.infoCard}>
           <CardContent>
@@ -64,21 +66,34 @@ export default function AdminProfile() {
               <TableHead>
                 <TableRow>
                   <TableCell>Username</TableCell>
-                  <TableCell>Number of Pets Cared For ({MONTH_ARRAY[new Date().getMonth()]})</TableCell>
-                  <TableCell>Salary to be Paid ({MONTH_ARRAY[new Date().getMonth()]})</TableCell>
+                  <TableCell>
+                    Number of Pets Cared For (
+                    {MONTH_ARRAY[new Date().getMonth()]})
+                  </TableCell>
+                  <TableCell>
+                    Salary to be Paid ({MONTH_ARRAY[new Date().getMonth()]})
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ftcaretakerInfo &&
-                ftcaretakerInfo["past"] ? ftcaretakerInfo["past"].map((row, i) => (
-                  <TableRow key={i}>
-                    <TableCell component="th" scope="row">
-                      {row["username"]}
-                    </TableCell>
-                    <TableCell>{row["num_pets"]}</TableCell>
-                    <TableCell>{row["salary"]}</TableCell>
-                  </TableRow>
-                )) : <Typography className={classes.emptyText} color="textSecondary">You have no full-time caretakers.</Typography>}
+                {ftcaretakerInfo && ftcaretakerInfo["past"] ? (
+                  ftcaretakerInfo["past"].map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell component="th" scope="row">
+                        {row["username"]}
+                      </TableCell>
+                      <TableCell>{row["num_pets"]}</TableCell>
+                      <TableCell>{row["salary"]}</TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <Typography
+                    className={classes.emptyText}
+                    color="textSecondary"
+                  >
+                    You have no full-time caretakers.
+                  </Typography>
+                )}
               </TableBody>
             </Table>
           </CardContent>
@@ -97,21 +112,34 @@ export default function AdminProfile() {
               <TableHead>
                 <TableRow>
                   <TableCell>Username</TableCell>
-                  <TableCell>Number of Pets Cared For ({MONTH_ARRAY[new Date().getMonth()]})</TableCell>
-                  <TableCell>Salary to be Paid ({MONTH_ARRAY[new Date().getMonth()]})</TableCell>
+                  <TableCell>
+                    Number of Pets Cared For (
+                    {MONTH_ARRAY[new Date().getMonth()]})
+                  </TableCell>
+                  <TableCell>
+                    Salary to be Paid ({MONTH_ARRAY[new Date().getMonth()]})
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ptcaretakerInfo &&
-                ptcaretakerInfo["past"] ? ptcaretakerInfo["past"].map((row, i) => (
-                  <TableRow key={i}>
-                    <TableCell component="th" scope="row">
-                      {row["username"]}
-                    </TableCell>
-                    <TableCell>{row["num_pets"]}</TableCell>
-                    <TableCell>{row["salary"]}</TableCell>
-                  </TableRow>
-                )) : <Typography className={classes.emptyText} color="textSecondary">You have no part-time caretakers.</Typography>}
+                {ptcaretakerInfo && ptcaretakerInfo["past"] ? (
+                  ptcaretakerInfo["past"].map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell component="th" scope="row">
+                        {row["username"]}
+                      </TableCell>
+                      <TableCell>{row["num_pets"]}</TableCell>
+                      <TableCell>{row["salary"]}</TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <Typography
+                    className={classes.emptyText}
+                    color="textSecondary"
+                  >
+                    You have no part-time caretakers.
+                  </Typography>
+                )}
               </TableBody>
             </Table>
           </CardContent>
@@ -130,21 +158,34 @@ export default function AdminProfile() {
               <TableHead>
                 <TableRow>
                   <TableCell>Username</TableCell>
-                  <TableCell>Number of Pets Cared For ({MONTH_ARRAY[new Date().getMonth()]})</TableCell>
-                  <TableCell>Salary to be Paid ({MONTH_ARRAY[new Date().getMonth()]})</TableCell>
+                  <TableCell>
+                    Number of Pets Cared For (
+                    {MONTH_ARRAY[new Date().getMonth()]})
+                  </TableCell>
+                  <TableCell>
+                    Salary to be Paid ({MONTH_ARRAY[new Date().getMonth()]})
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {underperfCaretaker &&
-                underperfCaretaker["past"] ? underperfCaretaker["past"].map((row, i) => (
-                  <TableRow key={i}>
-                    <TableCell component="th" scope="row">
-                      {row["username"]}
-                    </TableCell>
-                    <TableCell>{row["num_pets"]}</TableCell>
-                    <TableCell>{row["salary"]}</TableCell>
-                  </TableRow>
-                )) : <Typography className={classes.emptyText} color="textSecondary">You have no under-performing caretakers.</Typography>}
+                {underperfCaretaker && underperfCaretaker["past"] ? (
+                  underperfCaretaker["past"].map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell component="th" scope="row">
+                        {row["username"]}
+                      </TableCell>
+                      <TableCell>{row["num_pets"]}</TableCell>
+                      <TableCell>{row["salary"]}</TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <Typography
+                    className={classes.emptyText}
+                    color="textSecondary"
+                  >
+                    You have no under-performing caretakers.
+                  </Typography>
+                )}
               </TableBody>
             </Table>
           </CardContent>

@@ -16,7 +16,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import {MONTH_ARRAY} from "../consts";
+import { MONTH_ARRAY } from "../consts";
 
 const useStyles = makeStyles((theme) => ({
   infoGroup: {
