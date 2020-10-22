@@ -22,9 +22,9 @@ export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => 
     headers: {
       "Content-Type": "application/json",
     },
-    method: "GET",
+    method: "POST",
     body: JSON.stringify({
-      advertised_price: maximum_price,
+      maximum_price: maximum_price,
       pet_type: pet_type,
       start_date: start_date,
       end_date: end_date,
@@ -33,6 +33,7 @@ export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => 
     .then((response) => response.json())
     .then((result) => {
       if (result.status === "success") {
+        saveState(CARETAKER_STATE_KEY, result.data);
         dispatch(setCareTaker(result.data));
       } else {
         throw new Error(result.message);

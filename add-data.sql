@@ -1519,36 +1519,61 @@ insert into fulltime_caretakers (username) values ('phoultondu');
 insert into fulltime_caretakers (username) values ('fcrocidv');
 
 -- Caijie test data
-insert into caretakers values ('rbth7e5', 't0526986a');
-insert into admins values ('rbth7e5', 't0526986a');
-insert into petowners values ('rbth7e5', 't0526986a');
+-- insert into caretakers values ('rbth7e5', 't0526986a');
+-- insert into admins values ('rbth7e5', 't0526986a');
+-- insert into petowners values ('rbth7e5', 't0526986a');
 
-insert into pets values ('tblanchet0', 'whiskies', 'cat');
-insert into pets values ('tblanchet0', 'woofies', 'dog');
-insert into pets values ('tblanchet0', 'hamtaro', 'hamster');
+-- insert into pets values ('tblanchet0', 'whiskies', 'cat');
+-- insert into pets values ('tblanchet0', 'woofies', 'dog');
+-- insert into pets values ('tblanchet0', 'hamtaro', 'hamster');
 
-insert into availabilities values ('rbth7e5', 50, '2020-10-1', '2020-10-5');
-insert into availabilities values ('rbth7e5', 50, '2020-10-5', '2020-10-11');
-insert into availabilities values ('rbth7e5', 50, '2020-10-11', '2020-10-20');
-insert into availabilities values ('rbth7e5', 50, '2020-10-20', '2020-10-30');
+-- insert into availabilities values ('rbth7e5', 50, '2020-10-1', '2020-10-5');
+-- insert into availabilities values ('rbth7e5', 50, '2020-10-5', '2020-10-11');
+-- insert into availabilities values ('rbth7e5', 50, '2020-10-11', '2020-10-20');
+-- insert into availabilities values ('rbth7e5', 50, '2020-10-20', '2020-10-30');
 
-insert into availabilities values ('rbth7e5', 50, '2020-11-1', '2020-11-5');
-insert into availabilities values ('rbth7e5', 50, '2020-11-5', '2020-11-11');
-insert into availabilities values ('rbth7e5', 50, '2020-11-11', '2020-11-20');
-insert into availabilities values ('rbth7e5', 50, '2020-11-20', '2020-11-30');
+-- insert into availabilities values ('rbth7e5', 50, '2020-11-1', '2020-11-5');
+-- insert into availabilities values ('rbth7e5', 50, '2020-11-5', '2020-11-11');
+-- insert into availabilities values ('rbth7e5', 50, '2020-11-11', '2020-11-20');
+-- insert into availabilities values ('rbth7e5', 50, '2020-11-20', '2020-11-30');
 
-insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent', 5, TRUE);
-insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent', 4, TRUE);
-insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
-insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+-- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent', 5, TRUE);
+-- insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent', 4, TRUE);
+-- insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
+-- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent service, would come again', 5, TRUE);
 
-insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 5, TRUE);
-insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 4, TRUE);
-insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
-insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+-- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 5, TRUE);
+-- insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 4, TRUE);
+-- insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
+-- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent service, would come again', 5, TRUE);
 
-insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-11', '2020-10-20', 50, 'in person', 'excellent', 5, TRUE);
-insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent', 4, TRUE);
-insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
-insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+-- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-11', '2020-10-20', 50, 'in person', 'excellent', 5, TRUE);
+-- insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent', 4, TRUE);
+-- insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
+-- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent service, would come again', 5, TRUE);
 
+-- Sheryl test data
+insert into caretakers values ('sheryl', '123456');
+insert into fulltime_caretakers values ('sheryl');
+insert into availabilities values ('sheryl', 50, '2020-10-23', '2020-10-29', 'cat');
+
+insert into caretakers values ('hiitsme', 'meagain');
+insert into fulltime_caretakers values ('hiitsme');
+insert into availabilities values ('hiitsme', 80, '2020-10-24', '2020-10-26', 'dog');
+
+insert into caretakers values ('runningoutofnames', 'gone');
+insert into fulltime_caretakers values ('runningoutofnames');
+insert into availabilities values ('runningoutofnames', 20, '2020-11-01', '2020-11-05', 'rabbit');
+
+insert into bids values ('blahblah', 'pet', 'sheryl', '2020-10-24', '2020-10-25', 50, 'cat', 'Delivered by pet owner')
+petowner_username VARCHAR(50),
+    pet_name VARCHAR(50) NOT NULL,
+    caretaker_username VARCHAR(50),
+    start_date DATE,
+    end_date DATE,
+    price NUMERIC NOT NULL,
+    pet_type VARCHAR,
+    transfer_method VARCHAR(100) NOT NULL,
+    review VARCHAR(200),
+    rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
+    isSuccessful BOOLEAN DEFAULT FALSE,

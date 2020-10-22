@@ -29,12 +29,12 @@ if (!db_connection_string) {
 }
 app.get("/", (req, res) => res.send("Hello World!"));
 app.use("/pets", pet_routes);
+app.use("/users/find-caretakers", find_caretaker_routes);
 app.use("/users", user_routes);
 app.use("/petowners", petowner_routes);
 app.use("/caretakers", caretaker_routes);
 app.use("/fulltime_caretakers", fulltimecaretaker_routes);
 app.use("/parttime_caretakers", parttimecaretaker_routes);
 app.use("/users/leaves", leave_routers);
-app.use("/users/find-caretaker", find_caretaker_routes);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

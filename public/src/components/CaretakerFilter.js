@@ -28,16 +28,16 @@ export default function CaretakerFilter(props) {
 
     const dispatch = useDispatch();
     const find = () => {
-        dispatch(getCaretakers(price, pet_type, start_date, end_date));
+        dispatch(getCaretakers(parseInt(price), pet_type, start_date, end_date));
         onClose();
     };
 
     return (
         <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Bid page</DialogTitle>
+            <DialogTitle>Requirements Page</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Please enter these information before bidding
+                    Please enter these information before we find you a caretaker!
                 </DialogContentText>
                 <TextField
                     id="date"

@@ -18,15 +18,17 @@ export default function Caretakers() {
 
     useEffect(() => {
         async function fetchData() {
-            await fetch(`${API_HOST}/users/find-caretaker`, {
+            await fetch(`${API_HOST}/users/find-caretakers`, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                method: "GET",
+                method: "POST",
             })
                 .then((response) => response.json())
+                .then((response) => console.log(response))
                 .then(async (result) => {
                     if (result.status === "success") {
+                        console.log("yay");
                         await setCaretakers(result.data);
                     } else {
                         console.log("No Caretakers found");
@@ -36,7 +38,7 @@ export default function Caretakers() {
         }
         fetchData();
     }, []);
-
+    console.log("why not showing" + caretakers.toString());
     return (
         <div>
             <h1>List of Caretakers that match your criteria</h1>
@@ -58,7 +60,7 @@ export default function Caretakers() {
                                     {caretaker["username"]}
                                 </TableCell>
                                 <TableCell align="center">
-                                    {caretaker["price"]}
+                                    {caretaker["advertised_price"]}
                                 </TableCell>
                                 <TableCell align="center">
                                     {caretaker["start_date"]}
