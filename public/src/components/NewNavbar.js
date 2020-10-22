@@ -30,7 +30,7 @@ export default function NewNavbar() {
   const classes = useStyles();
   const authButton = user ? (
     <div>
-      {user.type.includes("caretaker") && caretaker.type.includes("fulltime") ? (
+      {user.type.includes("caretaker") && caretaker && caretaker.type != null && caretaker.type.includes("fulltime")? (
         <Button component={Link} to="/profile/leaves">
           Leaves
         </Button>
@@ -95,7 +95,7 @@ export default function NewNavbar() {
             <Nav.Link as={Link} to="/profile">
               Profile
             </Nav.Link>
-            <Nav.Link as={Link} to="/profile/bids">
+            <Nav.Link as={Link} to="/profile/currentBids">
               Pending Bids
             </Nav.Link>
             <Nav.Item className="ml-auto">

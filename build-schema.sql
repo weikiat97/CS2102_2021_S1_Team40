@@ -37,6 +37,7 @@ CREATE TABLE availabilities (
     advertised_price NUMERIC NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
+    pet_type VARCHAR(50),
     PRIMARY KEY (username, start_date, end_date, advertised_price)
 );
 
