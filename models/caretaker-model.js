@@ -145,10 +145,13 @@ class CareTaker {
                              UNION
                              SELECT username, 'Part Time' AS job_type FROM parttime_caretakers
                          ) AS cts LEFT JOIN bids b ON b.caretaker_username = cts.username AND b.isSuccessful
-                    GROUP BY cts.username, cts.job_type`;
+                    GROUP BY cts.username, cts.job_type
+                    ORDER BY num_pets DESC`;
     const ct_results = await this.pool.query(ct_query);
     let agg_query = `SELECT count(*) AS num_jobs
-                     FROM bids WHERE isSuccessful AND start_date >= date_trunc('month', CURRENT_DATE)`;
+                     FROM bids WHERE isSuccessful 
+                     AND start_date >= date_trunc('month', CURRENT_DATE)
+                     AND start_date <= CURRENT_DATE`;
     const agg_results = await this.pool.query(agg_query);
     return {
       caretakers_admin_info: ct_results.rows,

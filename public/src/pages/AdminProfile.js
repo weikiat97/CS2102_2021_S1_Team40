@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
@@ -12,7 +12,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
-import { MONTH_ARRAY } from "../consts";
+import { API_HOST, MONTH_ARRAY } from "../consts";
+import { useApi } from "../hooks";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 const useStyles = makeStyles((theme) => ({
   infoGroup: {
@@ -37,23 +40,61 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminProfile() {
   const user = useSelector(selectUser);
+  const [page, setPage] = useState("ft");
   const classes = useStyles();
-  const ftcaretakerInfo = [];
-  const ptcaretakerInfo = [];
-  const underperfCaretaker = [];
+  const adminProfileInfo = useApi(`${API_HOST}/caretakers/admin`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: user.username,
+    }),
+  });
+  const ftcaretakerInfo = adminProfileInfo
+    ? adminProfileInfo["caretakers_admin_info"].filter(
+        (r) => r["job_type"] === "Full Time"
+      )
+    : null;
+  const ptcaretakerInfo = adminProfileInfo
+    ? adminProfileInfo["caretakers_admin_info"].filter(
+        (r) => r["job_type"] === "Part Time"
+      )
+    : null;
+  const underperfCaretaker = adminProfileInfo
+    ? adminProfileInfo["caretakers_admin_info"].filter(
+        (r) => r["num_pets"] < new Date().getDate() / 2
+      )
+    : null;
+  const totalSalary = adminProfileInfo
+    ? adminProfileInfo["caretakers_admin_info"].reduce(
+        (a, r) => a + parseInt(r["salary"]),
+        0
+      )
+    : 0;
   if (user && user.type.includes("admin")) {
     return (
       <Container>
         <h1>Admin Profile</h1>
         <Button>Set Caretaker Base Price</Button>
         <div className={classes.aggregateInfo}>
-          <h5>Total Salary to be Paid:</h5>
-          <h5>Number of Jobs ({MONTH_ARRAY[new Date().getMonth()]}):</h5>
+          <h5>Total Salary to be Paid: ${totalSalary}</h5>
           <h5>
-            Month with Highest Jobs: ({MONTH_ARRAY[new Date().getMonth()]})
+            Number of Jobs ({MONTH_ARRAY[new Date().getMonth()]}):{" "}
+            {adminProfileInfo && adminProfileInfo["admin_agg_info"]["num_jobs"]}{" "}
+            Jobs
           </h5>
         </div>
-        <Card className={classes.infoCard}>
+        <Tabs
+          value={page}
+          onChange={(e, p) => setPage(p)}
+          aria-label="simple tabs example"
+        >
+          <Tab label="Full-time Caretakers" value="ft" />
+          <Tab label="Part-time Caretakers" value="pt" />
+          <Tab label="Under-performing Caretakers" value="up" />
+        </Tabs>
+        <Card hidden={page !== "ft"} className={classes.infoCard}>
           <CardContent>
             <Typography
               className={classes.title}
@@ -76,8 +117,8 @@ export default function AdminProfile() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ftcaretakerInfo && ftcaretakerInfo["past"] ? (
-                  ftcaretakerInfo["past"].map((row, i) => (
+                {ftcaretakerInfo ? (
+                  ftcaretakerInfo.map((row, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
                         {row["username"]}
@@ -99,7 +140,7 @@ export default function AdminProfile() {
           </CardContent>
         </Card>
 
-        <Card className={classes.infoCard}>
+        <Card hidden={page !== "pt"} className={classes.infoCard}>
           <CardContent>
             <Typography
               className={classes.title}
@@ -122,8 +163,8 @@ export default function AdminProfile() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ptcaretakerInfo && ptcaretakerInfo["past"] ? (
-                  ptcaretakerInfo["past"].map((row, i) => (
+                {ptcaretakerInfo ? (
+                  ptcaretakerInfo.map((row, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
                         {row["username"]}
@@ -145,7 +186,7 @@ export default function AdminProfile() {
           </CardContent>
         </Card>
 
-        <Card className={classes.infoCard}>
+        <Card hidden={page !== "up"} className={classes.infoCard}>
           <CardContent>
             <Typography
               className={classes.title}
@@ -168,8 +209,8 @@ export default function AdminProfile() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {underperfCaretaker && underperfCaretaker["past"] ? (
-                  underperfCaretaker["past"].map((row, i) => (
+                {underperfCaretaker ? (
+                  underperfCaretaker.map((row, i) => (
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
                         {row["username"]}
