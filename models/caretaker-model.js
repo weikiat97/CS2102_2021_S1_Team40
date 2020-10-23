@@ -117,6 +117,44 @@ class CareTaker {
       };
     }
   }
+
+  async getAdminInfo(username) {
+    let admin_check_query = `SELECT * FROM admins WHERE username = '${username}'`;
+    const admin_check_results = await this.pool.query(admin_check_query);
+    if (admin_check_results.rows.length === 0) {
+      throw new Error("You are not an admin!");
+    }
+    let ct_query = `SELECT cts.username, cts.job_type, count(b.pet_name) AS num_pets, CASE
+                                          WHEN job_type = 'Full Time' THEN
+                                              CASE WHEN sum(b.end_date - b.start_date) > 60 THEN 3000 + 
+                                                CASE WHEN sum(b.end_date - b.start_date) > 60 THEN (
+                                                        SELECT sum(b2.price) FROM bids AS b2
+                                                        WHERE b2.caretaker_username = cts.username
+                                                          AND b2.start_date >= date_trunc('month', CURRENT_DATE) + INTERVAL '60 days'
+                                                          AND b2.end_date < NOW()
+                                                          AND b2.isSuccessful
+                                                    )
+                                                    ELSE 0
+                                                  END
+                                               ELSE 3000
+                                              END
+                                          WHEN job_type = 'Part Time' THEN 0.75 * sum(COALESCE(b.price, 0))
+                        END AS salary
+                    FROM (
+                             SELECT username, 'Full Time' AS job_type FROM fulltime_caretakers
+                             UNION
+                             SELECT username, 'Part Time' AS job_type FROM parttime_caretakers
+                         ) AS cts LEFT JOIN bids b ON b.caretaker_username = cts.username AND b.isSuccessful
+                    GROUP BY cts.username, cts.job_type`;
+    const ct_results = await this.pool.query(ct_query);
+    let agg_query = `SELECT count(*) AS num_jobs
+                     FROM bids WHERE isSuccessful AND start_date >= date_trunc('month', CURRENT_DATE)`;
+    const agg_results = await this.pool.query(agg_query);
+    return {
+      caretakers_admin_info: ct_results.rows,
+      admin_agg_info: agg_results.rows[0],
+    };
+  }
 }
 
 module.exports = new CareTaker();

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 export function useApi(uri, fetch_options) {
   const [data, setData] = useState(null);
