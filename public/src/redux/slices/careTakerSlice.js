@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
 import { loadState, removeState, saveState } from "../localStorage";
 import { setUser } from "./userSlice";
+import { signupFTCareTaker } from "./fullTimeCareTakerSlice";
+import { signupPTCareTaker } from "./partTimeCareTakerSlice";
 
 const CARETAKER_STATE_KEY = "caretaker";
 const persistedCareTaker = loadState(CARETAKER_STATE_KEY);
@@ -69,7 +71,9 @@ export const signoutCareTaker = () => (dispatch) => {
   dispatch(setUser(null));
 };
 
-export const signupCareTaker = (username, password, role) => (dispatch) => {
+export const signupCareTaker = (username, password, role, type) => (
+  dispatch
+) => {
   fetch(`${API_HOST}/caretakers`, {
     headers: {
       "Content-Type": "application/json",
@@ -86,6 +90,12 @@ export const signupCareTaker = (username, password, role) => (dispatch) => {
       if (result.status === "success") {
         saveState("user", result.data);
         dispatch(setUser(result.data));
+        if (type === "parttime") {
+          dispatch(signupPTCareTaker(username));
+        } else if (type === "fulltime") {
+          dispatch(signupFTCareTaker(username));
+        } else {
+        }
       } else {
         throw new Error(result.message);
       }
