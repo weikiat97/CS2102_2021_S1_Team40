@@ -47,8 +47,8 @@ exports.view = async function (req, res) {
 exports.new = async function (req, res) {
   try {
     console.log("got come here?");
-    console.log("user: " + req.body.username);
-    console.log("user: " + req.body.password);
+    // console.log("user: " + req.body.username);
+    // console.log("user: " + req.body.password);
     const caretaker = await caretaker_model.addNewCareTaker(
       req.body.username,
       req.body.password,

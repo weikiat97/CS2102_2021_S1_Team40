@@ -1,21 +1,21 @@
 let bid_model = require("../models/bid-model");
 
 // Handle view bid info
-exports.view = async function (req, res) {
+exports.viewCaretaker = async function (req, res) {
   try {
-    const get_user_bids = await bid_model.getUserBids(
+    const get_user_bids = await bid_model.getCaretakerBids(
       req.params.username
     );
     if (get_user_bids) {
       res.status(200).json({
         status: "success",
-        message: "User's bids retrieved successfully.",
+        message: "Caretaker's bids retrieved successfully.",
         data: get_user_bids,
       });
     } else {
       res.status(404).json({
         status: "failure",
-        message: "No bids found!",
+        message: "No bids found from caretaker!",
         data: get_user_bids,
       });
     }
@@ -28,7 +28,7 @@ exports.view = async function (req, res) {
 };
 
 // Handle accept bid actions
-exports.handle = async function (req, res) {
+exports.handleCaretaker = async function (req, res) {
   try {
     console.log("MI HERE?E??");
     if (req.body.type == 'Accept') {
@@ -42,14 +42,13 @@ exports.handle = async function (req, res) {
       if (accept_bid) {
         res.status(200).json({
           status: "success",
-          message: "Bid accept successful",
+          message: "Bid accepted successfully.",
           data: accept_bid,
         });
       } else {
         res.status(404).json({
           status: "failure",
-          message:
-            "Bid not accept, please check that you are logged in and you have chosen a valid bid.",
+          message: "Bid not accepted, please check that you are logged in and you have chosen a valid bid.",
           data: accept_bid,
         });
       }
@@ -84,28 +83,65 @@ exports.handle = async function (req, res) {
   }
 };
 
-// Handle decline bid info
-exports.decline = async function (req, res) {
+// Handle view bid info
+exports.viewPetowner = async function (req, res) {
   try {
-    const decline_bid = await bid_model.declineBid(
+    const get_user_bids = await bid_model.getPetownerBids(
+      req.params.username
+    );
+    console.log("i came here la and its still okay tbh");
+    if (get_user_bids) {
+      console.log("lets see 1");
+      res.status(200).json({
+        status: "success",
+        message: "Petowner's bids retrieved successfully.",
+        data: get_user_bids,
+      });
+    } else {
+      console.log('lets see 2');
+      res.status(404).json({
+        status: "failure",
+        message: "No bids found from petowner!",
+        data: get_user_bids,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err,
+    });
+  }
+};
+
+// Handle cancel bid info
+exports.cancelPetowner = async function (req, res) {
+  try {
+    // console.log("petowner: " + req.body.petowner_username);
+    // console.log("caretaker: " + req.body.caretaker_username);
+    console.log('big boss is here lets see what happens');
+    const cancel_bid = await bid_model.cancelBid(
       req.body.petowner_username,
       req.body.pet_name,
       req.body.caretaker_username,
       req.body.start_date,
       req.body.end_date
     );
-    if (decline_bid) {
+    console.log("BEFOREEEEEEEEEE");
+    // console.log("cancel bid stuff: " + JSON.stringify(cancel_bid));
+    if (cancel_bid) {
+      console.log('it ok');
       res.status(200).json({
         status: "success",
-        message: "Bid declined successfully.",
-        data: decline_bid,
+        message: "Bid cancelled successfully.",
+        data: cancel_bid,
       });
     } else {
+      console.log('it not ok');
       res.status(404).json({
         status: "failure",
         message:
-          "Bid not declined, please check that you are logged in and you have chosen a valid bid.",
-        data: decline_bid,
+          "Bid not cancelled, please check that you are logged in and you have chosen a valid bid.",
+        data: cancel_bid,
       });
     }
   } catch (err) {

@@ -10,8 +10,7 @@ class Bid {
     );
   }
 
-  // **** fix this with the date filter
-  async getUserBids(username) { 
+  async getCaretakerBids(username) { 
     console.log("heregirl");
     console.log("username here leh: " + username)
     let query = `SELECT (petowner_username, pet_name, pet_type, start_date, end_date, price, transfer_method) FROM ${this.table}
@@ -47,6 +46,39 @@ class Bid {
                   RETURNING petowner_username, pet_name, start_date, end_date, pet_type, price, transfer_method`;
     const results = await this.pool.query(query);
     console.log('cameherehmmm');
+    if (results.rows.length == 0) {
+      return null;
+    } else {
+      return results.rows;
+    }
+  }
+
+  async getPetownerBids(username) { 
+    console.log("herepetownerlell");
+    console.log("username here leh: " + username)
+    let query = `SELECT (caretaker_username, pet_name, pet_type, start_date, end_date, price, transfer_method) FROM ${this.table}
+                    WHERE petowner_username='${username}'
+                    AND isSuccessful IS NULL
+                    ORDER BY start_date ASC`;
+    console.log("hereleh");
+    const results = await this.pool.query(query);
+    // console.log(results.rows);
+    if (results.rows.length == 0) {
+      return null;
+    } else {
+      return results.rows;
+    }
+  }
+
+  async cancelBid(petowner_username, pet_name, caretaker_username, start_date, end_date) {
+    console.log("petowner user : " + petowner_username);
+    let query = `DELETE FROM ${this.table}
+                  WHERE petowner_username = '${petowner_username}' AND pet_name = '${pet_name}' AND caretaker_username = '${caretaker_username}'
+                      AND start_date = '${start_date}' AND end_date = '${end_date}'
+                  RETURNING caretaker_username, pet_name, start_date, end_date, pet_type, price, transfer_method`;
+    const results = await this.pool.query(query);
+    console.log('cameheretocancelbid hmmmm');
+    // console.log(results);
     if (results.rows.length == 0) {
       return null;
     } else {

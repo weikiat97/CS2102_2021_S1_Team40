@@ -1553,3 +1553,6 @@ insert into bids values ('tblanchet0', 'woofies', 'dog', 'rbth7e5', '2020-10-20'
 insert into bids values ('tblanchet0', 'hamtaro', 'cat', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'card', 'good, hamtaro was very happy', 4, NULL);
 insert into bids values ('tblanchet0', 'whiskies', 'dog', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'card', 'excellent service, would come again', 5, TRUE);
 
+insert into availabilities values ('gbrownlea9m', 'mouse', 50, '2020-10-20', '2020-10-30');
+insert into bids values ('rbth7e5', 'pikachu', 'mouse', 'gbrownlea9m', '2020-10-11', '2020-10-20', 50, 'in person', 'excellent', 5, NULL);
+insert into pets values ('rbth7e5', 'pikachu', 'mouse');

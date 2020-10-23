@@ -95,9 +95,16 @@ export default function NewNavbar() {
             <Nav.Link as={Link} to="/profile">
               Profile
             </Nav.Link>
-            <Nav.Link as={Link} to="/profile/currentBids">
-              Pending Bids
-            </Nav.Link>
+            {user.type.includes("caretaker") ? (
+              <Nav.Link as={Link} to="/profile/currentBidsCaretaker">
+                Bids For You
+              </Nav.Link>
+            ) : null}
+            {user.type.includes("petowner") ? (
+              <Nav.Link as={Link} to="/profile/currentBidsPetowner">
+                Bids From You
+              </Nav.Link>
+            ) : null}
             <Nav.Item className="ml-auto">
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
               {authButton}

@@ -1,21 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
-import BidsRetrieval from "../components/BidRetrieval";
+import BidsRetrievalPetowner from "../components/BidRetrievalPetowner";
 import Container from "@material-ui/core/Container";
 
 
-export default function CurrentBids() {
+export default function CurrentBidsPetowner() {
   const user = useSelector(selectUser);
 //   console.log(caretaker);
-  if (user && user.type.includes("caretaker")) {
+  if (user && user.type.includes("petowner")) {
     return (
       <div>
       <Container>
-        <h1>Current Bids:</h1><br></br>
-        <BidsRetrieval />
+        <h1>Your current bids as a pet owner:</h1><br></br>
+        <BidsRetrievalPetowner />
       </Container>
-        
       </div>
     );
   } else {

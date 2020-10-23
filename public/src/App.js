@@ -6,7 +6,8 @@ import Profile from "./pages/Profile";
 import Leave from "./pages/Leave";
 import CareTakerProfile from "./pages/CareTakerProfile";
 import AdminProfile from "./pages/AdminProfile";
-import CurrentBids from "./pages/CurrentBids";
+import CurrentBidsCaretaker from "./pages/CurrentBidsCaretaker";
+import CurrentBidsPetowner from "./pages/CurrentBidsPetowner";
 
 function App() {
   return (
@@ -19,8 +20,11 @@ function App() {
         <Route path="/caretaker">
           <CareTakerProfile />
         </Route>
-        <Route path="/profile/currentBids">
-          <CurrentBids />
+        <Route path="/profile/currentBidsCaretaker">
+          <CurrentBidsCaretaker />
+        </Route>
+        <Route path="/profile/currentBidsPetowner">
+          <CurrentBidsPetowner />
         </Route>
         <Route path="/profile/leaves">
           <Leave />
