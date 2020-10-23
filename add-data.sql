@@ -1565,15 +1565,71 @@ insert into caretakers values ('runningoutofnames', 'gone');
 insert into fulltime_caretakers values ('runningoutofnames');
 insert into availabilities values ('runningoutofnames', 20, '2020-11-01', '2020-11-05', 'rabbit');
 
-insert into bids values ('blahblah', 'pet', 'sheryl', '2020-10-24', '2020-10-25', 50, 'cat', 'Delivered by pet owner')
-petowner_username VARCHAR(50),
-    pet_name VARCHAR(50) NOT NULL,
-    caretaker_username VARCHAR(50),
-    start_date DATE,
-    end_date DATE,
-    price NUMERIC NOT NULL,
-    pet_type VARCHAR,
-    transfer_method VARCHAR(100) NOT NULL,
-    review VARCHAR(200),
-    rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
-    isSuccessful BOOLEAN DEFAULT FALSE,
+insert into caretakers values ('plswork', 'workpls');
+insert into parttime_caretakers values ('plswork');
+insert into availabilities values ('plswork', 50, '2020-10-24', '2020-10-28', 'cat');
+
+insert into caretakers values ('chloe', 'hihi');
+insert into parttime_caretakers values ('chloe');
+insert into availabilities values ('chloe', 60, '2020-10-24', '2020-10-26', 'cat');
+
+insert into caretakers values ('sherleen', 'aghase');
+insert into fulltime_caretakers values ('sherleen');
+insert into availabilities values ('sherleen', 30, '2020-09-22', '2020-11-23', 'rabbit');
+
+insert into bids values ('petowner', 'petname', 'sheryl', '2020-10-23', '2020-10-29', 50, 'cat', 'Delivered by pet owner', '10/10 recommend her services', 4, TRUE);
+insert into bids values ('anotherpetowner', 'anotherpetname', 'sheryl', '2020-10-23', '2020-10-29', 50, 'cat', 'Delivered by pet owner', 'terrible services my cat was terrified of her', 1, TRUE);
+insert into bids values ('owner', 'pet', 'sheryl', '2020-10-23', '2020-10-29', 50, 'cat', 'Delivered by pet owner', 'treated my cat like a queen', 5, TRUE);
+insert into bids values ('lovepets', 'cutepet', 'sheryl', '2020-10-23', '2020-10-29', 50, 'cat', 'Delivered by pet owner', 'would not recommend, my cats hair was somehow shaved', 1, TRUE);
+insert into bids values ('granny', 'meow', 'sheryl', '2020-10-23', '2020-10-29', 50, 'cat', 'Delivered by pet owner', 'was quite meh i think there are better caretakers for that price', 3, TRUE);
+insert into bids values ('ash', 'pikachu', 'chloe', '2020-10-24', '2020-10-26', 60, 'cat', 'Delivered by pet owner', 'i think im scarred from caretaker services after this', 1, TRUE);
+insert into bids values ('me', 'charmander', 'chloe', '2020-10-24', '2020-10-26', 60, 'cat', 'Delivered by pet owner', 'just take care of your pets yourself', 1, TRUE);
+insert into bids values ('serena', 'eevee', 'plswork', '2020-10-24', '2020-10-28', 50, 'cat', 'Delivered by pet owner', 'my cat became best friends with her', 5, TRUE);
+insert into bids values ('team rocket', 'meowth', 'plswork', '2020-10-24', '2020-10-28', 50, 'cat', 'Delivered by pet owner', 'so friendly', 4, TRUE);
+insert into bids values ('somename', 'squirtle', 'plswork', '2020-10-24', '2020-10-28', 50, 'cat', 'Delivered by pet owner', '10/10 recommend her services', 4, TRUE);
+
+insert into pets values ('petowner', 'petname', 'cat');
+insert into pets values ('anotherpetowner', 'anotherpetname', 'cat');
+insert into pets values ('owner', 'pet', 'cat');
+insert into pets values ('lovepets', 'cutepet', 'cat');
+insert into pets values ('granny', 'meow', 'cat');
+insert into pets values ('ash', 'pikachu', 'cat');
+insert into pets values ('me', 'charmander', 'cat');
+insert into pets values ('serena', 'eevee', 'cat');
+insert into pets values ('team rocket', 'meowth', 'cat');
+insert into pets values ('somename', 'squirtle', 'cat');
+
+insert into petowners values ('petowner', 'hihihi', 'kaching');
+insert into petowners values ('anotherpetowner', 'hihihi', 'kaching');
+insert into petowners values ('owner', 'hihihi', 'kaching');
+insert into petowners values ('lovepets', 'hihihi', 'kaching');
+insert into petowners values ('granny', 'hihihi', 'kaching');
+insert into petowners values ('ash', 'hihihi', 'kaching');
+insert into petowners values ('me', 'hihihi', 'kaching');
+insert into petowners values ('serena', 'hihihi', 'kaching');
+insert into petowners values ('team rocket', 'hihihi', 'kaching');
+insert into petowners values ('somename', 'hihihi', 'kaching');
+
+-- CREATE TABLE petowners (
+--     username VARCHAR(50) PRIMARY KEY,
+--     password VARCHAR(256) NOT NULL,
+--     creditcard VARCHAR(256)
+-- );
+-- CREATE TABLE bids (
+--     petowner_username VARCHAR(50),
+--     pet_name VARCHAR(50) NOT NULL,
+--     caretaker_username VARCHAR(50),
+--     start_date DATE,
+--     end_date DATE,
+--     price NUMERIC NOT NULL,
+--     pet_type VARCHAR,
+--     transfer_method VARCHAR(100) NOT NULL,
+--     review VARCHAR(200),
+--     rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
+--     isSuccessful BOOLEAN DEFAULT FALSE,
+--     FOREIGN KEY (petowner_username, pet_name) REFERENCES pets (petowner_username, pet_name),
+--     FOREIGN KEY (caretaker_username, start_date, end_date, price, pet_type)
+--     REFERENCES availabilities (username, start_date, end_date, advertised_price, pet_type),
+--     PRIMARY KEY (petowner_username, pet_name, caretaker_username, start_date, end_date),
+--     CHECK (petowner_username <> caretaker_username)
+-- );

@@ -65,10 +65,10 @@ export default function Caretakers() {
                                     {caretaker["advertised_price"]}
                                 </TableCell>
                                 <TableCell align="center">
-                                    {caretaker["start_date"]}
+                                    {caretaker["start_date"].substring(0, 10)}
                                 </TableCell>
                                 <TableCell align="center">
-                                    {caretaker["end_date"]}
+                                    {caretaker["end_date"].substring(0, 10)}
                                 </TableCell>
                                 <TableCell align='center'>
                                     <Button variant="contained" onClick={() => setBidPageOpen(true)}>

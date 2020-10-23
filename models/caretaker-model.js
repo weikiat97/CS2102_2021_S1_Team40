@@ -20,7 +20,7 @@ class Caretaker {
                     FROM availabilities
                     WHERE start_date <= '${start_date}' AND end_date >= '${end_date}'
                             AND advertised_price <= ${maximum_price} AND pet_type = '${pet_type}'
-                    EXCEPT
+                    EXCEPT 
                     SELECT  A.username, A.advertised_price, A.start_date, A.end_date
                     FROM    availabilities A, (SELECT  b1.caretaker_username
                                                 FROM    bids b1
@@ -35,7 +35,7 @@ class Caretaker {
                                                                 ELSE COUNT(b1.caretaker_username) >= 2
                                                                 END
                                                             END) B
-                    WHERE   A.username = B.caretaker_username`;
+                    WHERE   A.username = B.caretaker_username AND A.start_date <= '${end_date}' AND A.end_date >= '${start_date}'`;
         console.log("byebye")
         const results = await this.pool.query(query);
         if (results.rows.length === 0) {

@@ -73,19 +73,6 @@ export default function CaretakerFilter(props) {
                     fullWidth
                     onChange={(e) => setPrice(e.target.value)}
                 />
-                <FormControl>
-                    <InputLabel id="select-transfer-type">Select transfer type</InputLabel>
-                    <Select
-                        labelId="select-transfer-type"
-                        id="select-transfer-type"
-                        value={transfer_type}
-                        onChange={(e) => setTransferType(e.target.value)}
-                    >
-                        <MenuItem value={"Delivered by you"}>Delivered by you</MenuItem>
-                        <MenuItem value={"Caretaker pick up"}>Caretaker pick up</MenuItem>
-                        <MenuItem value={"Transfer through PCS building"}>Transfer through PCS building</MenuItem>
-                    </Select>
-                </FormControl>
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
