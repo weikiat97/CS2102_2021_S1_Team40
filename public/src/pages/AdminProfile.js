@@ -51,6 +51,10 @@ export default function AdminProfile() {
       username: user.username,
     }),
   });
+  const formatter = new Intl.NumberFormat('en-SG', {
+    style: 'currency',
+    currency: 'SGD',
+  });
   const ftcaretakerInfo = adminProfileInfo
     ? adminProfileInfo["caretakers_admin_info"].filter(
         (r) => r["job_type"] === "Full Time"
@@ -78,7 +82,7 @@ export default function AdminProfile() {
         <h1>Admin Profile</h1>
         <Button>Set Caretaker Base Price</Button>
         <div className={classes.aggregateInfo}>
-          <h5>Total Salary to be Paid: ${totalSalary}</h5>
+          <h5>Total Salary to be Paid ({MONTH_ARRAY[new Date().getMonth()]}): {formatter.format(totalSalary)}</h5>
           <h5>
             Number of Jobs ({MONTH_ARRAY[new Date().getMonth()]}):{" "}
             {adminProfileInfo && adminProfileInfo["admin_agg_info"]["num_jobs"]}{" "}
