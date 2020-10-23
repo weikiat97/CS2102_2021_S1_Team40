@@ -31,7 +31,8 @@ CREATE TABLE availabilities (
     advertised_price NUMERIC NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    PRIMARY KEY (username, start_date, end_date, advertised_price)
+    pet_type VARCHAR,
+    PRIMARY KEY (username, start_date, end_date, advertised_price, pet_type)
 );
 
 CREATE TABLE fulltime_caretakers (
@@ -86,13 +87,14 @@ CREATE TABLE bids (
     start_date DATE,
     end_date DATE,
     price NUMERIC NOT NULL,
+    pet_type VARCHAR,
     transfer_method VARCHAR(100) NOT NULL,
     review VARCHAR(200),
     rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
     isSuccessful BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (petowner_username, pet_name) REFERENCES pets (petowner_username, pet_name),
-    FOREIGN KEY (caretaker_username, start_date, end_date, price)
-    REFERENCES availabilities (username, start_date, end_date, advertised_price),
+    FOREIGN KEY (caretaker_username, start_date, end_date, price, pet_type)
+    REFERENCES availabilities (username, start_date, end_date, advertised_price, pet_type),
     PRIMARY KEY (petowner_username, pet_name, caretaker_username, start_date, end_date),
     CHECK (petowner_username <> caretaker_username)
 );

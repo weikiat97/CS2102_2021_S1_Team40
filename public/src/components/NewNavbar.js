@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
-import {
-  selectCareTaker,
-  signoutCareTaker,
-} from "../redux/slices/careTakerSlice";
+
 import Login from "./Login";
 import Signup from "./Signup";
 import { Link } from "react-router-dom";
@@ -15,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import Navbar from "@bit/react-bootstrap.react-bootstrap.navbar";
 import ReactBootstrapStyle from "@bit/react-bootstrap.react-bootstrap.internal.style-links";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import CaretakerFilter from "./CaretakerFilter";
 
 const useStyles = makeStyles({
   auth: {
@@ -24,20 +22,34 @@ const useStyles = makeStyles({
 
 export default function NewNavbar() {
   const user = useSelector(selectUser);
-  const caretaker = useSelector(selectCareTaker);
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [caretakerOpen, setCareTakerOpen] = useState(false);
+  const [caretakerFiltersOpen, setCaretakerFiltersOpen] = useState(false);
   const classes = useStyles();
   const authButton = user ? (
     <div>
-      {user.type.includes('admin') ? <Button component={Link} to="/admin">Admin Profile</Button> : null}
-      {user.type.includes('petowner') ? <Button>Petowner Profile</Button> : null}
-      {user.type.includes('caretaker') ? <Button component={Link} to="/caretaker">Caretaker Profile</Button> :
+      {user.type.includes("admin") ? (
+        <Button component={Link} to="/admin">
+          Admin Profile
+        </Button>
+      ) : null}
+      {user.type.includes("petowner") ? (
+        <Button>Petowner Profile</Button>
+      ) : null}
+      {user.type.includes("caretaker") ? (
+        <Button component={Link} to="/caretaker">
+          Caretaker Profile
+        </Button>
+      ) : (
         <Button onClick={() => setCareTakerOpen(true)}>
           Become a Caretaker
-        </Button>}
+        </Button>
+      )}
+      <Button onClick={() => setCaretakerFiltersOpen(true)}>
+        Find a Caretaker
+      </Button>
       <Button
         className={classes.auth}
         variant="contained"
@@ -54,6 +66,7 @@ export default function NewNavbar() {
       <Button variant="contained" onClick={() => setSignupOpen(true)}>
         Signup
       </Button>
+      
     </div>
   );
 
@@ -86,6 +99,8 @@ export default function NewNavbar() {
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
               {authButton}
               <Signup open={signupOpen} onClose={() => setSignupOpen(false)} />
+              <CaretakerFilter open={caretakerFiltersOpen} onClose={() => setCaretakerFiltersOpen(false)} />
+              
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

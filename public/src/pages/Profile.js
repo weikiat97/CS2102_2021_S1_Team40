@@ -1,15 +1,12 @@
 import React from "react";
-import PetOwnerProfile from "../pages/PetOwnerProfile";
-import { selectUser } from "../redux/slices/userSlice"
-import { selectCareTaker } from "../redux/slices/careTakerSlice";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { selectUser } from "../redux/slices/userSlice";
 import Container from "@material-ui/core/Container";
 
 export default function Profile() {
   const user = useSelector(selectUser);
-  const caretaker = useSelector(selectCareTaker);
-  if (caretaker) {
+  if (user) {
     return (
       <Container>
         <h1>YOU ARE AT THE PROFILE PAGE</h1>
@@ -17,10 +14,6 @@ export default function Profile() {
           <button>Go to Leaves</button>
         </Link>
       </Container>
-    );
-  } else if (user) {
-    return (
-      <PetOwnerProfile username={user.username} />
     );
   } else {
     return (

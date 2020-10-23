@@ -1,5 +1,27 @@
 let caretaker_model = require("../models/caretaker-model");
 // Handle index actions
+exports.filtered = async function (req, res) {
+  try {
+    const caretakers = await caretaker_model.getRequiredCaretakers(
+        req.body.maximum_price,
+        req.body.pet_type,
+        req.body.start_date,
+        req.body.end_date,
+    );
+    res.json({
+        status: "success",
+        message: "Caretakers retrieved successfully",
+        data: caretakers,
+      });
+      console.log("successfully got caretakers");
+    } catch (err) {
+      res.json({
+        status: "error",
+        message: "Caretakers not available for your requests :(",
+      });
+    }
+  };
+
 exports.index = async function (req, res) {
   try {
     const caretakers = await caretaker_model.get();
@@ -48,7 +70,8 @@ exports.new = async function (req, res) {
   try {
     const caretaker = await caretaker_model.addNewCareTaker(
       req.body.username,
-      req.body.password
+      req.body.password,
+      req.body.role
     );
     if (caretaker) {
       res.status(200).json({
@@ -62,7 +85,11 @@ exports.new = async function (req, res) {
         message: "Signup as a caretaker failed",
       });
     }
-    await caretaker_model.addNewCareTaker(req.body.username, req.body.password);
+    await caretaker_model.addNewCareTaker(
+      req.body.username,
+      req.body.password,
+      req.body.role
+    );
     res.status(200).json({
       status: "success",
       message: "Signup as caretaker successful",
@@ -96,4 +123,4 @@ exports.profileInfo = async function (req, res) {
       message: err.message,
     });
   }
-}
+};

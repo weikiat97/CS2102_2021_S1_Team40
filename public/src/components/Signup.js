@@ -7,14 +7,16 @@ import Container from "@material-ui/core/Container";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { signupUser } from "../redux/slices/userSlice";
+import { selectUser } from "../redux/slices/userSlice";
+import { signupPetOwner } from "../redux/slices/petOwnerSlice";
 import { signupCareTaker } from "../redux/slices/careTakerSlice";
-import { useDispatch } from "react-redux";
+import { signupFTCareTaker } from "../redux/slices/fullTimeCareTakerSlice";
+import { signupPTCareTaker } from "../redux/slices/partTimeCareTakerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import CareTakerSignUp from "./CareTakerSignUp";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,48 +41,72 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup(props) {
   const { open, onClose } = props;
+  const classes = useStyles();
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [roles, setRoles] = useState({
     selected: {
       caretaker: false,
       petowner: false,
+      type: null,
     },
   });
+
   const signup = () => {
-    //console.log(roles.selected);
-    if (
-      username != "" &&
-      password != "" &&
-      (roles.selected.caretaker || roles.selected.petowner)
-    ) {
-      if (roles.selected.petowner && roles.selected.caretaker) {
-        //console.log("Sign up for both petowner and caretaker");
-        dispatch(signupUser(username, password));
-        dispatch(signupCareTaker(username, password));
-      } else if (roles.selected.petowner) {
-        //console.log("Sign up for petowner");
-        dispatch(signupUser(username, password));
+    console.log(roles.selected);
+
+    if (username !== "" && password !== "") {
+      if (roles.selected.caretaker && roles.selected.petowner) {
+        dispatch(
+          signupCareTaker(
+            username,
+            password,
+            ["caretaker", "petowner"],
+            roles.selected.type
+          )
+        );
+        dispatch(signupPetOwner(username, password, ["caretaker", "petowner"]));
       } else if (roles.selected.caretaker) {
         //console.log("Sign up for caretaker");
-        dispatch(signupCareTaker(username, password));
+        dispatch(
+          signupCareTaker(
+            username,
+            password,
+            ["caretaker"],
+            roles.selected.type
+          )
+        );
+      } else if (roles.selected.petowner) {
+        //console.log("Sign up for petowner");
+        dispatch(signupPetOwner(username, password, ["petowner"]));
+      } else {
       }
 
       onClose();
     }
   };
-  const classes = useStyles();
 
-  const toggleOption = (e) => {
-    const key = e.currentTarget.value; // e.g. 'A'
+  const toggleOptionAllowMultiple = (e) => {
+    const key = e.currentTarget.value;
     const value = !roles.selected[key];
     const newSelected = Object.assign(roles.selected, { [key]: value });
     setRoles({ selected: newSelected });
   };
 
-  const getBsStyle = (key) => {
+  const getStyle = (key) => {
     return roles.selected[key] ? "primary" : "default";
+  };
+
+  const getStyle2 = (key) => {
+    return roles.selected["type"] === key ? "primary" : "default";
+  };
+
+  const toggleOptionAllowOne = (e) => {
+    const value = e.currentTarget.value;
+    const newSelected = Object.assign(roles.selected, { ["type"]: value });
+    setRoles({ selected: newSelected });
   };
 
   return (
@@ -102,25 +128,47 @@ export default function Signup(props) {
               Sign Up
             </Typography>
 
-            <form className={classes.form} Validate>
+            <div className={classes.form}>
               <ButtonGroup fullWidth variant="outlined" bsStyle="default">
                 <Button
                   fullWidth
-                  onClick={(e) => toggleOption(e)}
+                  onClick={(e) => toggleOptionAllowMultiple(e)}
                   value="caretaker"
-                  color={getBsStyle("caretaker")}
+                  color={getStyle("caretaker")}
                 >
                   Caretaker
                 </Button>
                 <Button
                   fullWidth
-                  onClick={(e) => toggleOption(e)}
+                  onClick={(e) => toggleOptionAllowMultiple(e)}
                   value="petowner"
-                  color={getBsStyle("petowner")}
+                  color={getStyle("petowner")}
                 >
                   PetOwner
                 </Button>
               </ButtonGroup>
+              {roles.selected.caretaker && (
+                <ButtonGroup fullWidth variant="outlined" bsStyle="default">
+                  <Button
+                    fullWidth
+                    color={getStyle2("fulltime")}
+                    value="fulltime"
+                    className={classes.submit}
+                    onClick={(e) => toggleOptionAllowOne(e)}
+                  >
+                    Full-Time
+                  </Button>
+                  <Button
+                    fullWidth
+                    color={getStyle2("parttime")}
+                    value="parttime"
+                    className={classes.submit}
+                    onClick={(e) => toggleOptionAllowOne(e)}
+                  >
+                    Part-Time
+                  </Button>
+                </ButtonGroup>
+              )}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -144,7 +192,6 @@ export default function Signup(props) {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Button
-                type="submit"
                 fullWidth
                 variant="outlined"
                 color="primary"
@@ -153,7 +200,7 @@ export default function Signup(props) {
               >
                 Sign Up
               </Button>
-            </form>
+            </div>
           </div>
         </Container>
       </DialogContent>

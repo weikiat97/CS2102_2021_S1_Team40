@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
 import { loadState, removeState, saveState } from "../localStorage";
+import { signoutCareTaker, setCareTaker } from "./careTakerSlice";
+import { signoutPetOwner } from "./petOwnerSlice";
 
 const USER_STATE_KEY = "user";
 const persistedUser = loadState(USER_STATE_KEY);
@@ -36,28 +38,12 @@ export const getUserFromDb = (username, password) => (dispatch) => {
 };
 
 export const signoutUser = () => (dispatch) => {
+  dispatch(signoutPetOwner());
+  dispatch(signoutCareTaker());
+  dispatch(setCareTaker(null));
   removeState(USER_STATE_KEY);
+  removeState("caretaker");
   dispatch(setUser(null));
-};
-
-export const signupUser = (username, password) => (dispatch) => {
-  fetch(`${API_HOST}/users`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify({ username: username, password: password }),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.status === "success") {
-        saveState(USER_STATE_KEY, result.data);
-        dispatch(setUser(result.data));
-      } else {
-        throw new Error(result.message);
-      }
-    })
-    .catch((err) => alert(err));
 };
 
 export const selectUser = (state) => state.user;

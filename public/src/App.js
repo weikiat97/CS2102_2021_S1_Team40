@@ -4,6 +4,7 @@ import NewNavbar from "./components/NewNavbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Leave from "./pages/Leave";
+import Caretakers from "./pages/Caretakers";
 import CareTakerProfile from "./pages/CareTakerProfile";
 import AdminProfile from "./pages/AdminProfile";
 
@@ -13,10 +14,13 @@ function App() {
       <NewNavbar />
       <Switch>
         <Route path="/admin">
-          <AdminProfile/>
+          <AdminProfile />
         </Route>
         <Route path="/caretaker">
-          <CareTakerProfile/>
+          <CareTakerProfile />
+        </Route>
+        <Route path="/profile/find-caretakers">
+          <Caretakers />
         </Route>
         <Route path="/profile/leaves">
           <Leave />
