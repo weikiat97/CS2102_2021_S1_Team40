@@ -11,12 +11,15 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { selectUser } from "../redux/slices/userSlice";
+import { selectSignUpError } from "../redux/slices/signUpErrorSlice";
 import { signupPetOwner } from "../redux/slices/petOwnerSlice";
 import { signupCareTaker } from "../redux/slices/careTakerSlice";
 import { signupFTCareTaker } from "../redux/slices/fullTimeCareTakerSlice";
 import { signupPTCareTaker } from "../redux/slices/partTimeCareTakerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CareTakerSignUp from "./CareTakerSignUp";
+import { setSignUpError } from "../redux/slices/signUpErrorSlice";
+import { removeState, saveState } from "../redux/localStorage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,12 +46,14 @@ export default function Signup(props) {
   const { open, onClose } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+
+  const error = useSelector(selectSignUpError);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [helpTextUsername, setHelpUsername] = useState("");
   const [helpTextPassword, setHelpPassword] = useState("");
   const [helpTextRoles, setHelpRoles] = useState("");
+  const [dbFeedback, setDbFeedback] = useState("");
   const [roles, setRoles] = useState({
     selected: {
       caretaker: false,
@@ -58,15 +63,16 @@ export default function Signup(props) {
   });
 
   const isEmptyOrBlank = (str) => {
-    return ((!str || 0 === str.length) || /^\s*$/.test(str));
+    return !str || 0 === str.length || /^\s*$/.test(str);
   };
 
   const signup = () => {
     if (
-      !isEmptyOrBlank(username)  &&
-      !isEmptyOrBlank(password)  && 
-      ((roles.selected.caretaker && roles.selected.roles !== null) || roles.selected.petowner)) 
-     {
+      !isEmptyOrBlank(username) &&
+      !isEmptyOrBlank(password) &&
+      ((roles.selected.caretaker && roles.selected.roles !== null) ||
+        roles.selected.petowner)
+    ) {
       if (roles.selected.caretaker && roles.selected.petowner) {
         dispatch(
           signupCareTaker(
@@ -76,7 +82,6 @@ export default function Signup(props) {
             roles.selected.type
           )
         );
-        dispatch(signupPetOwner(username, password, ["caretaker", "petowner"]));
       } else if (roles.selected.caretaker) {
         //console.log("Sign up for caretaker");
         dispatch(
@@ -92,8 +97,16 @@ export default function Signup(props) {
         dispatch(signupPetOwner(username, password, ["petowner"]));
       } else {
       }
-
-      onClose();
+      console.log(error);
+      if (error) {
+        if (error.includes("duplicate key value")) {
+          setHelpUsername("Sorry, this username is taken!");
+        }
+        //setDbFeedback(error);
+        console.log(error);
+      } else {
+        onClose();
+      }
     } else {
       if (isEmptyOrBlank(username)) {
         setHelpUsername("Username cannot be empty");
@@ -105,11 +118,18 @@ export default function Signup(props) {
         console.log(roles.selected);
         setHelpRoles("Please choose a role!");
       }
-      if (roles.selected.caretaker && (roles.selected.type === null)) {
+      if (roles.selected.caretaker && roles.selected.type === null) {
         console.log(roles.selected);
         setHelpRoles("Please choose the type of caretaker!");
       }
     }
+  };
+
+  const toggleOptionAllowOne = (e) => {
+    const value = e.currentTarget.value;
+    const newSelected = Object.assign(roles.selected, { ["type"]: value });
+    setHelpRoles("");
+    setRoles({ selected: newSelected });
   };
 
   const toggleOptionAllowMultiple = (e) => {
@@ -127,17 +147,17 @@ export default function Signup(props) {
     return roles.selected["type"] === key ? "primary" : "default";
   };
 
-  const toggleOptionAllowOne = (e) => {
-    const value = e.currentTarget.value;
-    const newSelected = Object.assign(roles.selected, { ["type"]: value });
-    setHelpRoles("");
-    setRoles({ selected: newSelected });
-  };
-
   const checkUsername = (e) => {
     setUsername(e.target.value);
     if (!isEmptyOrBlank(e.target.value)) {
       setHelpUsername("");
+    }
+  };
+
+  const checkPassword = (e) => {
+    setPassword(e.target.value);
+    if (!isEmptyOrBlank(e.target.value)) {
+      setHelpPassword("");
     }
   };
 
@@ -225,8 +245,9 @@ export default function Signup(props) {
                 helperText={helpTextPassword}
                 id="password"
                 autoComplete="current-password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={checkPassword}
               />
+              <p>{dbFeedback}</p>
               <Button
                 fullWidth
                 variant="outlined"
@@ -243,27 +264,3 @@ export default function Signup(props) {
     </Dialog>
   );
 }
-
-// <DialogContentText>
-//         Please enter a username and password to signup an account for
-//         PetLovers!
-//       </DialogContentText>
-//       <TextField
-//         autoFocus
-//         label="Username"
-//         type="text"
-//         fullWidth
-//         onChange={(e) => setUsername(e.target.value)}
-//       />
-//       <TextField
-//         autoFocus
-//         label="Password"
-//         type="password"
-//         fullWidth
-//         onChange={(e) => setPassword(e.target.value)}
-//       />
-//     </DialogContent>
-//     <DialogActions>
-//       <Button onClick={onClose}>Cancel</Button>
-//       <Button onClick={signup}>Login</Button>
-//     </DialogActions>

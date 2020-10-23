@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
-import { loadState, saveState } from "../localStorage";
+import { loadState, saveState, removeState } from "../localStorage";
 import { setCareTaker, getCareTakerBasicInfo } from "./careTakerSlice";
+import { setSignUpError } from "./signUpErrorSlice";
 
 const PTCARETAKER_STATE_KEY = "ptcaretaker";
 const persistedPTCareTaker = loadState(PTCARETAKER_STATE_KEY);
@@ -52,10 +53,12 @@ export const signupPTCareTaker = (username) => (dispatch) => {
         saveState("caretaker", result.data);
         dispatch(setCareTaker(result.data));
       } else {
-        throw new Error(result.message);
+        saveState("error", result.message);
+        dispatch(setSignUpError(JSON.stringify(result.message)));
+        console.log(result.message);
       }
-    })
-    .catch((err) => alert(err));
+    });
+  //.catch((err) => dispatch(setError(JSON.stringify(err))));
 };
 
 export const selectPTCareTaker = (state) => state.ptcaretaker;
