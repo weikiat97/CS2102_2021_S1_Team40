@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import { getCaretakers } from "../redux/slices/careTakerSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { Container } from "@material-ui/core";
 
 
 export default function CaretakerFilter(props) {
@@ -33,53 +34,55 @@ export default function CaretakerFilter(props) {
     };
 
     return (
-        <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Requirements Page</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    Please enter these information before we find you a caretaker!
+        <Container>
+            <Dialog open={open} onClose={onClose}>
+                <DialogTitle>Requirements Page</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please enter these information before we find you a caretaker!
                 </DialogContentText>
-                <TextField
-                    id="date"
-                    label="Select start date"
-                    type="date"
-                    defaultValue=""
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={(e) => setStartDate(e.target.value)}
-                />
-                <TextField
-                    id="date"
-                    label="Select end date"
-                    type="date"
-                    defaultValue=""
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={(e) => setEndDate(e.target.value)}
-                />
-                <TextField
-                    id="pet-type"
-                    label="Enter pet type"
-                    type="text"
-                    defaultValue=""
-                    onChange={(e) => setPetType(e.target.value)}
-                />
-                <TextField
-                    autoFocus
-                    label="Maximum price"
-                    type="text"
-                    fullWidth
-                    onChange={(e) => setPrice(e.target.value)}
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose}>Cancel</Button>
-                <Link to="/profile/find-caretakers">
-                    <button onClick={find}>Find</button>
-                </Link>
-            </DialogActions>
-        </Dialog>
+                    <TextField
+                        id="date"
+                        label="Select start date"
+                        type="date"
+                        defaultValue=""
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                    <TextField
+                        id="date"
+                        label="Select end date"
+                        type="date"
+                        defaultValue=""
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                    <TextField
+                        id="pet-type"
+                        label="Enter pet type"
+                        type="text"
+                        defaultValue=""
+                        onChange={(e) => setPetType(e.target.value)}
+                    />
+                    <TextField
+                        autoFocus
+                        label="Maximum price"
+                        type="text"
+                        fullWidth
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onClose}>Cancel</Button>
+                    <Link to="/profile/find-caretakers">
+                        <button onClick={find}>Find</button>
+                    </Link>
+                </DialogActions>
+            </Dialog>
+        </Container>
     );
 }

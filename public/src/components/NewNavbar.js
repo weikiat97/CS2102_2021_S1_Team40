@@ -47,6 +47,9 @@ export default function NewNavbar() {
           Become a Caretaker
         </Button>
       )}
+      <Button onClick={() => setCaretakerFiltersOpen(true)}>
+        Find a Caretaker
+      </Button>
       <Button
         className={classes.auth}
         variant="contained"
@@ -62,9 +65,6 @@ export default function NewNavbar() {
       </Button>
       <Button variant="contained" onClick={() => setSignupOpen(true)}>
         Signup
-      </Button>
-      <Button variant="contained" onClick={() => setCaretakerFiltersOpen(true)}>
-        Find a Caretaker
       </Button>
       
     </div>
