@@ -144,7 +144,11 @@ class CareTaker {
                              SELECT username, 'Full Time' AS job_type FROM fulltime_caretakers
                              UNION
                              SELECT username, 'Part Time' AS job_type FROM parttime_caretakers
-                         ) AS cts LEFT JOIN bids b ON b.caretaker_username = cts.username AND b.isSuccessful
+                         ) AS cts LEFT JOIN bids b 
+                         ON b.caretaker_username = cts.username 
+                         AND b.isSuccessful 
+                         AND b.start_date >= date_trunc('month', CURRENT_DATE)
+                         AND b.end_date < CURRENT_DATE
                     GROUP BY cts.username, cts.job_type
                     ORDER BY num_pets DESC`;
     const ct_results = await this.pool.query(ct_query);
