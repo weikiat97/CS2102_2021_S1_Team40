@@ -58,7 +58,8 @@ export default function Login(props) {
     if (!isEmptyOrBlank(username) && !isEmptyOrBlank(password)) {
       dispatch(getUserFromDb(username, password));
       if (error) {
-        setDbFeedback(error);
+        setHelpUsername(error);
+        setHelpPassword(error);
       } else {
         dispatch(getCareTakerFromDb(username));
         onClose();

@@ -58,7 +58,7 @@ export const signupPTCareTaker = (username) => (dispatch) => {
         console.log(result.message);
       }
     });
-    //.catch((err) => dispatch(setError(JSON.stringify(err))));
+  //.catch((err) => dispatch(setError(JSON.stringify(err))));
 };
 
 export const selectPTCareTaker = (state) => state.ptcaretaker;
