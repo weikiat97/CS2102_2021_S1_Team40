@@ -53,11 +53,11 @@ export const signupFTCareTaker = (username) => (dispatch) => {
         saveState("caretaker", result.data);
         dispatch(setCareTaker(result.data));
       } else {
-        saveState("error", result.message);
-        dispatch(setSignUpError(JSON.stringify(result.message)));
+        saveState("signuperror", result.message);
+        dispatch(setSignUpError(JSON.stringify(result.message)));  
       }
-    });
-  //.catch((err) => dispatch(setError(JSON.stringify(err))));
+    })
+    //.catch((err) => dispatch(setError(JSON.stringify(err))));
 };
 
 export const selectFTCareTaker = (state) => state.ftcaretaker;
