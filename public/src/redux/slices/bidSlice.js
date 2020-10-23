@@ -42,6 +42,7 @@ export const acceptBid = (petowner_username, pet_name, caretaker_username, start
     },
     method: "POST",
     body: JSON.stringify({
+      type: "Accept",
       petowner_username: petowner_username,
       pet_name: pet_name,
       caretaker_username: caretaker_username,
@@ -72,6 +73,7 @@ export const declineBid = (petowner_username, pet_name, caretaker_username, star
     },
     method: "POST",
     body: JSON.stringify({
+      type: "Decline",
       petowner_username: petowner_username,
       pet_name: pet_name,
       caretaker_username: caretaker_username,

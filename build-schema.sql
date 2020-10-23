@@ -34,10 +34,10 @@ CREATE TABLE caretakers (
 
 CREATE TABLE availabilities (
     username VARCHAR(50) REFERENCES caretakers (username) ON DELETE cascade,
+    pet_type VARCHAR(20) NOT NULL,
     advertised_price NUMERIC NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    pet_type VARCHAR(50),
     PRIMARY KEY (username, start_date, end_date, advertised_price)
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE leaves_applied (
 CREATE TABLE base_dailys (
     ftct_username VARCHAR(50) REFERENCES fulltime_caretakers (username),
     base_price NUMERIC,
-    pet_type VARCHAR(20),
+    pet_type VARCHAR(20) NOT NULL,
     PRIMARY KEY(ftct_username, base_price, pet_type)
 );
 
@@ -89,14 +89,17 @@ CREATE TABLE requirements (
 CREATE TABLE bids (
     petowner_username VARCHAR(50),
     pet_name VARCHAR(50) NOT NULL,
+    pet_type VARCHAR(20) NOT NULL,
     caretaker_username VARCHAR(50),
     start_date DATE,
     end_date DATE,
     price NUMERIC NOT NULL,
     transfer_method VARCHAR(100) NOT NULL,
+    payment_method VARCHAR(20) NOT NULL,
+    remarks VARCHAR(50),
     review VARCHAR(200),
     rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
-    isSuccessful BOOLEAN DEFAULT FALSE,
+    isSuccessful BOOLEAN DEFAULT NULL,
     FOREIGN KEY (petowner_username, pet_name) REFERENCES pets (petowner_username, pet_name),
     FOREIGN KEY (caretaker_username, start_date, end_date, price)
     REFERENCES availabilities (username, start_date, end_date, advertised_price),

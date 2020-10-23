@@ -13,9 +13,10 @@ export default function (props) {
   const { open, onClose , data} = props;
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  console.log(data);
   const cancel = () => {
     dispatch(
-      acceptBid("testing petowner name", "testing pet name", user.username, "2020-10-10", "2020-10-11")
+      acceptBid(data.split(",")[0].split("(")[1], data.split(",")[1], user.username, data.split(",")[3], data.split(",")[4])
     );
     onClose();
   };
@@ -24,7 +25,7 @@ export default function (props) {
       <DialogTitle>Accept Bid</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to accept the bid from testing petowner name?
+          Are you sure you want to accept the bid from {data.split(",")[0].split("(")[1]}?
         </DialogContentText>
       </DialogContent>
       <DialogActions>

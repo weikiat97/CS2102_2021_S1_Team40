@@ -15,7 +15,7 @@ export default function BidDecline(props) {
   const dispatch = useDispatch();
   const cancel = () => {
     dispatch(
-      declineBid("testing petowner name", "testing petname", user.username, "2020-10-10", "2020-10-11")
+      declineBid(data.split(",")[0].split("(")[1], data.split(",")[1], user.username, data.split(",")[3], data.split(",")[4])
     );
     onClose();
   };
@@ -24,7 +24,7 @@ export default function BidDecline(props) {
       <DialogTitle>Decline Bid</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to decline the bid from testing petowner name?
+          Are you sure you want to decline the bid from {data.split(",")[0].split("(")[1]}?
         </DialogContentText>
       </DialogContent>
       <DialogActions>

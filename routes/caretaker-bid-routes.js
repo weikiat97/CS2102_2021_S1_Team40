@@ -6,7 +6,6 @@ let bid_controller = require("../controllers/bid-controller");
 router
   .route("/:username")
   .get(bid_controller.view)
-  .post(bid_controller.accept)
-  .post(bid_controller.decline);
+  .post(bid_controller.handle);
 
 module.exports = router;

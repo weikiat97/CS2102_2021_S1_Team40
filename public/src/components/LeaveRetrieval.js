@@ -53,7 +53,7 @@ export default function LeaveRetrieval(props) {
         .catch((err) => alert(err));
     }
     fetchData();
-  }, [applyOpen, updateOpen, deleteOpen]);
+  }, [applyOpen, updateOpen, deleteOpen, updateDate, deleteLeave]);
 
   const applyButton = (
     <div className={classes.auth}>

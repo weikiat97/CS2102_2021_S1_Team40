@@ -26,9 +26,7 @@ export default function BidRetrieval(props) {
   const [bids, setBids] = useState([]);
   const [acceptOpen, setAcceptOpen] = useState(false);
   const [declineOpen, setDeclineOpen] = useState(false);
-  // const [deleteOpen, setLeaveDeletionOpen] = useState(false);
   const [bidsData, setData] = useState("");
-  // const [deleteLeave, setDeleteLeave] = useState("");
 
   const classes = useStyles();
 
@@ -51,15 +49,7 @@ export default function BidRetrieval(props) {
         .catch((err) => alert(err));
     }
     fetchData();
-  }, [acceptOpen, declineOpen]);
-
-  // const applyButton = (
-  //   <div className={classes.auth}>
-  //     <Button variant="contained" onClick={() => setLeaveApplicationOpen(true)}>
-  //       Apply Leave
-  //     </Button>
-  //   </div>
-  // );
+  }, [acceptOpen, declineOpen, bidsData]);
 
   return (
     <>
@@ -68,10 +58,11 @@ export default function BidRetrieval(props) {
           <TableHead>
             <TableRow>
               <TableCell align="right">Pet Owner Username</TableCell>
+              <TableCell align="right">Pet Name</TableCell>
+              <TableCell align="right">Pet Type</TableCell>
               <TableCell align="right">Start Date</TableCell>
               <TableCell align="right">End Date</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Pet Type</TableCell>
+              <TableCell align="right">Price ($ per day)</TableCell>
               <TableCell align="right">Transfer Method</TableCell>
               <TableCell align="right">Remarks</TableCell>
               <TableCell align="right">Accept</TableCell>
@@ -85,6 +76,9 @@ export default function BidRetrieval(props) {
                   {bid.row.split(",")[0].split("(")[1]}
                 </TableCell>
                 <TableCell align="right">
+                  {bid.row.split(",")[1]}
+                </TableCell>
+                <TableCell align="right">
                   {bid.row.split(",")[2]}
                 </TableCell>
                 <TableCell align="right">
@@ -94,13 +88,13 @@ export default function BidRetrieval(props) {
                   {bid.row.split(",")[4]}
                 </TableCell>
                 <TableCell align="right">
-                  Type
+                  {bid.row.split(",")[5]}
                 </TableCell>
                 <TableCell align="right">
-                  {bid.row.split(",")[5].split(")")[0]}
+                  {bid.row.split(",")[6].split(")")[0]}
                 </TableCell>
                 <TableCell align="right">
-                  Remarks
+                  For remarks later on : {bid.row}
                 </TableCell>
                 <TableCell align="right">
                   <Button
@@ -132,12 +126,8 @@ export default function BidRetrieval(props) {
       <BidAccept
         open={acceptOpen}
         onClose={() => setAcceptOpen(false)}
-        date={bidsData}
+        data={bidsData}
       />
-      {/* <LeaveApplication
-        open={applyOpen}
-        onClose={() => setLeaveApplicationOpen(false)}
-      /> */}
       <BidDecline
         open={declineOpen}
         onClose={() => setDeclineOpen(false)}
