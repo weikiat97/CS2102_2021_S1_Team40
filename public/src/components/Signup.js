@@ -10,16 +10,10 @@ import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { selectUser } from "../redux/slices/userSlice";
 import { selectSignUpError } from "../redux/slices/signUpErrorSlice";
 import { signupPetOwner } from "../redux/slices/petOwnerSlice";
 import { signupCareTaker } from "../redux/slices/careTakerSlice";
-import { signupFTCareTaker } from "../redux/slices/fullTimeCareTakerSlice";
-import { signupPTCareTaker } from "../redux/slices/partTimeCareTakerSlice";
 import { useDispatch, useSelector } from "react-redux";
-import CareTakerSignUp from "./CareTakerSignUp";
-import { setSignUpError } from "../redux/slices/signUpErrorSlice";
-import { removeState, saveState } from "../redux/localStorage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

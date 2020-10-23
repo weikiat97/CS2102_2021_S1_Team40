@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
-import { loadState, saveState, removeState } from "../localStorage";
+import { loadState, saveState } from "../localStorage";
 import { setCareTaker, getCareTakerBasicInfo } from "./careTakerSlice";
 import { setSignUpError } from "./signUpErrorSlice";
 

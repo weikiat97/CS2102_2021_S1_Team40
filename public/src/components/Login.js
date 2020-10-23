@@ -9,14 +9,12 @@ import Dialog from "@material-ui/core/Dialog";
 
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
-import { selectUser, getUserFromDb } from "../redux/slices/userSlice";
+import { getUserFromDb } from "../redux/slices/userSlice";
 import { getCareTakerFromDb } from "../redux/slices/careTakerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoginError } from "../redux/slices/loginErrorSlice";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { setLoginError } from "../redux/slices/loginErrorSlice";
-import { removeState } from "../redux/localStorage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
   const { open, onClose } = props;
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
   const error = useSelector(selectLoginError);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
