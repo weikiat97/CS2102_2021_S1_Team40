@@ -18,7 +18,7 @@ class Availability {
 
   async getAvailability(username) {
     let query = `SELECT * FROM ${this.table} a
-        WHERE a.username == ${username};`;
+        WHERE a.username = '${username}';`;
     const results = await this.pool.query(query);
     if (results.rows.length === 0) {
       return null;
