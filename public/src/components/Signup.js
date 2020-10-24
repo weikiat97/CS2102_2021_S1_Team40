@@ -75,10 +75,11 @@ export default function Signup(props) {
       if (error) {
         if (error.includes("duplicate key value")) {
           setHelpUsername("Sorry, this username is taken!");
+        } else {
+          setDbFeedback(error);
         }
-        //setDbFeedback(error);
       } else {
-        console.log("Empty error");
+        //console.log("Empty error");
       }
     }
   }, [error, user]);

@@ -7,8 +7,7 @@ import Container from "@material-ui/core/Container";
 export default function Home() {
   const user = useSelector(selectUser);
   const caretaker = useSelector(selectCareTaker);
-  console.log(user);
-  console.log(caretaker);
+
   if (user !== null) {
     if (
       user.type.includes("caretaker") &&

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { colourOptions } from "./data";
-
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,11 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
-import { signupFTCareTaker } from "../redux/slices/fullTimeCareTakerSlice";
-import { signupPTCareTaker } from "../redux/slices/partTimeCareTakerSlice";
 import { useDispatch } from "react-redux";
 import { TextField } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import { addNewAvailability } from "../redux/slices/availabilitySlice";
 
 const useStyles = makeStyles((theme) => ({
@@ -53,15 +49,12 @@ export default function CareTakerSignUp(props) {
   const [helperTextType, sethelperTextType] = useState("");
   const [nextStep, setNextStep] = useState(false);
   const handleTypeChange = (e) => {
-    console.log(e);
     var value = [];
     if (e == null) {
-      console.log("empty pets");
       sethelperTextType("Please select at least one pet type");
     } else {
       sethelperTextType("");
       for (var i = 0, l = e.length; i < l; i++) {
-        console.log(e[i]);
         value.push(e[i]);
       }
     }
@@ -69,8 +62,6 @@ export default function CareTakerSignUp(props) {
   };
 
   const handlePriceChange = (e) => {
-    console.log(e.target.value);
-    console.log(e.target.id);
     var newTypes = [];
     types.forEach((x) => {
       if (x.value === e.target.id) {
@@ -85,14 +76,12 @@ export default function CareTakerSignUp(props) {
   };
 
   const submitTypes = (e) => {
-    console.log(types);
     if (types !== null) {
       setNextStep(true);
     }
   };
 
-  const submitPrice = (e) => {
-    console.log(user);
+  const submitPrice = () => {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -106,6 +95,7 @@ export default function CareTakerSignUp(props) {
       );
     });
     setNextStep(false);
+    setTypes([]);
     onClose();
   };
 

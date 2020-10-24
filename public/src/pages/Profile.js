@@ -9,7 +9,6 @@ export default function Profile() {
   const user = useSelector(selectUser);
   const caretaker = useSelector(selectCareTaker);
 
-  console.log(caretaker);
   if (user && user.type.includes("caretaker")) {
     return (
       <div>
