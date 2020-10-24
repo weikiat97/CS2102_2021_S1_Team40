@@ -54,7 +54,6 @@ exports.new = async function (req, res) {
         });
       }
     } else {
-      console.log('camehere');
       res.status(404).json({
         status: "failure",
         message:

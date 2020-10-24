@@ -11,13 +11,10 @@ class Bid {
   }
 
   async getCaretakerBids(username) { 
-    console.log("heregirl");
-    console.log("username here leh: " + username)
     let query = `SELECT (petowner_username, pet_name, pet_type, start_date, end_date, price, transfer_method, payment_method, special_requirements) FROM ${this.table}
                     WHERE caretaker_username='${username}'
                     AND isSuccessful IS NULL
                     ORDER BY start_date ASC`;
-    console.log("hereleh");
     const results = await this.pool.query(query);
     if (results.rows.length == 0) {
       return null;
@@ -45,7 +42,6 @@ class Bid {
                       AND start_date = '${start_date}' AND end_date = '${end_date}'
                   RETURNING petowner_username, pet_name, start_date, end_date, pet_type, price, transfer_method, payment_method, special_requirements`;
     const results = await this.pool.query(query);
-    console.log('cameherehmmm');
     if (results.rows.length == 0) {
       return null;
     } else {
@@ -54,15 +50,11 @@ class Bid {
   }
 
   async getPetownerBids(username) { 
-    console.log("herepetownerlell");
-    console.log("username here leh: " + username)
     let query = `SELECT (caretaker_username, pet_name, pet_type, start_date, end_date, price, transfer_method, payment_method, special_requirements) FROM ${this.table}
                     WHERE petowner_username='${username}'
                     AND isSuccessful IS NULL
                     ORDER BY start_date ASC`;
-    console.log("hereleh");
     const results = await this.pool.query(query);
-    // console.log(results.rows);
     if (results.rows.length == 0) {
       return null;
     } else {
@@ -71,14 +63,11 @@ class Bid {
   }
 
   async cancelBid(petowner_username, pet_name, caretaker_username, start_date, end_date) {
-    console.log("petowner user : " + petowner_username);
     let query = `DELETE FROM ${this.table}
                   WHERE petowner_username = '${petowner_username}' AND pet_name = '${pet_name}' AND caretaker_username = '${caretaker_username}'
                       AND start_date = '${start_date}' AND end_date = '${end_date}'
                   RETURNING caretaker_username, pet_name, start_date, end_date, pet_type, price, transfer_method, payment_method, special_requirements`;
     const results = await this.pool.query(query);
-    console.log('cameheretocancelbid hmmmm');
-    // console.log(results);
     if (results.rows.length == 0) {
       return null;
     } else {

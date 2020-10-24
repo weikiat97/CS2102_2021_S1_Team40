@@ -13,7 +13,6 @@ exports.filtered = async function (req, res) {
         message: "Caretakers retrieved successfully",
         data: caretakers,
       });
-      console.log("successfully got caretakers");
     } catch (err) {
       res.json({
         status: "error",
@@ -68,9 +67,6 @@ exports.view = async function (req, res) {
 // Handle create user actions
 exports.new = async function (req, res) {
   try {
-    console.log("got come here?");
-    // console.log("user: " + req.body.username);
-    // console.log("user: " + req.body.password);
     const caretaker = await caretaker_model.addNewCareTaker(
       req.body.username,
       req.body.password,

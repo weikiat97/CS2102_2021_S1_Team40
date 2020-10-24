@@ -43,7 +43,6 @@ export default function BidRetrievalCaretaker(props) {
           if (result.status === "success") {
             await setBids(result.data);
           } else {
-            console.log("No bids found");
             await setBids(null);
           }
         })

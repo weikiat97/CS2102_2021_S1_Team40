@@ -29,16 +29,11 @@ class Leave {
   }
 
   async checkNoPets(username, start_date, end_date) {
-      console.log('got nottttt');
-      console.log(username);
-      console.log(start_date);
-      console.log(end_date);
       let query = `SELECT * FROM bids 
                     WHERE caretaker_username = '${username}'
                     AND '${start_date}' <= end_date AND start_date <= '${end_date}'
                     AND isSuccessful = true`;
       const results = await this.pool.query(query);
-      // console.log('i came here lehhh?????: ' + results);
       if (results.rows.length == 0) { // no pets
           return true;
       } else {

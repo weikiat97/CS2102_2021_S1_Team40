@@ -13,10 +13,6 @@ export default function BidCancel(props) {
   const { open, onClose, data } = props;
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  // console.log('petowner: ' + user.username);
-  // console.log('petname: ' + data.split(",")[1]);
-  // console.log("petownername: " + data.split(",")[0].split("(")[1]);
-  // console.log("date: " + data.split(",")[3]);
   const cancel = () => {
     dispatch(
       cancelBid(user.username, data.split(",")[1], data.split(",")[0].split("(")[1], data.split(",")[3], data.split(",")[4])

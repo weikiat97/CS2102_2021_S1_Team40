@@ -30,7 +30,6 @@ exports.viewCaretaker = async function (req, res) {
 // Handle accept bid actions
 exports.handleCaretaker = async function (req, res) {
   try {
-    console.log("MI HERE?E??");
     if (req.body.type == 'Accept') {
       const accept_bid = await bid_model.acceptBid(
         req.body.petowner_username,
@@ -89,16 +88,13 @@ exports.viewPetowner = async function (req, res) {
     const get_user_bids = await bid_model.getPetownerBids(
       req.params.username
     );
-    console.log("i came here la and its still okay tbh");
     if (get_user_bids) {
-      console.log("lets see 1");
       res.status(200).json({
         status: "success",
         message: "Petowner's bids retrieved successfully.",
         data: get_user_bids,
       });
     } else {
-      console.log('lets see 2');
       res.status(404).json({
         status: "failure",
         message: "No bids found from petowner!",
@@ -116,9 +112,6 @@ exports.viewPetowner = async function (req, res) {
 // Handle cancel bid info
 exports.cancelPetowner = async function (req, res) {
   try {
-    // console.log("petowner: " + req.body.petowner_username);
-    // console.log("caretaker: " + req.body.caretaker_username);
-    console.log('big boss is here lets see what happens');
     const cancel_bid = await bid_model.cancelBid(
       req.body.petowner_username,
       req.body.pet_name,
@@ -126,17 +119,13 @@ exports.cancelPetowner = async function (req, res) {
       req.body.start_date,
       req.body.end_date
     );
-    console.log("BEFOREEEEEEEEEE");
-    // console.log("cancel bid stuff: " + JSON.stringify(cancel_bid));
     if (cancel_bid) {
-      console.log('it ok');
       res.status(200).json({
         status: "success",
         message: "Bid cancelled successfully.",
         data: cancel_bid,
       });
     } else {
-      console.log('it not ok');
       res.status(404).json({
         status: "failure",
         message:

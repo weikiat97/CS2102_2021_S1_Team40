@@ -36,13 +36,11 @@ export default function BidRetrievalPetowner(props) {
         },
         method: "GET",
       })
-        // .then(console.log("actually came here is this the last one"))
         .then((response) => response.json())
         .then(async (result) => {
           if (result.status === "success") {
             await setBids(result.data);
           } else {
-            console.log("No bids found");
             await setBids(null);
           }
         })

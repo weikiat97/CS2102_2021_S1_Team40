@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -9,11 +9,10 @@ import { acceptBid } from "../redux/slices/bidSlice";
 import { selectUser } from "../redux/slices/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function (props) {
+export default function BidAccept(props) {
   const { open, onClose , data} = props;
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  // console.log(data);
   const cancel = () => {
     dispatch(
       acceptBid(data.split(",")[0].split("(")[1], data.split(",")[1], user.username, data.split(",")[3], data.split(",")[4])

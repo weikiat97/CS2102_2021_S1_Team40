@@ -13,7 +13,6 @@ export default function LeaveDeletion(props) {
   const { open, onClose, data } = props;
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  console.log('data here lehH??? ' + data)
   const cancel = () => {
     dispatch(
       deleteLeave(user.username, data.substring(1, 11), data.substring(12, 22))
