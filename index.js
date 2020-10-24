@@ -8,6 +8,7 @@ const fulltimecaretaker_routes = require("./routes/fulltimecaretaker-routes");
 const caretaker_routes = require("./routes/caretaker-routes");
 const petowner_routes = require("./routes/petowner-routes");
 const leave_routers = require("./routes/leave-routes");
+const find_caretaker_routes = require("./routes/find-caretaker-routes");
 const { db_connection_string } = require("./settings");
 
 const app = express();
@@ -28,6 +29,7 @@ if (!db_connection_string) {
 }
 app.get("/", (req, res) => res.send("Hello World!"));
 app.use("/pets", pet_routes);
+app.use("/users/find-caretakers", find_caretaker_routes);
 app.use("/users", user_routes);
 app.use("/petowners", petowner_routes);
 app.use("/caretakers", caretaker_routes);
