@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,12 +9,16 @@ import Dialog from "@material-ui/core/Dialog";
 
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
-import { getUserFromDb } from "../redux/slices/userSlice";
+import { getUserFromDb, selectUser } from "../redux/slices/userSlice";
 import { getCareTakerFromDb } from "../redux/slices/careTakerSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoginError } from "../redux/slices/loginErrorSlice";
+import {
+  selectLoginError,
+  setLoginError,
+} from "../redux/slices/loginErrorSlice";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { removeState } from "../redux/localStorage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
   const { open, onClose } = props;
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const error = useSelector(selectLoginError);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -51,16 +56,27 @@ export default function Login(props) {
   const isEmptyOrBlank = (str) => {
     return !str || 0 === str.length || /^\s*$/.test(str);
   };
-  const login = () => {
-    if (!isEmptyOrBlank(username) && !isEmptyOrBlank(password)) {
-      dispatch(getUserFromDb(username, password));
+  useEffect(() => {
+    if (user) {
+      if (user.type.includes("caretaker")) {
+        dispatch(getCareTakerFromDb(username));
+      }
+      setHelpUsername("");
+      setHelpPassword("");
+      setLoginError(null);
+      removeState("loginerror");
+      onClose();
+    } else {
       if (error) {
         setHelpUsername(error);
         setHelpPassword(error);
-      } else {
-        dispatch(getCareTakerFromDb(username));
-        onClose();
       }
+    }
+  }, [error, user]);
+
+  const login = () => {
+    if (!isEmptyOrBlank(username) && !isEmptyOrBlank(password)) {
+      dispatch(getUserFromDb(username, password));
     }
 
     if (isEmptyOrBlank(username)) {

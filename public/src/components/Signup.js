@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/Button";
@@ -10,10 +10,15 @@ import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { selectSignUpError } from "../redux/slices/signUpErrorSlice";
+import { selectUser } from "../redux/slices/userSlice";
+import {
+  selectSignUpError,
+  setSignUpError,
+} from "../redux/slices/signUpErrorSlice";
 import { signupPetOwner } from "../redux/slices/petOwnerSlice";
 import { signupCareTaker } from "../redux/slices/careTakerSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { removeState } from "../redux/localStorage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,7 +45,7 @@ export default function Signup(props) {
   const { open, onClose } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const user = useSelector(selectUser);
   const error = useSelector(selectSignUpError);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -55,12 +60,29 @@ export default function Signup(props) {
       type: null,
     },
   });
+  useEffect(() => {
+    if (user) {
+      setSignUpError(null);
+      removeState("signuperror");
+      onClose();
+    } else {
+      if (error) {
+        if (error.includes("duplicate key value")) {
+          setHelpUsername("Sorry, this username is taken!");
+        }
+        //setDbFeedback(error);
+      } else {
+        console.log("Empty error");
+      }
+    }
+  }, [error, user]);
 
   const isEmptyOrBlank = (str) => {
     return !str || 0 === str.length || /^\s*$/.test(str);
   };
 
   const signup = () => {
+    setHelpUsername("");
     if (
       !isEmptyOrBlank(username) &&
       !isEmptyOrBlank(password) &&
@@ -90,16 +112,6 @@ export default function Signup(props) {
         //console.log("Sign up for petowner");
         dispatch(signupPetOwner(username, password, ["petowner"]));
       } else {
-      }
-      console.log(error);
-      if (error) {
-        if (error.includes("duplicate key value")) {
-          setHelpUsername("Sorry, this username is taken!");
-        }
-        //setDbFeedback(error);
-        console.log(error);
-      } else {
-        onClose();
       }
     } else {
       if (isEmptyOrBlank(username)) {
