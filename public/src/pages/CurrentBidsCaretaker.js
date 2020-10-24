@@ -1,27 +1,29 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
-import { selectCareTaker } from "../redux/slices/careTakerSlice";
-import LeaveRetrieval from "../components/LeaveRetrieval";
+import BidsRetrievalCaretaker from "../components/BidRetrievalCaretaker";
 import Container from "@material-ui/core/Container";
 
-export default function Leave() {
+
+export default function CurrentBidsCaretaker() {
   const user = useSelector(selectUser);
-  const caretaker = useSelector(selectCareTaker);
+//   console.log(caretaker);
   if (user && user.type.includes("caretaker")) {
     return (
+      <div>
       <Container>
-        <h1>THESE ARE YOUR LEAVES</h1>
-        <LeaveRetrieval />
+        <h1>Your current bids as a caretaker: </h1><br></br>
+        <BidsRetrievalCaretaker />
       </Container>
+      </div>
     );
   } else {
     return (
-      <Container>
+      <div>
         <h1>
-          Please Login LEAVE PAGE. Create an account with us if you haven't!
+          You do not have permission to view the bids page! Please login and try again
         </h1>
-      </Container>
+      </div>
     );
   }
 }

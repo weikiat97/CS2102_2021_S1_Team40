@@ -13,7 +13,6 @@ exports.filtered = async function (req, res) {
         message: "Caretakers retrieved successfully",
         data: caretakers,
       });
-      console.log("successfully got caretakers");
     } catch (err) {
       res.json({
         status: "error",

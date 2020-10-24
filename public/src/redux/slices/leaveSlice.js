@@ -22,7 +22,6 @@ export const getLeaves = (username) =>
       "Content-Type": "application/json",
     },
     method: "GET",
-    // body: JSON.stringify({ username: username }),
   })
     .then((response) => response.json())
     .then((result) => {
@@ -32,9 +31,8 @@ export const getLeaves = (username) =>
       } else {
         console.log("No leaves found!");
       }
-    })
-    .catch((err) => alert(err));
-
+    });
+    
 export const applyLeave = (username, start_date, end_date) => (dispatch) => {
   fetch(`${API_HOST}/users/leaves/${username}`, {
     headers: {
@@ -57,9 +55,7 @@ export const applyLeave = (username, start_date, end_date) => (dispatch) => {
       }
     })
     .catch((err) =>
-      alert(
-        "Unable to add leave! Please check that the end date is after or equals to the start date, and that there are no overlaps in leaves!"
-      )
+      alert(err)
     );
 };
 
@@ -93,9 +89,7 @@ export const updateLeave = (
       }
     })
     .catch((err) =>
-      alert(
-        "Something went wrong with the updating of leave! Please make sure that there are no overlaps in leave and that the start date is before or on the end date!"
-      )
+      alert(err)
     );
 };
 
@@ -121,9 +115,7 @@ export const deleteLeave = (username, start_date, end_date) => (dispatch) => {
       }
     })
     .catch((err) =>
-      alert(
-        "Something went wrong with deleting the leave! Please choose a valid leave and try again!"
-      )
+      alert(err)
     );
 };
 
