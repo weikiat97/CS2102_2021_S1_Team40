@@ -1542,15 +1542,15 @@ insert into fulltime_caretakers (username) values ('fcrocidv');
 -- insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
 -- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-1', '2020-10-5', 50, 'in person', 'excellent service, would come again', 5, TRUE);
 
--- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 5, TRUE);
--- insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 4, TRUE);
--- insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
--- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+-- Caijie test data
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 5, TRUE);
+insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 4, TRUE);
+insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
 
--- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-11', '2020-10-20', 50, 'in person', 'excellent', 5, TRUE);
--- insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent', 4, TRUE);
--- insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
--- insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent service, would come again', 5, TRUE);
+insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-11', '2020-10-20', 50, 'in person', 'excellent', 5, TRUE);
+insert into bids values ('tblanchet0', 'woofies', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent', 4, TRUE);
+insert into bids values ('tblanchet0', 'hamtaro', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
+
 
 -- Sheryl test data
 insert into caretakers values ('sheryl', '123456');

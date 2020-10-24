@@ -124,3 +124,26 @@ exports.profileInfo = async function (req, res) {
     });
   }
 };
+
+exports.adminInfo = async function (req, res) {
+  try {
+    const adminInfo = await caretaker_model.getAdminInfo(req.body.username);
+    if (adminInfo) {
+      res.status(200).json({
+        status: "success",
+        message: "Admin info retrieved",
+        data: adminInfo,
+      });
+    } else {
+      res.status(500).json({
+        status: "error",
+        message: "Unknown error has occurred retrieving admin info",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
