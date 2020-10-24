@@ -75,6 +75,7 @@ CREATE TABLE pets (
     petowner_username VARCHAR(50) REFERENCES petowners (username) ON DELETE cascade,
     pet_name VARCHAR(50) NOT NULL,
     pet_type VARCHAR(20) NOT NULL,
+    special_requirements VARCHAR(256),
     PRIMARY KEY (petowner_username, pet_name)
 );
 
