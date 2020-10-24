@@ -19,6 +19,7 @@ import { signupPTCareTaker } from "../redux/slices/partTimeCareTakerSlice";
 import { useDispatch } from "react-redux";
 import { TextField } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { addNewAvailability } from "../redux/slices/availabilitySlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -91,7 +92,18 @@ export default function CareTakerSignUp(props) {
   };
 
   const submitPrice = (e) => {
-    console.log(types);
+    console.log(user);
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    console.log(today);
+    types.forEach((x) => {
+      console.log(x);
+      //dispatch(addNewAvailability(user.username, x.value, x.price, ))
+    });
   };
 
   return (

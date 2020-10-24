@@ -65,7 +65,7 @@ export default function Signup(props) {
   });
   useEffect(() => {
     if (user) {
-      setSignUpError(null);
+      setSignUpError(null); 
       removeState("signuperror");
       onClose();
       if (user.type.includes("caretaker")) {
