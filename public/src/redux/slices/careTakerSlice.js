@@ -15,7 +15,9 @@ export const careTakerSlice = createSlice({
   name: "caretaker",
   initialState: persistedCareTaker,
   reducers: {
-    setCareTaker: (state, action) => action.payload,
+    setCareTaker: (state, action) => {
+      return { ...state, ...action.payload }
+    },
     setBasicInfo: (state, action) => {
       return { ...state, ...action.payload };
     },
