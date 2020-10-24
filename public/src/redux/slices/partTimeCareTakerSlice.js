@@ -50,7 +50,6 @@ export const signupPTCareTaker = (username) => (dispatch) => {
     .then((result) => {
       if (result.status === "success") {
         console.log(result.data);
-        dispatch(getCareTakerBasicInfo(username));
         dispatch(setCareTaker(result.data));
         saveState("caretaker", result.data);
       } else {

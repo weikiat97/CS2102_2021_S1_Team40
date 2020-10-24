@@ -45,7 +45,7 @@ exports.view = async function (req, res) {
 // Handle create user actions
 exports.new = async function (req, res) {
   try {
-    const availability = await availability_model.addNewAvailability(
+    const availability = await availability_model.addAvailability(
       req.body.username,
       req.body.pet_type,
       req.body.advertised_price,
@@ -65,12 +65,12 @@ exports.new = async function (req, res) {
       });
     }
     await availability_model.addNewAvailability(
-        req.body.username,
-        req.body.pet_type,
-        req.body.advertised_price,
-        req.body.start_date,
-        req.body.end_date
-      );
+      req.body.username,
+      req.body.pet_type,
+      req.body.advertised_price,
+      req.body.start_date,
+      req.body.end_date
+    );
     res.status(200).json({
       status: "success",
       message: "Add availability successful",

@@ -27,7 +27,17 @@ class Availability {
     }
   }
 
-  async addNewAvailability(username, pet_type, advertised_price, start_date, end_date) {
+  async addAvailability(
+    username,
+    pet_type,
+    advertised_price,
+    start_date,
+    end_date
+  ) {
+    console.log(username);
+    console.log(pet_type);
+    console.log(advertised_price);
+    console.log(start_date);
     let query = `INSERT INTO ${this.table}
                         VALUES ('${username}', '${pet_type}', '${advertised_price}', '${start_date}', '${end_date}')
                         RETURNING username;`;
@@ -40,7 +50,7 @@ class Availability {
         pet_type: pet_type,
         advertised_price: advertised_price,
         start_date: start_date,
-        end_date: end_date
+        end_date: end_date,
       };
     }
   }

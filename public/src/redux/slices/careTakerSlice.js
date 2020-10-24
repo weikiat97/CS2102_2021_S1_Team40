@@ -24,7 +24,12 @@ export const careTakerSlice = createSlice({
   },
 });
 
-export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => (dispatch) => {
+export const getCaretakers = (
+  maximum_price,
+  pet_type,
+  start_date,
+  end_date
+) => (dispatch) => {
   fetch(`${API_HOST}/users/find-caretakers`, {
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +53,6 @@ export const getCaretakers = (maximum_price, pet_type, start_date, end_date) => 
     })
     .catch((err) => alert(err));
 };
-
 
 export const { setCareTaker, setBasicInfo } = careTakerSlice.actions;
 

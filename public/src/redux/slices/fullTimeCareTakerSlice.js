@@ -49,7 +49,6 @@ export const signupFTCareTaker = (username) => (dispatch) => {
     .then((response) => response.json())
     .then((result) => {
       if (result.status === "success") {
-        dispatch(getCareTakerBasicInfo(username));
         dispatch(setCareTaker(result.data));
         saveState("caretaker", result.data);
       } else {

@@ -94,16 +94,19 @@ export default function CareTakerSignUp(props) {
   const submitPrice = (e) => {
     console.log(user);
     var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
 
-    today = mm + '/' + dd + '/' + yyyy;
-    console.log(today);
+    today = yyyy + "-" + mm + "-" + dd;
+    var end_date = yyyy + 2 + "-" + mm + "-" + dd;
     types.forEach((x) => {
-      console.log(x);
-      //dispatch(addNewAvailability(user.username, x.value, x.price, ))
+      dispatch(
+        addNewAvailability(user.username, x.value, x.price, today, end_date)
+      );
     });
+    setNextStep(false);
+    onClose();
   };
 
   return (
@@ -115,7 +118,7 @@ export default function CareTakerSignUp(props) {
       }}
     >
       <DialogContent>
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" backdrop="static">
           <CssBaseline />
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -153,7 +156,7 @@ export default function CareTakerSignUp(props) {
               <Container>
                 {types.map((x) => {
                   return (
-                    <Container>
+                    <Container key={x.value}>
                       <p>{x.value}</p>
                       <TextField
                         variant="outlined"
