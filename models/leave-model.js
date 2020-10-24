@@ -38,7 +38,7 @@ class Leave {
                     AND '${start_date}' <= end_date AND start_date <= '${end_date}'
                     AND isSuccessful = true`;
       const results = await this.pool.query(query);
-      console.log('i came here lehhh?????: ' + results);
+      // console.log('i came here lehhh?????: ' + results);
       if (results.rows.length == 0) { // no pets
           return true;
       } else {
