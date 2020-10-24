@@ -66,7 +66,8 @@ export default function BidRetrievalCaretaker(props) {
                 <TableCell align="right">End Date</TableCell>
                 <TableCell align="right">Price ($ per day)</TableCell>
                 <TableCell align="right">Transfer Method</TableCell>
-                <TableCell align="right">Remarks</TableCell>
+                <TableCell align="right">Payment Method</TableCell>
+                <TableCell align="right">Special Requirements</TableCell>
                 <TableCell align="right">Accept</TableCell>
                 <TableCell align="right">Decline</TableCell>
               </TableRow>
@@ -93,10 +94,13 @@ export default function BidRetrievalCaretaker(props) {
                     {bid.row.split(",")[5]}
                   </TableCell>
                   <TableCell align="right">
-                    {bid.row.split(",")[6].split(")")[0]}
+                    {bid.row.split(",")[6]}
                   </TableCell>
                   <TableCell align="right">
-                    For remarks later on : {bid.row}
+                    {bid.row.split(",")[7]}
+                  </TableCell>                  
+                  <TableCell align="right">
+                    {bid.row.split(",")[8].split(")")[0]}
                   </TableCell>
                   <TableCell align="right">
                     <Button
@@ -151,7 +155,8 @@ export default function BidRetrievalCaretaker(props) {
                 <TableCell align="right">End Date</TableCell>
                 <TableCell align="right">Price ($ per day)</TableCell>
                 <TableCell align="right">Transfer Method</TableCell>
-                <TableCell align="right">Remarks</TableCell>
+                <TableCell align="right">Payment Method</TableCell>
+                <TableCell align="right">Special Requirements</TableCell>
                 <TableCell align="right">Accept</TableCell>
                 <TableCell align="right">Decline</TableCell>
               </TableRow>

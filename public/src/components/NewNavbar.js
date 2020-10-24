@@ -101,12 +101,12 @@ export default function NewNavbar() {
             <Nav.Link as={Link} to="/profile">
               Profile
             </Nav.Link>
-            {user.type.includes("caretaker") ? (
+            {user != null && user.type.includes("caretaker") ? (
               <Nav.Link as={Link} to="/profile/currentBidsCaretaker">
                 Bids For You
               </Nav.Link>
             ) : null}
-            {user.type.includes("petowner") ? (
+            {user != null && user.type.includes("petowner") ? (
               <Nav.Link as={Link} to="/profile/currentBidsPetowner">
                 Bids From You
               </Nav.Link>

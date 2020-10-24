@@ -22,8 +22,8 @@ import Select from '@material-ui/core/Select';
 //also need to somehow pass over the username from caretakers
 export default function Bid(props) {
     const { open, onClose } = props;
-    const { start_date, setStartDate } = useState(new Date());
-    const { end_date, setEndDate } = useState(start_date);
+    const [start_date, setStartDate] = useState(new Date());
+    const [end_date, setEndDate] = useState(start_date);
     // const handleStartDateChange = (date) => {
     //     setStartDate(date);
     // };
@@ -31,17 +31,17 @@ export default function Bid(props) {
     //     setEndDate(date);
     // };
 
-    const { pet_type, setPetType } = useState("");
+    const [pet_type, setPetType] = useState("");
     // const handlePetTypeChange = (event) => {
     //     setPetType(event.target.value);
     // };
 
-    const { transfer_type, setTransferType } = useState("");
+    const [transfer_type, setTransferType] = useState("");
     // const handleTransferTypeChange = (event) => {
     //     setTransferType(event.target.value);
     // };
 
-    const { price, setPrice } = useState("")
+    const [price, setPrice] = useState("");
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Bid page</DialogTitle>
