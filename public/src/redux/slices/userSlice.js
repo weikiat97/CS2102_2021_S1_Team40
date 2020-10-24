@@ -47,9 +47,9 @@ export const getUserFromDb = (username, password) => (dispatch) => {
 export const signoutUser = () => (dispatch) => {
   dispatch(signoutPetOwner());
   dispatch(signoutCareTaker());
-  dispatch(setCareTaker(null));
   removeState(USER_STATE_KEY);
   removeState("caretaker");
+  dispatch(setCareTaker(null));
   dispatch(setUser(null));
 };
 

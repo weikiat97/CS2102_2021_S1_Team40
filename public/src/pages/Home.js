@@ -18,8 +18,8 @@ export default function Home() {
       return (
         <Container>
           <h1>
-            Welcome {user.username}. You are registered as both a petowner and a{" "}
-            {caretaker.type} caretaker.
+            Welcome {user.username}. You are registered as both a petowner and{" "}
+            {user.type}.
           </h1>
         </Container>
       );
@@ -33,8 +33,7 @@ export default function Home() {
       return (
         <Container>
           <h1>
-            Welcome {caretaker.username}. You are registered as a{" "}
-            {caretaker.type} caretaker.
+            Welcome {user.username}. You are registered as a {user.type}.
           </h1>
         </Container>
       );

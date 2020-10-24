@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_HOST } from "../../consts";
-import { loadState, saveState } from "../localStorage";
+import { loadState, removeState, saveState } from "../localStorage";
 import { setCareTaker, getCareTakerBasicInfo } from "./careTakerSlice";
 import { setSignUpError } from "./signUpErrorSlice";
 
@@ -49,9 +49,10 @@ export const signupPTCareTaker = (username) => (dispatch) => {
     .then((response) => response.json())
     .then((result) => {
       if (result.status === "success") {
+        console.log(result.data);
         dispatch(getCareTakerBasicInfo(username));
-        saveState("caretaker", result.data);
         dispatch(setCareTaker(result.data));
+        saveState("caretaker", result.data);
       } else {
         saveState("signuperror", result.message);
         dispatch(setSignUpError(JSON.stringify(result.message)));

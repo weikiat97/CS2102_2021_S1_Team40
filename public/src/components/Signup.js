@@ -16,9 +16,10 @@ import {
   setSignUpError,
 } from "../redux/slices/signUpErrorSlice";
 import { signupPetOwner } from "../redux/slices/petOwnerSlice";
-import { signupCareTaker } from "../redux/slices/careTakerSlice";
+import { setCareTaker, signupCareTaker } from "../redux/slices/careTakerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { removeState } from "../redux/localStorage";
+import CareTakerSignUp from "./CareTakerSignUp";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -53,6 +54,8 @@ export default function Signup(props) {
   const [helpTextPassword, setHelpPassword] = useState("");
   const [helpTextRoles, setHelpRoles] = useState("");
   const [dbFeedback, setDbFeedback] = useState("");
+  const [nextDialog, setNextDialog] = useState(false);
+
   const [roles, setRoles] = useState({
     selected: {
       caretaker: false,
@@ -65,6 +68,9 @@ export default function Signup(props) {
       setSignUpError(null);
       removeState("signuperror");
       onClose();
+      if (user.type.includes("caretaker")) {
+        setNextDialog(true);
+      }
     } else {
       if (error) {
         if (error.includes("duplicate key value")) {
@@ -83,6 +89,7 @@ export default function Signup(props) {
 
   const signup = () => {
     setHelpUsername("");
+    dispatch(setCareTaker(null));
     if (
       !isEmptyOrBlank(username) &&
       !isEmptyOrBlank(password) &&
@@ -90,24 +97,46 @@ export default function Signup(props) {
         roles.selected.petowner)
     ) {
       if (roles.selected.caretaker && roles.selected.petowner) {
-        dispatch(
-          signupCareTaker(
-            username,
-            password,
-            ["caretaker", "petowner"],
-            roles.selected.type
-          )
-        );
+        if (roles.selected.type === "parttime") {
+          dispatch(
+            signupCareTaker(
+              username,
+              password,
+              ["caretaker", "petowner", "parttime"],
+              roles.selected.type
+            )
+          );
+        } else if (roles.selected.type === "fulltime") {
+          dispatch(
+            signupCareTaker(
+              username,
+              password,
+              ["caretaker", "petowner", "fulltime"],
+              roles.selected.type
+            )
+          );
+        }
       } else if (roles.selected.caretaker) {
         //console.log("Sign up for caretaker");
-        dispatch(
-          signupCareTaker(
-            username,
-            password,
-            ["caretaker"],
-            roles.selected.type
-          )
-        );
+        if (roles.selected.type === "parttime") {
+          dispatch(
+            signupCareTaker(
+              username,
+              password,
+              ["caretaker", "parttime"],
+              roles.selected.type
+            )
+          );
+        } else if (roles.selected.type === "fulltime") {
+          dispatch(
+            signupCareTaker(
+              username,
+              password,
+              ["caretaker", "fulltime"],
+              roles.selected.type
+            )
+          );
+        }
       } else if (roles.selected.petowner) {
         //console.log("Sign up for petowner");
         dispatch(signupPetOwner(username, password, ["petowner"]));
@@ -168,105 +197,108 @@ export default function Signup(props) {
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        style: { borderRadius: 10 },
-      }}
-    >
-      <DialogContent>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign Up
-            </Typography>
+    <div>
+      <Dialog
+        open={open}
+        onClose={onClose}
+        PaperProps={{
+          style: { borderRadius: 10 },
+        }}
+      >
+        <DialogContent>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign Up
+              </Typography>
 
-            <div className={classes.form}>
-              <ButtonGroup fullWidth variant="outlined" bsStyle="default">
-                <Button
-                  fullWidth
-                  onClick={(e) => toggleOptionAllowMultiple(e)}
-                  value="caretaker"
-                  color={getStyle("caretaker")}
-                >
-                  Caretaker
-                </Button>
-                <Button
-                  fullWidth
-                  onClick={(e) => toggleOptionAllowMultiple(e)}
-                  value="petowner"
-                  color={getStyle("petowner")}
-                >
-                  PetOwner
-                </Button>
-              </ButtonGroup>
-
-              {roles.selected.caretaker && (
+              <div className={classes.form}>
                 <ButtonGroup fullWidth variant="outlined" bsStyle="default">
                   <Button
                     fullWidth
-                    color={getStyle2("fulltime")}
-                    value="fulltime"
-                    className={classes.submit}
-                    onClick={(e) => toggleOptionAllowOne(e)}
+                    onClick={(e) => toggleOptionAllowMultiple(e)}
+                    value="caretaker"
+                    color={getStyle("caretaker")}
                   >
-                    Full-Time
+                    Caretaker
                   </Button>
                   <Button
                     fullWidth
-                    color={getStyle2("parttime")}
-                    value="parttime"
-                    className={classes.submit}
-                    onClick={(e) => toggleOptionAllowOne(e)}
+                    onClick={(e) => toggleOptionAllowMultiple(e)}
+                    value="petowner"
+                    color={getStyle("petowner")}
                   >
-                    Part-Time
+                    PetOwner
                   </Button>
                 </ButtonGroup>
-              )}
-              <p>{helpTextRoles}</p>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Username"
-                type="text"
-                helperText={helpTextUsername}
-                autoFocus
-                onChange={checkUsername}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                helperText={helpTextPassword}
-                id="password"
-                autoComplete="current-password"
-                onChange={checkPassword}
-              />
-              <p>{dbFeedback}</p>
-              <Button
-                fullWidth
-                variant="outlined"
-                color="primary"
-                className={classes.submit}
-                onClick={signup}
-              >
-                Sign Up
-              </Button>
+
+                {roles.selected.caretaker && (
+                  <ButtonGroup fullWidth variant="outlined" bsStyle="default">
+                    <Button
+                      fullWidth
+                      color={getStyle2("fulltime")}
+                      value="fulltime"
+                      className={classes.submit}
+                      onClick={(e) => toggleOptionAllowOne(e)}
+                    >
+                      Full-Time
+                    </Button>
+                    <Button
+                      fullWidth
+                      color={getStyle2("parttime")}
+                      value="parttime"
+                      className={classes.submit}
+                      onClick={(e) => toggleOptionAllowOne(e)}
+                    >
+                      Part-Time
+                    </Button>
+                  </ButtonGroup>
+                )}
+                <p>{helpTextRoles}</p>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Username"
+                  type="text"
+                  helperText={helpTextUsername}
+                  autoFocus
+                  onChange={checkUsername}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  helperText={helpTextPassword}
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={checkPassword}
+                />
+                <p>{dbFeedback}</p>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={signup}
+                >
+                  Sign Up
+                </Button>
+              </div>
             </div>
-          </div>
-        </Container>
-      </DialogContent>
-    </Dialog>
+          </Container>
+        </DialogContent>
+      </Dialog>
+      <CareTakerSignUp open={nextDialog} onClose={() => setNextDialog(false)} />
+    </div>
   );
 }

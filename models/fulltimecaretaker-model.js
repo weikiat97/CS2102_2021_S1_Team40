@@ -39,7 +39,7 @@ class FullTimeCareTaker {
     } else {
       return {
         username: username,
-        type: "fulltime",
+        type: ["fulltime"],
       };
     }
   }

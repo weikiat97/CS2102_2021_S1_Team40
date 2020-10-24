@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import { colourOptions } from "./data";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +17,8 @@ import { selectUser } from "../redux/slices/userSlice";
 import { signupFTCareTaker } from "../redux/slices/fullTimeCareTakerSlice";
 import { signupPTCareTaker } from "../redux/slices/partTimeCareTakerSlice";
 import { useDispatch } from "react-redux";
+import { TextField } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -20,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginBottom: theme.spacing(10),
+    marginBottom: theme.spacing(20),
   },
   avatar: {
     margin: theme.spacing(2),
@@ -35,32 +41,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const animatedComponents = makeAnimated();
+
 export default function CareTakerSignUp(props) {
   const user = useSelector(selectUser);
   const { open, onClose } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [roles, setRoles] = useState({
-    selected: {
-      fulltime: false,
-      parttime: false,
-    },
-  });
-  const toggleOption = (e) => {
-    const key = e.currentTarget.value; // e.g. 'A'
-    const value = true;
-    const newSelected = Object.assign(roles.selected, { [key]: value });
-    setRoles({ selected: newSelected });
-    console.log(user);
-    if (key === "parttime") {
-      console.log("signing up for parttime caretaker");
-      dispatch(signupPTCareTaker(user.username));
-    } else if (key === "fulltime") {
-      console.log("signing up for fulltime caretaker");
-      dispatch(signupFTCareTaker(user.username));
+  const [types, setTypes] = useState([]);
+  const [helperTextType, sethelperTextType] = useState("");
+  const [nextStep, setNextStep] = useState(false);
+  const handleTypeChange = (e) => {
+    console.log(e);
+    var value = [];
+    if (e == null) {
+      console.log("empty pets");
+      sethelperTextType("Please select at least one pet type");
     } else {
+      sethelperTextType("");
+      for (var i = 0, l = e.length; i < l; i++) {
+        console.log(e[i]);
+        value.push(e[i]);
+      }
     }
-    onClose();
+    setTypes(value);
+  };
+
+  const handlePriceChange = (e) => {
+    console.log(e.target.value);
+    console.log(e.target.id);
+    var newTypes = [];
+    types.forEach((x) => {
+      if (x.value === e.target.id) {
+        var newobj = x;
+        newobj.price = e.target.value;
+        newTypes.push(newobj);
+      } else {
+        newTypes.push(x);
+      }
+    });
+    setTypes(newTypes);
+  };
+
+  const submitTypes = (e) => {
+    console.log(types);
+    if (types !== null) {
+      setNextStep(true);
+    }
+  };
+
+  const submitPrice = (e) => {
+    console.log(types);
   };
 
   return (
@@ -78,32 +109,75 @@ export default function CareTakerSignUp(props) {
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
-              Become a CareTaker
-            </Typography>
+            {!nextStep && (
+              <Container>
+                <Typography component="h1" variant="h5">
+                  What pets can you take care of?
+                </Typography>
+                <Select
+                  className="mt-4"
+                  closeMenuOnSelect={true}
+                  components={animatedComponents}
+                  defaultValue={types}
+                  isMulti
+                  onChange={(e) => handleTypeChange(e)}
+                  options={colourOptions}
+                />
+                <p>{helperTextType}</p>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={submitTypes}
+                >
+                  Confirm
+                </Button>
+              </Container>
+            )}
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="outlined"
-              color="primary"
-              value="fulltime"
-              className={classes.submit}
-              onClick={(e) => toggleOption(e)}
-            >
-              Full-Time
-            </Button>
-            <Button
-              type="submit"
-              fullWidth
-              variant="outlined"
-              color="primary"
-              value="parttime"
-              className={classes.submit}
-              onClick={(e) => toggleOption(e)}
-            >
-              Part-Time
-            </Button>
+            {nextStep && (
+              <Container>
+                {types.map((x) => {
+                  return (
+                    <Container>
+                      <p>{x.value}</p>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id={x.value}
+                        label="Daily Price"
+                        type="text"
+                        onChange={(e) => handlePriceChange(e)}
+                      />
+                    </Container>
+                  );
+                })}
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={() => setNextStep(false)}
+                >
+                  Back
+                </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={submitPrice}
+                >
+                  Confirm
+                </Button>
+              </Container>
+            )}
           </div>
         </Container>
       </DialogContent>
