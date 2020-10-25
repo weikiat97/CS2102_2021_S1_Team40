@@ -32,7 +32,10 @@ export default function NewNavbar() {
   const classes = useStyles();
   const authButton = user ? (
     <div>
-      {user.type.includes("caretaker") && caretaker && caretaker.type != null && caretaker.type.includes("fulltime")? (
+      {user.type.includes("caretaker") &&
+      caretaker &&
+      caretaker.type != null &&
+      caretaker.type.includes("fulltime") ? (
         <Button component={Link} to="/profile/leaves">
           Leaves
         </Button>
@@ -73,7 +76,6 @@ export default function NewNavbar() {
       <Button variant="contained" onClick={() => setSignupOpen(true)}>
         Signup
       </Button>
-      
     </div>
   );
 
@@ -115,8 +117,10 @@ export default function NewNavbar() {
               <Login open={loginOpen} onClose={() => setLoginOpen(false)} />
               {authButton}
               <Signup open={signupOpen} onClose={() => setSignupOpen(false)} />
-              <CaretakerFilter open={caretakerFiltersOpen} onClose={() => setCaretakerFiltersOpen(false)} />
-              
+              <CaretakerFilter
+                open={caretakerFiltersOpen}
+                onClose={() => setCaretakerFiltersOpen(false)}
+              />
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
