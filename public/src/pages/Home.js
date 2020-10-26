@@ -11,8 +11,7 @@ export default function Home() {
   if (user !== null) {
     if (
       user.type.includes("caretaker") &&
-      user.type.includes("petowner") &&
-      caretaker !== null
+      user.type.includes("petowner")
     ) {
       return (
         <Container>

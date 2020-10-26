@@ -32,10 +32,7 @@ export default function NewNavbar() {
   const classes = useStyles();
   const authButton = user ? (
     <div>
-      {user.type.includes("caretaker") &&
-      caretaker &&
-      caretaker.type != null &&
-      caretaker.type.includes("fulltime") ? (
+      {user.type.includes("fulltime") ? (
         <Button component={Link} to="/profile/leaves">
           Leaves
         </Button>

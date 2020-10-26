@@ -8,10 +8,11 @@ import Container from "@material-ui/core/Container";
 export default function Leave() {
   const user = useSelector(selectUser);
   const caretaker = useSelector(selectCareTaker);
-  if (user && user.type.includes("caretaker")) {
+  console.log(user);
+  if (user && user.type.includes("fulltime")) {
     return (
       <Container>
-        <h1>THESE ARE YOUR LEAVES</h1>
+        <h1>Leaves applied</h1>
         <LeaveRetrieval />
       </Container>
     );

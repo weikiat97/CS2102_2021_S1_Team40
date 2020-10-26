@@ -74,7 +74,8 @@ export default function LeaveRetrieval(props) {
   if (leaves != null) {
     return (
       <>
-        <h2>Number of leaves used: {calculateLeaves()}</h2>
+        <h1>Leaves Applied</h1>
+        <h2>Number of leaves applied: {calculateLeaves()}</h2>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
