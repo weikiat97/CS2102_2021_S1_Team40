@@ -67,10 +67,10 @@ export default function Signup(props) {
     if (user) {
       setSignUpError(null);
       removeState("signuperror");
-      onClose();
-      if (user.type.includes("caretaker")) {
-        setNextDialog(true);
-      }
+
+      // if (user.type.includes("caretaker")) {
+      //   setNextDialog(true);
+      // }
     } else {
       if (error) {
         if (error.includes("duplicate key value")) {
@@ -83,6 +83,13 @@ export default function Signup(props) {
       }
     }
   }, [error, user]);
+
+  useEffect(() => {
+    if (user && user.type.includes("caretaker") && open) {
+      onClose();
+      setNextDialog(true);
+    }
+  }, [user, open]);
 
   const isEmptyOrBlank = (str) => {
     return !str || 0 === str.length || /^\s*$/.test(str);

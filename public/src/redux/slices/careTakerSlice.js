@@ -99,7 +99,9 @@ export const signupCareTaker = (username, password, role, type) => (
       if (result.status === "success") {
         saveState("user", result.data);
         dispatch(setUser(result.data));
-        if (role === ["caretaker", "petowner"]) {
+        //console.log(role);
+        if (role[0] === "caretaker" && role[1] === "petowner") {
+          //console.log("hiiiiiii");
           dispatch(
             signupPetOwner(username, password, ["caretaker", "petowner"])
           );
