@@ -27,7 +27,6 @@ export default function NewNavbar() {
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
-  const [caretakerOpen, setCareTakerOpen] = useState(false);
   const [caretakerFiltersOpen, setCaretakerFiltersOpen] = useState(false);
   const classes = useStyles();
   const authButton = user ? (
@@ -52,11 +51,7 @@ export default function NewNavbar() {
         <Button component={Link} to="/caretaker">
           Caretaker Profile
         </Button>
-      ) : (
-        <Button onClick={() => setCareTakerOpen(true)}>
-          Become a Caretaker
-        </Button>
-      )}
+      ) : null}
       <Button onClick={() => setCaretakerFiltersOpen(true)}>
         Find a Caretaker
       </Button>
