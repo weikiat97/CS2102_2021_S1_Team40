@@ -33,6 +33,12 @@ export default function LeaveRetrieval(props) {
 
   const classes = useStyles();
 
+  // const today = new Date();
+  // const today_date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+
+  let today_date = new Date().toISOString().slice(0, 10)
+
+  console.log(today_date);
   useEffect(() => {
     async function fetchData() {
       await fetch(`${API_HOST}/users/leaves/${user.username}`, {
@@ -98,7 +104,42 @@ export default function LeaveRetrieval(props) {
                   <TableCell align="right">
                     {leave.row.substring(23, leave.row.length - 1)}
                   </TableCell>
-                  <TableCell align="right">
+                    {(leave.row.substring(1, 11) >= today_date) ?
+                      <>
+                        <TableCell align="right">
+                          <Button
+                            variant="contained"
+                            onClick={() => {
+                              setUpdateDate(leave.row);
+                              setLeaveUpdatingOpen(true);
+                            }}
+                          >
+                            Update Leave
+                          </Button>
+                        </TableCell>
+                        <TableCell align="right">
+                          <Button
+                            variant="contained"
+                            onClick={() => {
+                              setDeleteLeave(leave.row);
+                              setLeaveDeletionOpen(true);
+                            }}
+                          >
+                            Delete Leave
+                          </Button>
+                        </TableCell>
+                      </>
+                    : 
+                    <>
+                        <TableCell align="right">
+                            Leave Taken
+                        </TableCell>
+                        <TableCell align="right">
+                            Leave Taken
+                        </TableCell>
+                      </>
+                    }
+                  {/* <TableCell align="right">
                     <Button
                       variant="contained"
                       onClick={() => {
@@ -119,7 +160,7 @@ export default function LeaveRetrieval(props) {
                     >
                       Delete Leave
                     </Button>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
