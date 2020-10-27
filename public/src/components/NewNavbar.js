@@ -14,6 +14,7 @@ import Navbar from "@bit/react-bootstrap.react-bootstrap.navbar";
 import ReactBootstrapStyle from "@bit/react-bootstrap.react-bootstrap.internal.style-links";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import CaretakerFilter from "./CaretakerFilter";
+import Logo from "../images/icon.png";
 
 const useStyles = makeStyles({
   auth: {
@@ -81,6 +82,7 @@ export default function NewNavbar() {
       <ReactBootstrapStyle />
       <Navbar bg="faded" expand="lg" sticky="top">
         <Navbar.Brand as={Link} to="/">
+          <img src={Logo} paddingTop='7%' />
           PetLovers
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

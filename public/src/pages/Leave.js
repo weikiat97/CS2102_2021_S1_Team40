@@ -7,7 +7,6 @@ import Container from "@material-ui/core/Container";
 
 export default function Leave() {
   const user = useSelector(selectUser);
-  const caretaker = useSelector(selectCareTaker);
   console.log(user);
   if (user && user.type.includes("fulltime")) {
     return (
@@ -20,7 +19,7 @@ export default function Leave() {
     return (
       <Container>
         <h1>
-          Please Login LEAVE PAGE. Create an account with us if you haven't!
+          Oops! You are not allowed to view this page. Please make sure you are a full-time caretaker using PetLovers!
         </h1>
       </Container>
     );
