@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../redux/slices/userSlice";
@@ -18,6 +18,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import { MONTH_ARRAY } from "../consts";
 import moment from "moment";
+import AdvertiseAvail from "../components/AdvertiseAvail";
 
 const useStyles = makeStyles((theme) => ({
   infoGroup: {
@@ -38,17 +39,22 @@ export default function CareTakerProfile() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const caretakerInfo = useSelector(selectCareTaker);
+  const [availOpen, setAvailOpen] = useState(false);
   useEffect(() => {
     if (user) {
       dispatch(getCareTakerBasicInfo(user.username));
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, availOpen]);
   const classes = useStyles();
   if (user && user.type.includes("caretaker")) {
     return (
       <Container>
         <h1>Your Caretaker Profile</h1>
-        <Button>Advertise Availability</Button>
+        {caretakerInfo && caretakerInfo["job_type"] === "Part Time" && (
+          <Button onClick={() => setAvailOpen(true)}>
+            Advertise Availability
+          </Button>
+        )}
         <div className={classes.infoGroup}>
           <Card style={{ flex: 1 }} className={classes.infoCard}>
             <CardContent>
@@ -250,6 +256,7 @@ export default function CareTakerProfile() {
             </Table>
           </CardContent>
         </Card>
+        <AdvertiseAvail open={availOpen} onClose={() => setAvailOpen(false)} />
       </Container>
     );
   }
