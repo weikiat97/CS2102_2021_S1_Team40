@@ -215,9 +215,9 @@ export default function AdminProfile() {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {underperfCaretaker ? (
-                  underperfCaretaker.map((row, i) => (
+              {underperfCaretaker ? (
+                underperfCaretaker.map((row, i) => (
+                  <TableBody>
                     <TableRow key={i}>
                       <TableCell component="th" scope="row">
                         {row["username"]}
@@ -225,16 +225,13 @@ export default function AdminProfile() {
                       <TableCell>{row["num_pets"]}</TableCell>
                       <TableCell>{row["salary"]}</TableCell>
                     </TableRow>
-                  ))
-                ) : (
-                  <Typography
-                    className={classes.emptyText}
-                    color="textSecondary"
-                  >
-                    You have no under-performing caretakers.
-                  </Typography>
-                )}
-              </TableBody>
+                  </TableBody>
+                ))
+              ) : (
+                <Typography className={classes.emptyText} color="textSecondary">
+                  You have no under-performing caretakers.
+                </Typography>
+              )}
             </Table>
           </CardContent>
         </Card>
