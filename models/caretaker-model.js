@@ -192,6 +192,18 @@ class Caretaker {
       admin_agg_info: agg_results.rows[0],
     };
   }
+
+  async addNewAvail(avail) {
+    const query = `INSERT INTO availabilities (username, pet_type, advertised_price, start_date, end_date) 
+                    VALUES ('${avail["username"]}', '${avail["pet_type"]}', '${avail["advertised_price"]}', '${avail["start_date"]}', '${avail["end_date"]}')
+                    RETURNING username, pet_type, advertised_price, start_date, end_date`;
+    const result = await this.pool.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    } else {
+      return result.rows[0];
+    }
+  }
 }
 
 module.exports = new Caretaker();

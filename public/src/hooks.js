@@ -13,6 +13,6 @@ export function useApi(uri, fetch_options) {
         }
       })
       .catch((err) => alert(err));
-  }, [uri, fetch_options]);
+  }, []);
   return data;
 }
