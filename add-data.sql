@@ -1551,7 +1551,7 @@ insert into bids values ('tblanchet0', 'whiskies', 'rbth7e5', '2020-10-12', '202
 -- insert into bids values ('tblanchet0', 'woofies', 'dog', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent', 4, TRUE);
 -- insert into bids values ('tblanchet0', 'hamtaro', 'hamster', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
 
-insert into availabilities values ('gbrownlea9m', 'mouse', 50, '2020-10-22', '2020-10-30');
+insert into availabilities values ('gbrownlea9m', 'mouse', 50, '2020-10-21', '2020-10-30');
 insert into pets values ('rbth7e5', 'pikachu', 'mouse');
 insert into bids values ('rbth7e5', 'pikachu', 'gbrownlea9m', '2020-10-21', '2020-10-30', 50, 'Collected by caretaker', 'Credit Card', 'excellent', 5, NULL);
 
@@ -1615,28 +1615,3 @@ insert into bids values ('me', 'charmander', 'chloe', '2020-10-24', '2020-10-26'
 insert into bids values ('serena', 'eevee', 'plswork', '2020-10-24', '2020-10-28', 50, 'Delivered by pet owner', 'Cash On Delivery', 'my cat became best friends with her', 5, TRUE);
 insert into bids values ('team rocket', 'meowth', 'plswork', '2020-10-24', '2020-10-28', 50, 'Delivered by pet owner', 'Cash On Delivery', 'so friendly', 4, TRUE);
 insert into bids values ('somename', 'squirtle', 'plswork', '2020-10-24', '2020-10-28', 50, 'Delivered by pet owner', 'Cash On Delivery', '10/10 recommend her services', 4, TRUE);
-
-
--- CREATE TABLE petowners (
---     username VARCHAR(50) PRIMARY KEY,
---     password VARCHAR(256) NOT NULL,
---     creditcard VARCHAR(256)
--- );
--- CREATE TABLE bids (
---     petowner_username VARCHAR(50),
---     pet_name VARCHAR(50) NOT NULL,
---     caretaker_username VARCHAR(50),
---     start_date DATE,
---     end_date DATE,
---     price NUMERIC NOT NULL,
---     pet_type VARCHAR,
---     transfer_method VARCHAR(100) NOT NULL,
---     review VARCHAR(200),
---     rating INTEGER CHECK ((rating IS NULL) OR (rating >= 0 AND rating <= 5)),
---     isSuccessful BOOLEAN DEFAULT FALSE,
---     FOREIGN KEY (petowner_username, pet_name) REFERENCES pets (petowner_username, pet_name),
---     FOREIGN KEY (caretaker_username, start_date, end_date, price, pet_type)
---     REFERENCES availabilities (username, start_date, end_date, advertised_price, pet_type),
---     PRIMARY KEY (petowner_username, pet_name, caretaker_username, start_date, end_date),
---     CHECK (petowner_username <> caretaker_username)
--- );
