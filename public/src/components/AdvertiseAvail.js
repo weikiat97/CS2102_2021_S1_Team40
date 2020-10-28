@@ -5,17 +5,22 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import TextField from "@material-ui/core/TextField";
-import moment from "moment";
 import DialogActions from "@material-ui/core/DialogActions";
 import { API_HOST } from "../consts";
 import { selectUser } from "../redux/slices/userSlice";
 import { useSelector } from "react-redux";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import moment from "moment";
 
 export default function AdvertiseAvail(props) {
   const { open, onClose } = props;
   const user = useSelector(selectUser);
-  const [start, setStart] = useState(moment().format("YYYY-MM-DD"));
-  const [end, setEnd] = useState(moment().add(1, "day").format("YYYY-MM-DD"));
+  const [start, setStart] = useState(null);
+  const [end, setEnd] = useState(null);
   const [petType, setPetType] = useState("");
   const [price, setPrice] = useState("");
   const onAdvertise = async () => {
@@ -52,21 +57,28 @@ export default function AdvertiseAvail(props) {
           Please indicate the period of time your will be available as well as
           the pet type and price.
         </DialogContentText>
-        <TextField
-          autoFocus
-          fullWidth
-          type="date"
-          defaultValue={moment().format("YYYY-MM-DD")}
-          label="Start Date"
-          onChange={(e) => setStart(e.target.value)}
-        />
-        <TextField
-          fullWidth
-          type="date"
-          defaultValue={moment().add(1, "day").format("YYYY-MM-DD")}
-          label="End Date"
-          onChange={(e) => setEnd(e.target.value)}
-        />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            variant="inline"
+            format="yyyy-MM-dd"
+            fullWidth
+            minDate={new Date()}
+            maxDate={moment().add(2, "years").toDate()}
+            value={start}
+            label="Start Date"
+            onChange={(date) => setStart(date)}
+          />
+          <KeyboardDatePicker
+            variant="inline"
+            format="yyyy-MM-dd"
+            fullWidth
+            minDate={start}
+            maxDate={moment().add(2, "years").toDate()}
+            value={end}
+            label="End Date"
+            onChange={(date) => setEnd(date)}
+          />
+        </MuiPickersUtilsProvider>
         <TextField
           fullWidth
           type="text"
