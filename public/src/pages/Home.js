@@ -7,8 +7,8 @@ import HomeCarousel from '../components/HomeCarousel'
 
 export default function Home() {
   const user = useSelector(selectUser);
-
-  if (user !== null) {
+  console.log(user);
+  if (user !== null && user.type != null) {
     if (
       user.type.includes("caretaker") &&
       user.type.includes("petowner")

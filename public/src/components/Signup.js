@@ -85,7 +85,7 @@ export default function Signup(props) {
   }, [error, user]);
 
   useEffect(() => {
-    if (user && user.type.includes("caretaker") && open) {
+    if (user && user.type && user.type.includes("caretaker") && open) {
       onClose();
       setNextDialog(true);
     }

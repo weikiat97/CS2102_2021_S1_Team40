@@ -28,10 +28,9 @@ export default function NewNavbar() {
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
-  const [caretakerOpen, setCareTakerOpen] = useState(false);
   const [caretakerFiltersOpen, setCaretakerFiltersOpen] = useState(false);
   const classes = useStyles();
-  const authButton = user ? (
+  const authButton = (user && user.type) ? (
     <div>
       {user.type.includes("fulltime") ? (
         <Button component={Link} to="/profile/leaves">
@@ -50,11 +49,7 @@ export default function NewNavbar() {
         <Button component={Link} to="/caretaker">
           Caretaker Profile
         </Button>
-      ) : (
-        <Button onClick={() => setCareTakerOpen(true)}>
-          Become a Caretaker
-        </Button>
-      )}
+      ) : null}
       <Button onClick={() => setCaretakerFiltersOpen(true)}>
         Find a Caretaker
       </Button>
@@ -102,12 +97,12 @@ export default function NewNavbar() {
             <Nav.Link as={Link} to="/profile">
               Profile
             </Nav.Link>
-            {user != null && user.type.includes("caretaker") ? (
+            {user != null && user.type != null && user.type.includes("caretaker") ? (
               <Nav.Link as={Link} to="/profile/currentBidsCaretaker">
                 Bids For You
               </Nav.Link>
             ) : null}
-            {user != null && user.type.includes("petowner") ? (
+            {user != null && user.type != null && user.type.includes("petowner") ? (
               <Nav.Link as={Link} to="/profile/currentBidsPetowner">
                 Bids From You
               </Nav.Link>
