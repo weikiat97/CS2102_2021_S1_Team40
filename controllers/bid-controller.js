@@ -84,9 +84,7 @@ exports.handleCaretaker = async function (req, res) {
 // Handle view bid info
 exports.viewPetowner = async function (req, res) {
   try {
-    console.log('wat');
     const get_user_bids = await bid_model.getPetownerBids(req.params.username);
-    console.log("MIEHEREEE");
     if (get_user_bids) {
       res.status(200).json({
         status: "success",

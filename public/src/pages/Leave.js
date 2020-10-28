@@ -6,8 +6,7 @@ import Container from "@material-ui/core/Container";
 
 export default function Leave() {
   const user = useSelector(selectUser);
-  console.log(user);
-  if (user && user.type.includes("fulltime")) {
+  if (user && user.type && user.type.includes("fulltime")) {
     return (
       <Container>
         <h1>Leaves applied</h1>

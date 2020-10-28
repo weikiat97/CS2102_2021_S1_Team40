@@ -67,7 +67,6 @@ class Bid {
   }
 
   async getPetownerBids(username) {
-    console.log('dawg here');
     let query = `SELECT (B.caretaker_username, B.pet_name, P.pet_type, B.start_date, B.end_date, B.price, B.transfer_method, B.payment_method, P.special_requirements) 
                     FROM ${this.table} B, pets P
                     WHERE B.petowner_username='${username}'
@@ -76,7 +75,6 @@ class Bid {
                     AND B.pet_name = P.pet_name
                     ORDER BY start_date ASC`;
     const results = await this.pool.query(query);
-    console.log('results here: ' + results);
     if (results.rows.length == 0) {
       return null;
     } else {

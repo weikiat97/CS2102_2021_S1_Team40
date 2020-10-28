@@ -13,7 +13,6 @@ import { selectCareTaker } from "../redux/slices/careTakerSlice";
 
 export default function Caretakers() {
   const [bid_page_open, setBidPageOpen] = useState(false);
-  // const [caretakers, setCaretakers] = useState([]);
   const caretakers = useSelector(selectCareTaker);
 
   // useEffect(() => {

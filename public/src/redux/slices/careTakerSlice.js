@@ -44,14 +44,11 @@ export const getCaretakers = (
     }),
   })
     .then((response) => response.json())
-    // .then((response) => console.log(response.data))
     .then((result) => {
       if (result.status === "success") {
-        console.log("heree");
         saveState(CARETAKER_STATE_KEY, result.data);
         dispatch(setFindCareTakers(result.data));
       } else {
-        console.log('i fail');
         throw new Error(result.message);
       }
     })
@@ -103,25 +100,20 @@ export const signupCareTaker = (username, password, role, type) => (
       if (result.status === "success") {
         saveState("user", result.data);
         dispatch(setUser(result.data));
-        //console.log(role);
         if (type === "parttime") {
-          console.log("parttime caretaker signing up");
           dispatch(signupPTCareTaker(username));
         } else if (type === "fulltime") {
-          console.log("fulltime caretaker signing up");
           dispatch(signupFTCareTaker(username));
         } else {
         }
 
         if (role[0] === "caretaker" && role[1] === "petowner") {
-          console.log("signing up as both caretaker and petowner");
           removeState("user");
           dispatch(signupPetOwner(username, password, role));
         } else {
         }
       } else {
         saveState("signuperror", result.message);
-        console.log(result.message);
         dispatch(setSignUpError(JSON.stringify(result.message)));
         //throw new Error(result.message);
       }

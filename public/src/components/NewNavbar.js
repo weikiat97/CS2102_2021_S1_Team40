@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, signoutUser } from "../redux/slices/userSlice";
-import { selectCareTaker } from "../redux/slices/careTakerSlice";
 
 import Login from "./Login";
 import Signup from "./Signup";
@@ -24,7 +23,6 @@ const useStyles = makeStyles({
 
 export default function NewNavbar() {
   const user = useSelector(selectUser);
-  const caretaker = useSelector(selectCareTaker);
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
@@ -77,7 +75,7 @@ export default function NewNavbar() {
       <ReactBootstrapStyle />
       <Navbar bg="faded" expand="lg" sticky="top">
         <Navbar.Brand as={Link} to="/">
-          <img src={Logo} paddingTop='7%' />
+          <img src={Logo} paddingTop='7%' alt="logo" />
           PetLovers
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
