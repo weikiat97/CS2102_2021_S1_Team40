@@ -1531,28 +1531,28 @@ insert into pets values ('tblanchet0', 'woofies3', 'dog');
 insert into pets values ('tblanchet0', 'hamtaro', 'hamster');
 
 insert into availabilities values ('rbth7e5', 'dog', 50, '2020-10-1', '2020-10-5');
-insert into availabilities values ('rbth7e5', 'dog', 50, '2020-10-5', '2020-10-11');
-insert into availabilities values ('rbth7e5', 'dog', 50, '2020-10-11', '2020-10-20');
-insert into availabilities values ('rbth7e5', 'dog', 50, '2020-10-20', '2020-10-30');
+insert into availabilities values ('rbth7e5', 'dog', 50, '2020-10-6', '2020-10-11');
+insert into availabilities values ('rbth7e5', 'dog', 50, '2020-10-12', '2020-10-20');
+insert into availabilities values ('rbth7e5', 'dog', 50, '2020-10-21', '2020-10-30');
 
 insert into availabilities values ('rbth7e5', 'dog', 50, '2020-11-1', '2020-11-5');
-insert into availabilities values ('rbth7e5', 'dog', 50, '2020-11-5', '2020-11-11');
-insert into availabilities values ('rbth7e5', 'dog', 50, '2020-11-11', '2020-11-20');
-insert into availabilities values ('rbth7e5', 'dog', 50, '2020-11-20', '2020-11-30');
+insert into availabilities values ('rbth7e5', 'dog', 50, '2020-11-6', '2020-11-11');
+insert into availabilities values ('rbth7e5', 'dog', 50, '2020-11-12', '2020-11-20');
+insert into availabilities values ('rbth7e5', 'dog', 50, '2020-11-21', '2020-11-30');
 
 -- insert into bids values ('tblanchet0', 'whiskies', 'cat', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'excellent', 5, TRUE);
-insert into bids values ('tblanchet0', 'woofies', 'dog', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'Delivered by pet owner', 'Cash On Delivery', NULL, 'excellent', 4, NULL);
-insert into bids values ('tblanchet0', 'woofies2', 'dog', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'Delivered by pet owner', 'Credit Card', 'need to poop', 'excellent', 4, NULL);
-insert into bids values ('tblanchet0', 'woofies3', 'dog', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'Collected by caretaker', 'Cash On Delivery', NULL, 'excellent', 4, TRUE);
+insert into bids values ('tblanchet0', 'woofies', 'dog', 'rbth7e5', '2020-10-6', '2020-10-11', 50, 'Delivered by pet owner', 'Cash On Delivery', NULL, 'excellent', 4, NULL);
+insert into bids values ('tblanchet0', 'woofies2', 'dog', 'rbth7e5', '2020-10-6', '2020-10-11', 50, 'Delivered by pet owner', 'Credit Card', 'need to poop', 'excellent', 4, NULL);
+insert into bids values ('tblanchet0', 'woofies3', 'dog', 'rbth7e5', '2020-10-6', '2020-10-11', 50, 'Collected by caretaker', 'Cash On Delivery', NULL, 'excellent', 4, TRUE);
 -- insert into bids values ('tblanchet0', 'hamtaro', 'hamster', 'rbth7e5', '2020-10-5', '2020-10-11', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
 
-insert into bids values ('tblanchet0', 'whiskies', 'cat', 'rbth7e5', '2020-10-11', '2020-10-20', 50, 'Collected by caretaker', 'Cash On Delivery', NULL, 'excellent', 5, TRUE);
+insert into bids values ('tblanchet0', 'whiskies', 'cat', 'rbth7e5', '2020-10-12', '2020-10-20', 50, 'Collected by caretaker', 'Cash On Delivery', NULL, 'excellent', 5, TRUE);
 -- insert into bids values ('tblanchet0', 'woofies', 'dog', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'excellent', 4, TRUE);
 -- insert into bids values ('tblanchet0', 'hamtaro', 'hamster', 'rbth7e5', '2020-10-20', '2020-10-30', 50, 'in person', 'good, hamtaro was very happy', 4, TRUE);
 
-insert into availabilities values ('gbrownlea9m', 'mouse', 50, '2020-10-20', '2020-10-30');
+insert into availabilities values ('gbrownlea9m', 'mouse', 50, '2020-10-21', '2020-10-30');
 insert into pets values ('rbth7e5', 'pikachu', 'mouse');
-insert into bids values ('rbth7e5', 'pikachu', 'mouse', 'gbrownlea9m', '2020-10-20', '2020-10-30', 50, 'Collected by caretaker', 'Credit Card', NULL, 'excellent', 5, NULL);
+insert into bids values ('rbth7e5', 'pikachu', 'mouse', 'gbrownlea9m', '2020-10-21', '2020-10-30', 50, 'Collected by caretaker', 'Credit Card', NULL, 'excellent', 5, NULL);
 
 
 
