@@ -178,7 +178,7 @@ CREATE FUNCTION func_check_avail_overlap_insert() RETURNS TRIGGER AS
                 FROM availabilities a
                 WHERE NEW.username = a.username
                     AND NEW.pet_type = a.pet_type
-                    AND (NEW.start_date < a.end_date AND NEW.end_date > a.start_date)
+                    AND (NEW.start_date <= a.end_date AND NEW.end_date >= a.start_date)
             )
         )
     THEN RAISE EXCEPTION 'The new availability must not overlap with any current availability of the same pet type';
