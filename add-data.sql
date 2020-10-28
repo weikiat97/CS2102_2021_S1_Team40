@@ -1613,4 +1613,3 @@ insert into bids values ('me', 'charmander', 'chloe', '2020-10-24', '2020-10-26'
 insert into bids values ('serena', 'eevee', 'plswork', '2020-10-24', '2020-10-28', 50, 'Delivered by pet owner', 'Cash On Delivery', 'my cat became best friends with her', 5, TRUE);
 insert into bids values ('team rocket', 'meowth', 'plswork', '2020-10-24', '2020-10-28', 50, 'Delivered by pet owner', 'Cash On Delivery', 'so friendly', 4, TRUE);
 insert into bids values ('somename', 'squirtle', 'plswork', '2020-10-24', '2020-10-28', 50, 'Delivered by pet owner', 'Cash On Delivery', '10/10 recommend her services', 4, TRUE);
-
