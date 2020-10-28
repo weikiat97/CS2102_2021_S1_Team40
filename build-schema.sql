@@ -112,12 +112,13 @@ CREATE FUNCTION func_check_leaves_date_overlap_insert() RETURNS trigger AS
                 SELECT 1
                 FROM leaves_applied L
                 WHERE NEW.ftct_username = L.ftct_username 
-                    AND ((NEW.end_date <= L.end_date AND NEW.end_date >= L.start_date)
-                            OR
-                        (NEW.start_date <= L.end_date AND NEW.start_date >= L.start_date)
-                            OR
-                        (NEW.start_date <= L.start_date AND NEW.end_date >= L.end_date)
-                        )
+                    AND (NEW.start_date <= L.end_date AND L.start_date <= NEW.end_date)              
+                        -- (NEW.end_date <= L.end_date AND NEW.end_date >= L.start_date)
+                        --     OR
+                        -- (NEW.start_date <= L.end_date AND NEW.start_date >= L.start_date)
+                        --     OR
+                        -- (NEW.start_date <= L.start_date AND NEW.end_date >= L.end_date)
+                        -- )
             )
         )
     THEN 
@@ -144,12 +145,13 @@ CREATE FUNCTION func_check_leaves_date_overlap_update() RETURNS trigger AS
                             AND end_date = OLD.end_date
                      ) as L
                 WHERE NEW.ftct_username = L.ftct_username 
-                    AND ((NEW.end_date <= L.end_date AND NEW.end_date >= L.start_date)
-                            OR
-                        (NEW.start_date <= L.end_date AND NEW.start_date >= L.start_date)
-                            OR
-                        (NEW.start_date <= L.start_date AND NEW.end_date >= L.end_date)
-                        )
+                    AND (NEW.start_date <= L.end_date AND L.start_date <= NEW.end_date)              
+                        -- (NEW.end_date <= L.end_date AND NEW.end_date >= L.start_date)
+                        --     OR
+                        -- (NEW.start_date <= L.end_date AND NEW.start_date >= L.start_date)
+                        --     OR
+                        -- (NEW.start_date <= L.start_date AND NEW.end_date >= L.end_date)
+                        -- )
             )
         )
     THEN 
