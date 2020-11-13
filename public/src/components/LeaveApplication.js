@@ -32,7 +32,9 @@ export default function LeaveApplication(props) {
   const today = new Date();
   const today_date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   const two_years_later_date = `${today.getFullYear() + 2}-${today.getMonth() + 1}-${today.getDate()}`;
-
+  console.log('today: ' + today_date);
+  console.log('two years: ' + two_years_later_date);
+  
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Leave Application</DialogTitle>

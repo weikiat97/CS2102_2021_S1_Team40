@@ -14,6 +14,7 @@ import ReactBootstrapStyle from "@bit/react-bootstrap.react-bootstrap.internal.s
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import CaretakerFilter from "./CaretakerFilter";
 import Logo from "../images/icon.png";
+import { selectCareTaker } from "../redux/slices/careTakerSlice";
 
 const useStyles = makeStyles({
   auth: {
@@ -23,6 +24,8 @@ const useStyles = makeStyles({
 
 export default function NewNavbar() {
   const user = useSelector(selectUser);
+  const caretaker = useSelector(selectCareTaker);
+  console.log("CARETAKER: " + JSON.stringify(caretaker));
   const dispatch = useDispatch();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);

@@ -18,10 +18,15 @@ DROP TABLE IF EXISTS users;
 
 DROP FUNCTION IF EXISTS func_check_leaves_date_overlap_insert();
 DROP FUNCTION IF EXISTS func_check_leaves_date_overlap_update();
+DROP FUNCTION IF EXISTS func_check_leaves_blocks_insert();
+DROP FUNCTION IF EXISTS func_check_leaves_blocks_update();
 DROP FUNCTION IF EXISTS func_check_avail_overlap_insert();
 
 DROP TRIGGER IF EXISTS tr_check_leaves_date_overlap_insert ON leaves_applied;
 DROP TRIGGER IF EXISTS tr_check_leaves_date_overlap_update ON leaves_applied;
+
+DROP TRIGGER IF EXISTS tr_check_leaves_blocks_insert ON leaves_applied;
+DROP TRIGGER IF EXISTS tr_check_leaves_blocks_update ON leaves_applied;
 
 DROP TRIGGER IF EXISTS tr_check_avail_overlap_insert ON availabilities;
 
@@ -82,13 +87,13 @@ CREATE TABLE pets (
     PRIMARY KEY (petowner_username, pet_name)
 );
 
-CREATE TABLE requirements (
- 	petowner_username VARCHAR(50),
-    pet_name VARCHAR(50),
-    description VARCHAR(200) NOT NULL,
-    FOREIGN KEY (petowner_username, pet_name) REFERENCES pets(petowner_username, pet_name),
-    PRIMARY KEY(petowner_username, pet_name, description)
-);
+-- CREATE TABLE requirements (
+--  	petowner_username VARCHAR(50),
+--     pet_name VARCHAR(50),
+--     description VARCHAR(200) NOT NULL,
+--     FOREIGN KEY (petowner_username, pet_name) REFERENCES pets(petowner_username, pet_name),
+--     PRIMARY KEY(petowner_username, pet_name, description)
+-- );
 
 CREATE TABLE bids (
     petowner_username VARCHAR(50),
@@ -155,6 +160,69 @@ CREATE FUNCTION func_check_leaves_date_overlap_update() RETURNS trigger AS
     $$
     LANGUAGE 'plpgsql';
 
+
+CREATE FUNCTION func_check_leaves_blocks_insert() RETURNS trigger AS
+    $$
+    BEGIN
+    IF (NOT EXISTS
+            (
+                SELECT COUNT(*)
+                FROM leaves_applied L
+                WHERE NEW.ftct_username = L.ftct_username 
+                    AND (
+                        (NEW.start_date > 150 + L.end_date
+                            AND NOT EXISTS ( SELECT 1
+                                                FROM leaves_applied L1
+                                                WHERE L1.start_date > L.end_date
+                                                    AND L1.start_date < NEW.start_date )
+                        )
+                        OR (NEW.end_date + 150 < L.start_date
+                            AND NOT EXISTS ( SELECT 1
+                                                FROM leaves_applied L2
+                                                WHERE L2.start_date > NEW.end_date
+                                                    AND L2.start_date < L.start_date )
+                            )
+                        OR (NEW.start_date > 150 + CURRENT_DATE 
+                            AND NOT EXISTS ( SELECT 1
+                                                FROM leaves_applied L3
+                                                WHERE L3.start_date < NEW.start_date
+                                                    AND L3.start_date > CURRENT_DATE )
+                            )
+                        OR (NEW.start_date > 300 + CURRENT_DATE 
+                            AND NOT EXISTS ( SELECT 1
+                                                FROM leaves_applied L4
+                                                WHERE L4.start_date < NEW.start_date
+                                                    AND L4.start_date > CURRENT_DATE )
+                            ) 
+                        OR (NEW.end_date + 150 < CURRENT_DATE + 365 
+                            AND NOT EXISTS ( SELECT 1
+                                                FROM leaves_applied L5
+                                                WHERE L5.start_date > NEW.end_date
+                                                    AND L5.start_date < CURRENT_DATE + 365 )
+                            )
+                        OR (NEW.end_date + 300 < CURRENT_DATE + 365 
+                            AND NOT EXISTS ( SELECT 1
+                                                FROM leaves_applied L5
+                                                WHERE L5.start_date > NEW.end_date
+                                                    AND L5.start_date < CURRENT_DATE + 365 )
+                            )
+                    )
+                GROUP BY NEW.ftct_username
+                HAVING COUNT >= 2
+
+            )
+        )
+    THEN 
+        RAISE EXCEPTION 'If you add this leave, you will not have 2 x 150 days of work!';
+    END IF;
+
+    RETURN NEW;
+
+    END;
+    $$
+    LANGUAGE 'plpgsql';
+
+
 CREATE FUNCTION func_check_avail_overlap_insert() RETURNS TRIGGER AS
     $$
     BEGIN
@@ -180,6 +248,12 @@ ON leaves_applied FOR EACH ROW EXECUTE PROCEDURE func_check_leaves_date_overlap_
 
 CREATE TRIGGER tr_check_leaves_date_overlap_update BEFORE UPDATE
 ON leaves_applied FOR EACH ROW EXECUTE PROCEDURE func_check_leaves_date_overlap_update();
+
+CREATE TRIGGER tr_check_leaves_blocks_insert BEFORE INSERT
+ON leaves_applied FOR EACH ROW EXECUTE PROCEDURE func_check_leaves_blocks_insert();
+
+CREATE TRIGGER tr_check_leaves_blockt_update BEFORE UPDATE
+ON leaves_applied FOR EACH ROW EXECUTE PROCEDURE func_check_leaves_blocks_update();
 
 CREATE TRIGGER tr_check_avail_overlap_insert BEFORE INSERT
 on availabilities FOR EACH ROW EXECUTE PROCEDURE func_check_avail_overlap_insert();
